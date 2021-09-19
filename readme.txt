@@ -1,4 +1,4 @@
-CMPE 135 Group: Snooze Goose
+<!-- CMPE 135 Group: Snooze Goose -->
 
 By: 
     - Simon Altamirano
