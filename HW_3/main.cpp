@@ -1,13 +1,13 @@
 #include <iostream>
-#include "Game.h"
-#include "Player.h"
-#include "CPU.h"
+#include "classes/Game.h"
+// #include "classes/Player.h"
+// #include "classes/CPU.h"
 
 using namespace std;
+
 int main()
 {
     Game initgame;
-    cout<<"Wtf man";
-    std::cout<<"Rock vs Paper: "<<initgame.calculateResult(1,2)<<std::endl;
+    cout << "Rock vs Paper: " << initgame.calculateResult(1, 1) << endl;
     return 0;
 }

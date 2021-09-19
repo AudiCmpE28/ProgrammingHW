@@ -1,19 +1,19 @@
-#ifndef CPU_H_
-#define CPU_H_
+#ifndef CPU_H
+#define CPU_H
 
 class CPU
 {
 private:
     int move;
+
 public:
     CPU(/* args */);
-    int playMove();    
+    int playMove();
 };
 
 CPU::CPU()
 {
-move =0;
+    move = 0;
 }
-
 
 #endif /* CPU_H_ */

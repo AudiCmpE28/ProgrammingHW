@@ -1,19 +1,19 @@
-#ifndef PLAYER_H_
-#define PLAYER_H_
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class Player
 {
 private:
     int move;
+
 public:
     Player(/* args */);
-    int playMove(int playermove);    
+    int playMove(int playermove);
 };
 
 Player::Player()
 {
-this->move =0;
+    this->move = 0;
 }
-
 
 #endif
