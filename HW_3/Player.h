@@ -1,5 +1,5 @@
-#ifndef PLAYER_H_
-#define PLAYER_H_
+#ifndef PLAYER_H
+#define PLAYER_H
 
 class Player
 {
@@ -16,4 +16,4 @@ this->move =0;
 }
 
 
-#endif
+#endif /* PLAYER_H */

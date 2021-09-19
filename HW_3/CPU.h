@@ -1,5 +1,5 @@
-#ifndef CPU_H_
-#define CPU_H_
+#ifndef CPU_H
+#define CPU_H
 
 class CPU
 {
@@ -10,10 +10,6 @@ public:
     int playMove();    
 };
 
-CPU::CPU()
-{
-move =0;
-}
 
 
-#endif /* CPU_H_ */
+#endif /* CPU_H */

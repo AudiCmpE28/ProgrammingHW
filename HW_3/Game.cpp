@@ -1,5 +1,10 @@
 #include "Game.h"
 
+Game::Game()
+{
+// this->turn = turn & 1; //0 or 1, start game with player or CPU turn
+this->Rounds.reserve(20);
+};
 
 void Game::updateRound(int result)
 {
@@ -44,4 +49,7 @@ int Game::calculateResult(int pmove, int cpumove)
     return 2; //CPU win
     else if(pmove==3 && cpumove ==2)
     return 1; //Player win
+    else return 0;
 }
+
+
