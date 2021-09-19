@@ -1,4 +1,4 @@
-#include "classes/Player.h"
+#include "headers/Player.h"
 int Player::playMove(int playermove)
 {
     if (1 >= playermove <= 3)

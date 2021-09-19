@@ -1,4 +1,4 @@
-#include "classes/Game.h"
+#include "headers/Game.h"
 
 Game::Game()
 {

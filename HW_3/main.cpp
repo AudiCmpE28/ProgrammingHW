@@ -1,7 +1,7 @@
 #include <iostream>
-#include "Game.h"
-#include "Player.h"
-#include "CPU.h"
+#include "headers/Game.h"
+#include "headers/Player.h"
+#include "headers/CPU.h"
 #include <random>
 using std::cout;
 using std::endl;
