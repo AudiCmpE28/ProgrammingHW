@@ -16,4 +16,4 @@ Player::Player()
     this->move = 0;
 }
 
-#endif
+#endif /* PLAYER_H */

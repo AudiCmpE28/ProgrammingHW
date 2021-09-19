@@ -11,9 +11,4 @@ public:
     int playMove();
 };
 
-CPU::CPU()
-{
-    move = 0;
-}
-
-#endif /* CPU_H_ */
+#endif /* CPU_H */

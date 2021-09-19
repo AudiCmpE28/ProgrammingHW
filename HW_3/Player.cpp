@@ -5,4 +5,4 @@ int Player::playMove(int playermove)
         return playermove;
     else
         return -1;
-}
+};

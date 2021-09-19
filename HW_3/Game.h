@@ -1,7 +1,5 @@
 #ifndef GAME_H
 #define GAME_H
-
-#include <iostream>
 #include <vector>
 using std::vector;
 
@@ -16,9 +14,8 @@ private:
     std::vector<gamedata> Rounds;
 
 public:
-    Game(/* int turn */);
-    int calculateResult(int pmove, int cpumove);
+    Game();
     void updateRound(int result);
+    int calculateResult(int pmove, int cpumove);
 };
-
-#endif
+#endif /* GAME_H */

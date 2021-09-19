@@ -1,13 +1,22 @@
 #include <iostream>
-#include "classes/Game.h"
-// #include "classes/Player.h"
-// #include "classes/CPU.h"
-
-using namespace std;
-
+#include "Game.h"
+#include "Player.h"
+#include "CPU.h"
+#include <random>
+using std::cout;
+using std::endl;
+using std::rand;
+using std::srand;
 int main()
 {
+    srand(124719279); //input time null
     Game initgame;
-    cout << "Rock vs Paper: " << initgame.calculateResult(1, 1) << endl;
+    cout << "Wtf man\n";
+    for (int i = 0; i < 23; i++)
+    {
+        cout << rand() << endl;
+    }
+
+    cout << "Rock vs Paper: " << initgame.calculateResult(1, 2) << endl;
     return 0;
 }
