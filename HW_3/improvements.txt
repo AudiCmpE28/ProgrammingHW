@@ -1,0 +1,6 @@
+Possible future improvements:
+    -Replacing all integers with unsigned chars (1 byte)
+    -Using enums
+    -Class inheritance Player -> CPU
+    -Better RNG library like <algorithm>
+    -enable initial player turn in Game constructor

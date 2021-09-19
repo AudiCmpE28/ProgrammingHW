@@ -1,14 +1,13 @@
 #ifndef CPU_H_
 #define CPU_H_
-#pragma once
 
 class CPU
 {
 private:
-    char move;
+    int move;
 public:
     CPU(/* args */);
-    char playMove(char CPUmove);    
+    int playMove();    
 };
 
 CPU::CPU()
