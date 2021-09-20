@@ -1,3 +1,8 @@
+/*
+TO compile in VS code:
+cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp Player.cpp CPU.cpp -o main } ; if ($?) { .\main }
+*/
+
 #include <iostream>
 #include "headers/Game.h"
 // #include "headers/Player.h"
