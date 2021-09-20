@@ -22,14 +22,14 @@ void Game::gameMatch()
     CPU cpuTurn;
     Player playerTurn;
 
-    cout << endl
-    << "\n1 -> Rock\n"
-    << "2 -> Paper\n"
-    << "3 -> Scissors\n"
-    << "Please Enter a Number between 1-3: ";
     // while (roundNumber < 20)
     while (roundNumber < 20) //testing purposes: rounds = 5
     {
+        cout << endl
+            << "\n1 -> Rock\n"
+            << "2 -> Paper\n"
+            << "3 -> Scissors\n"
+            << "Please Enter a Number between 1-3: ";
         cin >> playerInput;
         screenclear();
         cout<<"\n###Rock Paper Scissors###\n";
@@ -51,7 +51,6 @@ void Game::gameMatch()
 }
 void Game::outputresults(){
     int CPU,Player=0;
-
     cout<<"\n######################################### Round details #########################################";
     cout<<"\n# Round \t:";
     for(int i=0;i<Rounds.size();i++)
@@ -78,11 +77,10 @@ void Game::outputresults(){
     }
 
     //tally up score
-    cout<<"\n# Player Total\t:\t"<<Player<<"\n# CPU Total\t:\t"<<CPU;
-    if(CPU>Player) cout<<"\n\n# CPU WINS";
-    else if(Player>CPU) cout<<"\n\n# PLAYER WINS";
-    else cout<<"\n\n# MATCH WAS A DRAW!";
-    cout<<"\n#################################################################################################";
+    cout<<"\n# Player Wins\t:\t"<<Player<<"\n# CPU Wins\t:\t"<<CPU;
+    if(CPU>Player) cout<<"\n# CPU WINS\n";
+    else if(Player>CPU) cout<<"\n# PLAYER WINS\n";
+    else cout<<"\n# MATCH WAS A DRAW!\n";
     
 }
 int Game::calculateResult(int pmove, int cpumove)
