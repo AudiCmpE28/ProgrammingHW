@@ -11,9 +11,4 @@ public:
     int playMove(int playermove);
 };
 
-Player::Player()
-{
-    this->move = 0;
-}
-
 #endif /* PLAYER_H */

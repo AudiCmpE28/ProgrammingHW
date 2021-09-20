@@ -1,5 +1,7 @@
 #include "headers/CPU.h"
 #include <random>
+using std::rand;
+// using std::srand;
 
 CPU::CPU()
 {
