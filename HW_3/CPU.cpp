@@ -1,7 +1,8 @@
 #include "headers/CPU.h"
 #include <random>
+#include <iostream>
 using std::rand;
-// using std::srand;
+using std::string;using std::cout;
 
 CPU::CPU()
 {
@@ -10,5 +11,7 @@ CPU::CPU()
 int CPU::playMove()
 {
     int randmove;
-    return randmove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
+    randmove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
+    cout<<"\nCPU Played : "<<randmove<<'\n';
+    return randmove;
 };

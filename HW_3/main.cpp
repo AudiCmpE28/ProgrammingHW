@@ -5,6 +5,7 @@ cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp Player.cpp CPU.cpp -o main } ; if ($
 
 #include <iostream>
 #include "headers/Game.h"
+#include <time.h>
 // #include "headers/Player.h"
 // #include "headers/CPU.h"
 
@@ -16,11 +17,10 @@ using std::srand;
 
 int main()
 {
-    // srand(124719279); //input time null
+    srand(time(NULL)); //input time null
     Game initgame;
-    string temp = initgame.gameMatch();
+    initgame.gameMatch();
 
-    cout << temp << endl;
     // cout << "Wtf man\n";
     // for (int i = 0; i < 23; i++)
     // {

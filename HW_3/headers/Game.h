@@ -6,7 +6,8 @@
 #include "Player.h"
 #include "CPU.h"
 
-using namespace std; //needed for string
+using std::string;
+using std::cout;using std::cin;using std::endl; //needed for string
 using std::vector;
 
 class Game
@@ -22,8 +23,9 @@ private:
 
 public:
     Game();
-    string gameMatch();
+    void gameMatch();
     void updateRound(int result);
     int calculateResult(int pmove, int cpumove);
+    int outputresults();
 };
 #endif /* GAME_H */

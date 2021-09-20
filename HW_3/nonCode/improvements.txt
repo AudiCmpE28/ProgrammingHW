@@ -4,3 +4,5 @@ Possible future improvements:
     -Class inheritance Player -> CPU
     -Better RNG library like <algorithm>
     -enable initial player turn in Game constructor
+    -fix formatting of strings, make it scalable for >20 rounds
+    -
