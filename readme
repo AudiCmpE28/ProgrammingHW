@@ -23,18 +23,19 @@ https://github.com/microsoft/vscode-cpptools/issues/1329
 
 Other Solutions:
 https://github.com/microsoft/vscode-cpptools/issues/513
-debugg
+debug
 https://stackoverflow.com/questions/51117196/undefined-reference-error-in-vscode
 
 
 ######################################################################################################################
 
-How to Compile c++ c++ in VS code:
-cd "c:\Users\Simon\OneDrive\Desktop\CMPE135\ProgrammingHW\HW_3\" ; if ($?) { g++ main.cpp -o main } ; 
-if ($?) { .\main }
+# How to Compile ALL c++ in VS code:
+cd "$cwd" ; if ($?) { g++ *.cpp -o main } ; if ($?) { .\main }
+If using an older version of g++, add -std=c++0x argument:
+cd "$cwd" ; if ($?) { g++ -std=c++0x *.cpp -o main } ; if ($?) { .\main }
 
-inside { g++ main.cpp -o main } add any .cpp files used with main such as:
-cd "c:\{Where You Created Folder Or Workspace}" ; if ($?) { g++ main.cpp Game.cpp -o main } ; 
+To manually compile a c++ file, inside { g++ main.cpp -o main } add any .cpp files used with main such as:
+cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp -o main } ; 
 if ($?) { .\main }
 
 Shorter entry: 

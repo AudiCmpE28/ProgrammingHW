@@ -53,14 +53,14 @@ int Game::outputresults(){
     int CPU,Player=0;
 
     cout<<"\n######################################### Round details #########################################";
-    cout<<"\n# Round \t";
+    cout<<"\n# Round \t:";
     for(int i=0;i<Rounds.size();i++)
     {
     cout.setf(std::ios_base::right);
     cout.width(4);
     cout<<i+1;
     }
-    cout<<"\n# Player\t";
+    cout<<"\n# Player\t:";
     for(int i=0;i<Rounds.size();i++)
     {
         cout.setf(std::ios_base::right);
@@ -68,7 +68,7 @@ int Game::outputresults(){
         Player+=Rounds[i].scorePlayer;
         cout<<Rounds[i].scorePlayer;
     }
-    cout<<"\n# CPU   \t";
+    cout<<"\n# CPU   \t:";
     for(int i=0;i<Rounds.size();i++)
     {
         cout.setf(std::ios_base::right);
