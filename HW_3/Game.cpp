@@ -49,7 +49,7 @@ void Game::gameMatch()
     cout<<"\nEnd of Game";
     outputresults();
 }
-int Game::outputresults(){
+void Game::outputresults(){
     int CPU,Player=0;
 
     cout<<"\n######################################### Round details #########################################";
@@ -83,7 +83,7 @@ int Game::outputresults(){
     else if(Player>CPU) cout<<"\n\n# PLAYER WINS";
     else cout<<"\n\n# MATCH WAS A DRAW!";
     cout<<"\n#################################################################################################";
-
+    
 }
 int Game::calculateResult(int pmove, int cpumove)
 {

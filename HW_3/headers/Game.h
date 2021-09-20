@@ -25,7 +25,7 @@ public:
     Game();
     void gameMatch();
     void updateRound(int result);
+    void outputresults();
     int calculateResult(int pmove, int cpumove);
-    int outputresults();
 };
 #endif /* GAME_H */
