@@ -40,8 +40,12 @@ if ($?) { .\main }
 Shorter entry: 
 cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp -o main } ; if ($?) { .\main }
 
+Best Way recently discovered by Danke (it compiles all .cpp files):
+cd "$cwd" ; if ($?) { g++ -std=c++0x *.cpp -o main } ; if ($?) { .\main }
 
 *    *    *    *    *    *    *    *
 For convinience, keep all .cpp files in same folder for compilation. ".h" (header) files may be stored
 in a different folder, but must be specified in included files such as: #include "folderName/header.h"
 *    *    *    *    *    *    *    *
+
+
