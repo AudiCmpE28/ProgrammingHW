@@ -1,32 +1,13 @@
-/*
-TO compile in VS code:
-cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp Player.cpp CPU.cpp -o main } ; if ($?) { .\main }
-*/
-
 #include <iostream>
 #include "headers/Game.h"
-#include <time.h>
-// #include "headers/Player.h"
-// #include "headers/CPU.h"
-
-#include <random>
-using std::cout;
-using std::endl;
-using std::rand;
-using std::srand;
 
 int main()
 {
     srand(time(NULL)); //input time null
     Game rockPaperScissors;
     rockPaperScissors.executeMatch();
-
-    // cout << "Wtf man\n";
-    // for (int i = 0; i < 23; i++)
-    // {
-    //     cout << rand() << endl;
-    // }
-
-    // cout << "Rock vs Paper: " << initgame.calculateResult(1, 2) << endl;
     return 0;
 }
+
+// For Anh's personal use: Compile using
+// cd "$cwd" ; if ($?) { g++ Game.cpp main.cpp CPU.cpp Player.cpp -o main } ; if ($?) { .\main }
