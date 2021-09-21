@@ -5,7 +5,8 @@
 #include "stdlib.h"
 #include <iomanip>
 
-void screenclear(){
+void screenclear()
+{
     system("@cls||clear");
 }
 
@@ -23,16 +24,16 @@ void Game::gameMatch()
     Player playerTurn;
 
     cout << endl
-    << "\n1 -> Rock\n"
-    << "2 -> Paper\n"
-    << "3 -> Scissors\n"
-    << "Please Enter a Number between 1-3: ";
+         << "\n1 -> Rock\n"
+         << "2 -> Paper\n"
+         << "3 -> Scissors\n"
+         << "Please Enter a Number between 1-3: ";
     // while (roundNumber < 20)
     while (roundNumber < 20) //testing purposes: rounds = 5
     {
         cin >> playerInput;
         screenclear();
-        cout<<"\n###Rock Paper Scissors###\n";
+        cout << "\n###Rock Paper Scissors###\n";
 
         if (playerTurn.playMove(playerInput) == -1)
         {
@@ -40,50 +41,54 @@ void Game::gameMatch()
         }
         else
         {
-            int res=(calculateResult(playerInput, cpuTurn.playMove()));
-            cout<<"\nRound "<<roundNumber+1<<" winner is "<<res<<"\n";
+            int res = (calculateResult(playerInput, cpuTurn.playMove()));
+            cout << "\nRound " << roundNumber + 1 << " winner is " << res << "\n";
             updateRound(res);
         }
     }
     screenclear();
-    cout<<"\nEnd of Game";
+    cout << "\nEnd of Game";
     outputresults();
 }
-int Game::outputresults(){
-    int CPU,Player=0;
+int Game::outputresults()
+{
+    int CPU, Player = 0;
 
-    cout<<"\n######################################### Round details #########################################";
-    cout<<"\n# Round \t:";
-    for(int i=0;i<Rounds.size();i++)
-    {
-    cout.setf(std::ios_base::right);
-    cout.width(4);
-    cout<<i+1;
-    }
-    cout<<"\n# Player\t:";
-    for(int i=0;i<Rounds.size();i++)
+    cout << "\n######################################### Round details #########################################";
+    cout << "\n# Round \t:";
+    for (int i = 0; i < Rounds.size(); i++)
     {
         cout.setf(std::ios_base::right);
         cout.width(4);
-        Player+=Rounds[i].scorePlayer;
-        cout<<Rounds[i].scorePlayer;
+        cout << i + 1;
     }
-    cout<<"\n# CPU   \t:";
-    for(int i=0;i<Rounds.size();i++)
+    cout << "\n# Player\t:";
+    for (int i = 0; i < Rounds.size(); i++)
     {
         cout.setf(std::ios_base::right);
         cout.width(4);
-        CPU+=Rounds[i].scoreCPU;
-        cout<<Rounds[i].scoreCPU;
+        Player += Rounds[i].scorePlayer;
+        cout << Rounds[i].scorePlayer;
+    }
+    cout << "\n# CPU   \t:";
+    for (int i = 0; i < Rounds.size(); i++)
+    {
+        cout.setf(std::ios_base::right);
+        cout.width(4);
+        CPU += Rounds[i].scoreCPU;
+        cout << Rounds[i].scoreCPU;
     }
 
     //tally up score
-    cout<<"\n# Player Total\t:\t"<<Player<<"\n# CPU Total\t:\t"<<CPU;
-    if(CPU>Player) cout<<"\n\n# CPU WINS";
-    else if(Player>CPU) cout<<"\n\n# PLAYER WINS";
-    else cout<<"\n\n# MATCH WAS A DRAW!";
-    cout<<"\n#################################################################################################";
-
+    cout << "\n# Player Total\t:\t" << Player << "\n# CPU Total\t:\t" << CPU;
+    if (CPU > Player)
+        cout << "\n\n# CPU WINS";
+    else if (Player > CPU)
+        cout << "\n\n# PLAYER WINS";
+    else
+        cout << "\n\n# MATCH WAS A DRAW!";
+    cout << "\n#################################################################################################";
+    return 0;
 }
 int Game::calculateResult(int pmove, int cpumove)
 {
