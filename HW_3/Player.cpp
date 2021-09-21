@@ -4,16 +4,29 @@ using std::string;using std::cout;// using std::srand;
 
 Player::Player()
 {
-    move = 0;
+    move = -1;
 }
 
-int Player::playMove(int playermove)
+void Player::setMove(int moveInput) {
+    enum moves {invalid = -1, rock = 1, paper = 2, scissors = 3};
+    if (moveInput >= rock && moveInput <= scissors) 
+        move = moveInput;
+    else 
+        move = -1;
+}
+
+int Player::getMove() {
+    return move;
+}
+
+void Player::printPlayerMove()
 {
-    if (playermove >= 1 && playermove <= 3)
-    {
-        cout<<"\nYou Played :"<<playermove;
-        return playermove;
-        }
-    else
-        return -1;
-};
+    enum moves {invalid = -1, rock = 1, paper = 2, scissors = 3};
+    if (move < 0) cout << "The player move is invalid!\n";
+    else {    
+        cout<<"Player : ";
+        if (move == rock) cout << "Rock\n";
+        else if (move == paper) cout << "Paper\n";
+        else if (move == scissors) cout << "Scissors\n";
+    }
+}

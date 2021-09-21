@@ -7,8 +7,12 @@ private:
     int move;
 
 public:
+    // Initialize move with an invalid move
     Player(/* args */);
-    int playMove(int playermove);
+
+    void setMove(int moveInput);
+    int getMove();
+    void printPlayerMove();
 };
 
 #endif /* PLAYER_H */
