@@ -1,7 +1,7 @@
 #include "headers/CPU.h"
 #include <time.h>
 #include <iostream>
-using std::rand;
+#include <stdlib.h>
 using std::string;using std::cout;
 
 CPU::CPU()

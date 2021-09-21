@@ -36,17 +36,21 @@ public:
     void printFinalResults();
     void executeMatch();
 
-    void updateRound(int result);
-    /* Parameters: Result of the round (playerWin, cpuWin, tie)
-     * Updates the vector that holds each rounds data and increments roundNumber
+    /**
+     * @brief Updates the vector that holds each rounds data and increments roundNumber 
+     * 
+     * @param result Result of the round (playerWin, cpuWin, tie)
      */
+    void updateRound(int result);
 
-    int calculateResult(int pmove, int cpumove);
-    /* Parameters: Player's move (pmove), Computer's Move (cpumove)
-     * returns:
-     * If CPU wins: 2 (enum type cpuWin)
+    /**
+     * @brief If CPU wins: 2 (enum type cpuWin)
      * If player wins: 1 (enum type playerWin)
      * If tied: -1 (enum type tie)
+     * @param pmove Player's move
+     * @param cpumove Computer's Move
+     * @return int  
      */
+    int calculateResult(int pmove, int cpumove);
 };
 #endif /* GAME_H */

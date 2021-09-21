@@ -17,16 +17,8 @@ using std::srand;
 
 int main()
 {
-    srand(time(NULL)); //input time null
+    srand(time(NULL)); //seed the pseudorandomnumber generator
     Game rockPaperScissors;
     rockPaperScissors.executeMatch();
-
-    // cout << "Wtf man\n";
-    // for (int i = 0; i < 23; i++)
-    // {
-    //     cout << rand() << endl;
-    // }
-
-    // cout << "Rock vs Paper: " << initgame.calculateResult(1, 2) << endl;
     return 0;
 }
