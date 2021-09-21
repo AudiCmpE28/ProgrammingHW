@@ -1,5 +1,5 @@
 #include "headers/CPU.h"
-#include <random>
+#include <time.h>
 #include <iostream>
 using std::rand;
 using std::string;using std::cout;
@@ -8,10 +8,22 @@ CPU::CPU()
 {
     this->move = 0;
 };
-int CPU::playMove()
+
+void CPU::generateMove() {
+    srand(time(NULL)); // seed the rand function
+    int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
+    move = randMove;
+}
+
+int CPU::getMove() {
+    return move;
+}
+
+void CPU::printCPUMove()
 {
-    int randmove;
-    randmove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
-    cout<<"\nCPU Played : "<<randmove<<'\n';
-    return randmove;
-};
+    enum moves {invalid = -1, rock = 1, paper = 2, scissors = 3};;
+    cout<<"CPU : ";
+    if (move == rock) cout << "Rock\n";
+    else if (move == paper) cout << "Paper\n";
+    else if (move == scissors) cout << "Scissors\n";
+}

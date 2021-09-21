@@ -18,8 +18,8 @@ using std::srand;
 int main()
 {
     srand(time(NULL)); //input time null
-    Game initgame;
-    initgame.gameMatch();
+    Game rockPaperScissors;
+    rockPaperScissors.executeMatch();
 
     // cout << "Wtf man\n";
     // for (int i = 0; i < 23; i++)
