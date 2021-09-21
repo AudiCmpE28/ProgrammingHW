@@ -46,16 +46,8 @@ void Game::executeMatch()
     CPU cpuTurn;
     Player playerTurn;
 
-<<<<<<< HEAD
-    cout << endl
-         << "\n1 -> Rock\n"
-         << "2 -> Paper\n"
-         << "3 -> Scissors\n"
-         << "Please Enter a Number between 1-3: ";
-    == == == =
-                 printInitialPrompt();
+    printInitialPrompt();
 
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
     // while (roundNumber < 20)
     while (roundNumber < 20) //testing purposes: rounds = 5
     {
@@ -65,28 +57,14 @@ void Game::executeMatch()
         playerTurn.setMove(playerInput);
         cpuTurn.generateMove();
         screenclear();
-<<<<<<< HEAD
-        cout << "\n###Rock Paper Scissors###\n";
-        == == == =
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 
-                     while (playerTurn.getMove() == -1)
+        while (playerTurn.getMove() == -1)
         {
-<<<<<<< HEAD
-            cout << "\n\nInvalid Input! TRY AGAIN\n\n";
-        }
-        else
-        {
-            int res = (calculateResult(playerInput, cpuTurn.playMove()));
-            cout << "\nRound " << roundNumber + 1 << " winner is " << res << "\n";
-            updateRound(res);
-            == == == =
-                         cout << "Invalid Input! Please enter a number between 1-3\n"
-                              << "Your move: ";
+            cout << "Invalid Input! Please enter a number between 1-3\n"
+                 << "Your move: ";
             cin >> playerInput;
             playerTurn.setMove(playerInput);
             screenclear();
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
         }
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
@@ -97,21 +75,12 @@ void Game::executeMatch()
         cout << endl;
     }
     screenclear();
-<<<<<<< HEAD
-    cout << "\nEnd of Game";
-    outputresults();
-}
-void Game::outputresults()
-{
-    int CPU, Player = 0;
-    == == == =
-                 cout << "All 20 Rounds have been played! The game is over!\n";
+    cout << "All 20 Rounds have been played! The game is over!\n";
     printFinalResults();
 }
 void Game::printFinalResults()
 {
     int CPU, Player = 0;
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 
     cout << "\n######################################### Round details #########################################";
     cout << "\n# Round \t:";
@@ -140,16 +109,12 @@ void Game::printFinalResults()
 
     //tally up score
     cout << "\n# Player Total\t:\t" << Player << "\n# CPU Total\t:\t" << CPU;
-
     if (CPU > Player)
         cout << "\n\n# CPU WINS";
-
     else if (Player > CPU)
         cout << "\n\n# PLAYER WINS";
-
     else
         cout << "\n\n# MATCH WAS A DRAW!";
-
     cout << "\n#################################################################################################";
 }
 
