@@ -50,7 +50,7 @@ void Game::gameMatch()
     cout << "\nEnd of Game";
     outputresults();
 }
-int Game::outputresults()
+void Game::outputresults()
 {
     int CPU, Player = 0;
 
@@ -81,15 +81,19 @@ int Game::outputresults()
 
     //tally up score
     cout << "\n# Player Total\t:\t" << Player << "\n# CPU Total\t:\t" << CPU;
+
     if (CPU > Player)
         cout << "\n\n# CPU WINS";
+
     else if (Player > CPU)
         cout << "\n\n# PLAYER WINS";
+
     else
         cout << "\n\n# MATCH WAS A DRAW!";
+
     cout << "\n#################################################################################################";
-    return 0;
 }
+
 int Game::calculateResult(int pmove, int cpumove)
 {
     //Rock =1, Paper=2, Scissors=3
