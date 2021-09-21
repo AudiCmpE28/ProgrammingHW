@@ -6,11 +6,17 @@
 #include "Player.h"
 #include "CPU.h"
 
-using std::string;
-using std::cout; using std::cin; using std::endl; //needed for string
+using std::cin;
+using std::cout;
+using std::endl; //needed for string using std::string;
 using std::vector;
 
-enum winner {tie= -1, playerWin = 1, cpuWin = 2};
+enum winner
+{
+    tie = -1,
+    playerWin = 1,
+    cpuWin = 2
+};
 
 class Game
 {
@@ -30,12 +36,7 @@ public:
     void printFinalResults();
     void executeMatch();
 
-
     void updateRound(int result);
-<<<<<<< HEAD
-    void outputresults();
-    int calculateResult(int pmove, int cpumove);
-=======
     /* Parameters: Result of the round (playerWin, cpuWin, tie)
      * Updates the vector that holds each rounds data and increments roundNumber
      */
@@ -47,7 +48,5 @@ public:
      * If player wins: 1 (enum type playerWin)
      * If tied: -1 (enum type tie)
      */
-    
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 };
 #endif /* GAME_H */

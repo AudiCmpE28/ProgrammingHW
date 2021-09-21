@@ -17,27 +17,28 @@ Game::Game()
     roundNumber = 0;
 }
 
-void Game::printInitialPrompt() {
-    cout 
-    << "\nWelcome to Rock, Paper, Scissors!\n"
-    << "The game is simple, pick rock, paper, or scissors by entering a number between 1 to 3\n"
-    << "Paper beats Rock, Scissors beats paper, and Rock bears Scissors.\n"
-    << "There will be a total of 20 rounds!\n"
-    << "Here are the numbers that represent each moves:\n"
-    << "1 -> Rock\n"
-    << "2 -> Paper\n"
-    << "3 -> Scissors\n"
-    << "Please Enter a Number between 1-3 to choose your move! \n";
+void Game::printInitialPrompt()
+{
+    cout
+        << "\nWelcome to Rock, Paper, Scissors!\n"
+        << "The game is simple, pick rock, paper, or scissors by entering a number between 1 to 3\n"
+        << "Paper beats Rock, Scissors beats paper, and Rock bears Scissors.\n"
+        << "There will be a total of 20 rounds!\n"
+        << "Here are the numbers that represent each moves:\n"
+        << "1 -> Rock\n"
+        << "2 -> Paper\n"
+        << "3 -> Scissors\n"
+        << "Please Enter a Number between 1-3 to choose your move! \n";
 }
 
-void Game::printRoundResult(int result) {
+void Game::printRoundResult(int result)
+{
     if (result == cpuWin)
-        cout << "Round #" << roundNumber+1 << " Result: CPU Wins!\n";
+        cout << "Round #" << roundNumber + 1 << " Result: CPU Wins!\n";
     else if (result == playerWin)
-        cout << "Round #" << roundNumber+1 << " Result: Player Wins!\n";
-    else 
-        cout << "Round #" << roundNumber+1 << " Result: Tie!\n";
-
+        cout << "Round #" << roundNumber + 1 << " Result: Player Wins!\n";
+    else
+        cout << "Round #" << roundNumber + 1 << " Result: Tie!\n";
 }
 void Game::executeMatch()
 {
@@ -51,14 +52,14 @@ void Game::executeMatch()
          << "2 -> Paper\n"
          << "3 -> Scissors\n"
          << "Please Enter a Number between 1-3: ";
-=======
-    printInitialPrompt();
+    == == == =
+                 printInitialPrompt();
 
 >>>>>>> dcd9072901a12854d58094d47be1592274919fe1
     // while (roundNumber < 20)
     while (roundNumber < 20) //testing purposes: rounds = 5
     {
-        cout << "Enter your move for Round #" << roundNumber+1 << ": ";
+        cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
         cin >> playerInput;
         cout << endl;
         playerTurn.setMove(playerInput);
@@ -66,10 +67,10 @@ void Game::executeMatch()
         screenclear();
 <<<<<<< HEAD
         cout << "\n###Rock Paper Scissors###\n";
-=======
+        == == == =
 >>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 
-        while (playerTurn.getMove() == -1)
+                     while (playerTurn.getMove() == -1)
         {
 <<<<<<< HEAD
             cout << "\n\nInvalid Input! TRY AGAIN\n\n";
@@ -79,15 +80,15 @@ void Game::executeMatch()
             int res = (calculateResult(playerInput, cpuTurn.playMove()));
             cout << "\nRound " << roundNumber + 1 << " winner is " << res << "\n";
             updateRound(res);
-=======
-            cout << "Invalid Input! Please enter a number between 1-3\n"
-            << "Your move: ";
+            == == == =
+                         cout << "Invalid Input! Please enter a number between 1-3\n"
+                              << "Your move: ";
             cin >> playerInput;
             playerTurn.setMove(playerInput);
             screenclear();
 >>>>>>> dcd9072901a12854d58094d47be1592274919fe1
         }
-        cout << "###  Round " << roundNumber+1 << "  ###\n";
+        cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
         cpuTurn.printCPUMove();
         int result = calculateResult(playerTurn.getMove(), cpuTurn.getMove());
@@ -103,12 +104,13 @@ void Game::executeMatch()
 void Game::outputresults()
 {
     int CPU, Player = 0;
-=======
-    cout << "All 20 Rounds have been played! The game is over!\n";
+    == == == =
+                 cout << "All 20 Rounds have been played! The game is over!\n";
     printFinalResults();
 }
-void Game::printFinalResults(){
-    int CPU,Player=0;
+void Game::printFinalResults()
+{
+    int CPU, Player = 0;
 >>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 
     cout << "\n######################################### Round details #########################################";
@@ -150,32 +152,6 @@ void Game::printFinalResults(){
 
     cout << "\n#################################################################################################";
 }
-<<<<<<< HEAD
-
-int Game::calculateResult(int pmove, int cpumove)
-{
-    //Rock =1, Paper=2, Scissors=3
-    //Player win, return 1
-    //CPU win, return 2
-    if (pmove == cpumove)
-        return -1; //draw
-    else if (pmove == 1 && cpumove == 2)
-        return 2; //CPU Win
-    else if (pmove == 1 && cpumove == 3)
-        return 1; //Player win
-    else if (pmove == 2 && cpumove == 1)
-        return 1; //Player win
-    else if (pmove == 2 && cpumove == 3)
-        return 2; //CPU win
-    else if (pmove == 3 && cpumove == 1)
-        return 2; //CPU win
-    else if (pmove == 3 && cpumove == 2)
-        return 1; //Player win
-    else
-        return 0;
-}
-=======
->>>>>>> dcd9072901a12854d58094d47be1592274919fe1
 
 void Game::updateRound(int result)
 {
@@ -205,12 +181,17 @@ void Game::updateRound(int result)
 
 int Game::calculateResult(int pmove, int cpumove)
 {
-    enum move {rock = 1, paper, scissors};
+    enum move
+    {
+        rock = 1,
+        paper,
+        scissors
+    };
     // Rock =1, Paper=2, Scissors=3
     if ((pmove == cpumove - 1) || (pmove - 2 == cpumove))
         return cpuWin;
     else if ((cpumove == pmove - 1) || (cpumove - 2 == pmove))
         return playerWin;
-    else 
+    else
         return tie;
 }
