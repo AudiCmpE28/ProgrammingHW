@@ -10,7 +10,7 @@ using std::string;
 
 CPU::CPU()
 {
-    this->move = 0;
+    this->move = -1;
     srand(time(NULL)); // seed the rand function
 };
 

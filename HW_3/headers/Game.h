@@ -36,6 +36,7 @@ private:
 
 public:
     Game();
+    
     /**
      * @brief prints the instructions of the game
      */
@@ -46,7 +47,7 @@ public:
      * @param result: pass in the result of the round
      */
     void printRoundResult(int result);
-    
+
     /**
      * @brief Used to help print in printFinalResults()
      * 
@@ -77,16 +78,15 @@ public:
     void updateRound(int result);
 
     /**
-     * @brief 
+     * @brief Calculates the result based on player and cpu moves
      * 
      * @param pmove: Player's move (rock, paper, or scissors)
      * @param cpumove CPU's move (rock, paper, or scissors)
      * @return int 
-     * If CPU wins: 2 (enum type cpuWin)
-     * If player wins: 1 (enum type playerWin)
-     * If tied: -1 (enum type tie)
+     * If CPU wins: 2 (enum type cpuWin) |
+     * If player wins: 1 (enum type playerWin) |
+     * If tied: -1 (enum type tie) 
      */
     int calculateResult(int pmove, int cpumove);
-
 };
 #endif /* GAME_H */
