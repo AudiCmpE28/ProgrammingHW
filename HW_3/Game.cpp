@@ -1,9 +1,9 @@
+#include <iostream>
+#include <iomanip>
+
 #include "headers/Game.h"
-// #include "headers/CPU.h"
-// #include "headers/Player.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include <iomanip>
 
 void screenclear()
 {
@@ -40,6 +40,54 @@ void Game::printRoundResult(int result)
     else
         cout << "Round #" << roundNumber + 1 << " Result: Tie!\n";
 }
+
+int Game::printRowHelper(string name, int useCase)
+{
+    enum uses
+    {
+        incremental,
+        playerStats,
+        CPUStats
+    };
+    int winCount = 0;
+    cout << "# " << left << setw(15) << name;
+    cout << ":";
+    for (int i = 0; i < Rounds.size(); i++)
+    {
+        cout.setf(std::ios_base::right);
+        cout << setw(4);
+        if (useCase == incremental)
+            cout << i + 1;
+        else if (useCase == playerStats)
+        {
+            if (Rounds[i].scorePlayer > 0)
+            {
+                cout << "W";
+                winCount++;
+            }
+            else if (Rounds[i].scorePlayer < 0)
+                cout << "L";
+            else
+                cout << "-";
+        }
+        else if (useCase == CPUStats)
+        {
+            if (Rounds[i].scoreCPU > 0)
+            {
+                cout << "W";
+                winCount++;
+            }
+            else if (Rounds[i].scoreCPU < 0)
+                cout << "L";
+            else
+                cout << "-";
+        }
+    }
+    cout << "\n";
+
+    return winCount;
+}
+
 void Game::executeMatch()
 {
     int playerInput;
@@ -47,25 +95,27 @@ void Game::executeMatch()
     Player playerTurn;
 
     printInitialPrompt();
-
-    // while (roundNumber < 20)
-    while (roundNumber < 20) //testing purposes: rounds = 5
+    while (roundNumber < 20)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cin >> playerInput;
-        cout << endl;
-        playerTurn.setMove(playerInput);
         cpuTurn.generateMove();
-        screenclear();
 
-        while (playerTurn.getMove() == -1)
+        while (true)
         {
+            cin >> playerInput;
+
+            if ((cin) && (playerInput >= 1) && (playerInput <= 3))
+                break;
+            screenclear();
+            cin.clear();
+            cin.ignore(1000, '\n');
             cout << "Invalid Input! Please enter a number between 1-3\n"
                  << "Your move: ";
-            cin >> playerInput;
-            playerTurn.setMove(playerInput);
-            screenclear();
         }
+
+        playerTurn.setMove(playerInput);
+        screenclear();
+
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
         cpuTurn.printCPUMove();
@@ -78,44 +128,34 @@ void Game::executeMatch()
     cout << "All 20 Rounds have been played! The game is over!\n";
     printFinalResults();
 }
+
 void Game::printFinalResults()
 {
     int CPU, Player = 0;
+    enum uses
+    {
+        incremental,
+        playerStats,
+        CPUStats
+    };
 
-    cout << "\n######################################### Round details #########################################";
-    cout << "\n# Round \t:";
-    for (int i = 0; i < Rounds.size(); i++)
-    {
-        cout.setf(std::ios_base::right);
-        cout.width(4);
-        cout << i + 1;
-    }
-    cout << "\n# Player\t:";
-    for (int i = 0; i < Rounds.size(); i++)
-    {
-        cout.setf(std::ios_base::right);
-        cout.width(4);
-        Player += Rounds[i].scorePlayer;
-        cout << Rounds[i].scorePlayer;
-    }
-    cout << "\n# CPU   \t:";
-    for (int i = 0; i < Rounds.size(); i++)
-    {
-        cout.setf(std::ios_base::right);
-        cout.width(4);
-        CPU += Rounds[i].scoreCPU;
-        cout << Rounds[i].scoreCPU;
-    }
+    cout << "#########################################[Round details]##########################################\n";
+
+    printRowHelper("Round", incremental);
+    Player = printRowHelper("Player Stats", playerStats);
+    CPU = printRowHelper("CPU Stats", CPUStats);
 
     //tally up score
-    cout << "\n# Player Total\t:\t" << Player << "\n# CPU Total\t:\t" << CPU;
+    cout << "# " << left << setw(15) << "Player Total"
+         << left << setw(4) << ":" << Player << "\n";
+    cout << "# " << left << setw(15) << "CPU Total"
+         << left << setw(4) << ":" << CPU << "\n";
     if (CPU > Player)
-        cout << "\n\n# CPU WINS";
+        cout << "###########################################[CPU WINS]#############################################";
     else if (Player > CPU)
-        cout << "\n\n# PLAYER WINS";
+        cout << "##########################################[PLAYER WINS]###########################################";
     else
-        cout << "\n\n# MATCH WAS A DRAW!";
-    cout << "\n#################################################################################################";
+        cout << "#############################################[DRAW]###############################################";
 }
 
 void Game::updateRound(int result)
@@ -123,13 +163,13 @@ void Game::updateRound(int result)
     gamedata rounddata;
     if (result == playerWin)
     {
-        rounddata.scoreCPU = 0;
+        rounddata.scoreCPU = -1;
         rounddata.scorePlayer = 1;
     }
     else if (result == cpuWin)
     {
         rounddata.scoreCPU = 1;
-        rounddata.scorePlayer = 0;
+        rounddata.scorePlayer = -1;
     }
     else if (result == tie)
     {
