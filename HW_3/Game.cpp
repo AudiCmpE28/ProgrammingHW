@@ -24,7 +24,7 @@ void Game::executeMatch()
     CPU cpuTurn;
     Player playerTurn;
     printUI printer;
-
+    screenclear();
     printer.printInitialPrompt();
     while (roundNumber < 20)
     {
@@ -51,39 +51,39 @@ void Game::executeMatch()
         playerTurn.printPlayerMove();
         cpuTurn.printCPUMove();
         int result = calculateResult(playerTurn.getMove(), cpuTurn.getMove());
-        printer.printRoundResult(result);
+        printer.printRoundResult(roundNumber+1,result);
         updateRound(result);
         cout << endl;
     }
     screenclear();
     cout << "All 20 Rounds have been played! The game is over!\n";
 
-    printer.printFinalResults();
+    printer.printFinalResults(Rounds);
 }
 
 void Game::updateRound(int result)
 {
-    gamedata rounddata;
+    vector<int> scores;
     if (result == playerWin)
     {
-        rounddata.scoreCPU = -1;
-        rounddata.scorePlayer = 1;
+        scores.push_back(-1);   //cpu loss
+        scores.push_back(1);    //player win
     }
     else if (result == cpuWin)
     {
-        rounddata.scoreCPU = 1;
-        rounddata.scorePlayer = -1;
+        scores.push_back(1);    //cpu win
+        scores.push_back(-1);   //player loss
     }
     else if (result == tie)
     {
-        rounddata.scoreCPU = 0;
-        rounddata.scorePlayer = 0;
+        scores.push_back(0);
+        scores.push_back(0);
     }
     else
     {
         return; //dont push invalid data into vector
     }
-    Rounds.push_back(rounddata);
+    Rounds.push_back(scores);
     roundNumber++;
 }
 
@@ -103,3 +103,13 @@ int Game::calculateResult(int pmove, int cpumove)
     else
         return tie;
 }
+
+// vector<vector<int>> Game::returnRounds()
+// {
+//     //A vector of 20 vectors (20 rounds)
+//     return this->Rounds;
+// }
+
+// int Game::getRoundNumber(){
+//     return this->roundNumber;
+// }

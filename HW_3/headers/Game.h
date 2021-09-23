@@ -16,7 +16,7 @@ using std::left;
 using std::right;
 using std::setw;
 using std::string;
-// using std::vector;
+using std::vector;
 
 enum winner
 {
@@ -25,14 +25,18 @@ enum winner
     cpuWin = 2
 };
 
-extern std::vector<gamedata> Rounds;
 
 class Game
 {
 private:
+    int scorePlayer;
+    int scoreCPU;
     int roundNumber; //tracks actual round
+    vector<vector<int>> Rounds; //Cpu index 0, player index 1
 
 public:
+
+
     Game();
 
     /**
@@ -61,5 +65,20 @@ public:
      * @return int  
      */
     int calculateResult(int pmove, int cpumove);
+
+    // /**
+    //  * @brief getter for Rounds
+    //  * 
+    //  * @return vector<gamedata> 
+    //  */
+    // vector<vector<int>> returnRounds();
+
+    // /**
+    //  * @brief Get the roundNumber
+    //  * 
+    //  * @return int 
+    //  */
+    // int getRoundNumber();
+
 };
 #endif /* GAME_H */

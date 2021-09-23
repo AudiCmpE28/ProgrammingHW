@@ -16,20 +16,14 @@ using std::setw;
 using std::string;
 using std::vector;
 
-struct gamedata
-{
-    int scorePlayer;
-    int scoreCPU;
-};
-std::vector<gamedata> Rounds; //tracks score
 
 class printUI
 {
 private:
     int roundNumber;
-
+    vector<vector<int>> Rounds;
 public:
-    printUI(/* args */);
+    printUI();
 
     void setVariables(int round);
 
@@ -40,9 +34,10 @@ public:
 
     /**
      * @brief Prints the round number and who won that round along with newline
+     * @param roundNumber: the round number 
      * @param result: pass in the result of the round
      */
-    void printRoundResult(int result);
+    void printRoundResult(int roundNumber,int result);
 
     /**
      * @brief Used to help print in printFinalResults()
@@ -54,12 +49,12 @@ public:
      * CPUStats: Prints whether the CPU won or lost in order of round 1 to size of gamedata vector
      * @return int: the amount of wins the row calculated (if the use case is playerStats or CPUStats)
      */
-
-    int printRowHelper(string name, int useCase);
+    int printRowHelper(string name, int useCase, vector<vector<int>> Rounds);
+    
     /**
      * @brief Displays a table with the rounds, who won, total wins, and game result
      */
-    void printFinalResults();
+    void printFinalResults(vector<vector<int>> Rounds);
 };
 
 #endif /* printUI.h */

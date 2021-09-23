@@ -28,17 +28,17 @@ void printUI::printInitialPrompt()
         << "Please Enter a Number between 1-3 to choose your move! \n";
 }
 
-void printUI::printRoundResult(int result)
+void printUI::printRoundResult(int roundNumber,int result)
 {
     if (result == 2) //cpuWin
-        cout << "Round #" << roundNumber + 1 << " Result: CPU Wins!\n";
+        cout << "Round #" << roundNumber<< " Result: CPU Wins!\n";
     else if (result == 1) //playerWin
-        cout << "Round #" << roundNumber + 1 << " Result: Player Wins!\n";
+        cout << "Round #" << roundNumber<< " Result: Player Wins!\n";
     else
-        cout << "Round #" << roundNumber + 1 << " Result: Tie!\n";
+        cout << "Round #" << roundNumber<< " Result: Tie!\n";
 }
 
-int printUI::printRowHelper(string name, int useCase)
+int printUI::printRowHelper(string name, int useCase, vector<vector<int>> Rounds)
 {
     enum uses
     {
@@ -57,24 +57,25 @@ int printUI::printRowHelper(string name, int useCase)
             cout << i + 1;
         else if (useCase == playerStats)
         {
-            if (Rounds[i].scorePlayer > 0)
+            //Round [i] is the round number, Round[5][1] === Round 6, Player Score 
+            if (Rounds[i][1] > 0)
             {
                 cout << "W";
                 winCount++;
             }
-            else if (Rounds[i].scorePlayer < 0)
+            else if (Rounds[i][1] < 0)
                 cout << "L";
             else
                 cout << "-";
         }
         else if (useCase == CPUStats)
         {
-            if (Rounds[i].scoreCPU > 0)
+            if (Rounds[i][0] > 0)
             {
                 cout << "W";
                 winCount++;
             }
-            else if (Rounds[i].scoreCPU < 0)
+            else if (Rounds[i][0] < 0)
                 cout << "L";
             else
                 cout << "-";
@@ -85,7 +86,7 @@ int printUI::printRowHelper(string name, int useCase)
     return winCount;
 }
 
-void printUI::printFinalResults()
+void printUI::printFinalResults(vector<vector<int>> Rounds)
 {
     int CPU, Player = 0;
     enum uses
@@ -97,9 +98,9 @@ void printUI::printFinalResults()
 
     cout << "#########################################[Round details]##########################################\n";
 
-    printRowHelper("Round", incremental);
-    Player = printRowHelper("Player Stats", playerStats);
-    CPU = printRowHelper("CPU Stats", CPUStats);
+    printRowHelper("Round", incremental,Rounds);
+    Player = printRowHelper("Player Stats", playerStats,Rounds);
+    CPU = printRowHelper("CPU Stats", CPUStats,Rounds);
 
     //tally up score
     cout << "# " << left << setw(15) << "Player Total"

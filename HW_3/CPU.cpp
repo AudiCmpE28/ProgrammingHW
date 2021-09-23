@@ -5,7 +5,6 @@
 #include "headers/CPU.h"
 
 using std::cout;
-using std::rand;
 using std::string;
 
 CPU::CPU()
