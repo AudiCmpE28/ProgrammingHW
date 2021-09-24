@@ -8,7 +8,7 @@ using std::string;
 #ifndef RANDOMCPU_H
 #define RANDOMCPU_H
 
-class RandomCPU: public CPU
+class RandomCPU : public CPU
 {
 private:
     int move;

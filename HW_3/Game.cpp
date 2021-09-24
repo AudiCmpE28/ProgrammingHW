@@ -53,7 +53,7 @@ void Game::executeMatch(brainPower which)
         playerTurn.printPlayerMove();
         cpuTurn->printCPUMove();
         int result = calculateResult(playerTurn.getMove(), cpuTurn->getMove());
-        printer.printRoundResult(roundNumber+1,result);
+        printer.printRoundResult(roundNumber + 1, result);
         updateRound(result);
         cout << endl;
     }
@@ -68,13 +68,13 @@ void Game::updateRound(int result)
     vector<int> scores;
     if (result == playerWin)
     {
-        scores.push_back(-1);   //cpu loss
-        scores.push_back(1);    //player win
+        scores.push_back(-1); //cpu loss
+        scores.push_back(1);  //player win
     }
     else if (result == cpuWin)
     {
-        scores.push_back(1);    //cpu win
-        scores.push_back(-1);   //player loss
+        scores.push_back(1);  //cpu win
+        scores.push_back(-1); //player loss
     }
     else if (result == tie)
     {

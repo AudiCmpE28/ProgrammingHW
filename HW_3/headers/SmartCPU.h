@@ -8,7 +8,7 @@ using std::string;
 #ifndef SMARTCPU_H
 #define SMARTCPU_H
 
-class SmartCPU: public CPU
+class SmartCPU : public CPU
 {
 private:
     int move;

@@ -6,6 +6,8 @@
 #ifndef CHOOSERFACTORY_H
 #define CHOOSERFACTORY_H
 
+#include "CPU.h"
+
 enum brainPower
 {
     r = 1,
