@@ -8,7 +8,10 @@ private:
 
 public:
     CPU(/* args */);
-    int playMove();
+
+    void generateMove();
+    int getMove();
+    void printCPUMove();
 };
 
 #endif /* CPU_H */

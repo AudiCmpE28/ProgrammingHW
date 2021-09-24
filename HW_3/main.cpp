@@ -12,21 +12,11 @@ cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp Player.cpp CPU.cpp -o main } ; if ($
 #include <random>
 using std::cout;
 using std::endl;
-using std::rand;
-using std::srand;
+
 
 int main()
 {
-    srand(time(NULL)); //input time null
-    Game initgame;
-    initgame.gameMatch();
-
-    // cout << "Wtf man\n";
-    // for (int i = 0; i < 23; i++)
-    // {
-    //     cout << rand() << endl;
-    // }
-
-    // cout << "Rock vs Paper: " << initgame.calculateResult(1, 2) << endl;
+    Game rockPaperScissors;
+    rockPaperScissors.executeMatch();
     return 0;
 }

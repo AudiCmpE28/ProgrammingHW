@@ -1,19 +1,53 @@
 #include "headers/Player.h"
 #include <iostream>
-using std::string;using std::cout;// using std::srand;
+using std::cout;
+using std::string;
+// using std::srand;
 
 Player::Player()
 {
-    move = 0;
+    move = -1;
 }
 
-int Player::playMove(int playermove)
+void Player::setMove(int moveInput)
 {
-    if (playermove >= 1 && playermove <= 3)
+    enum moves
     {
-        cout<<"\nYou Played :"<<playermove;
-        return playermove;
-        }
+        invalid = -1,
+        rock = 1,
+        paper = 2,
+        scissors = 3
+    };
+    if (moveInput >= rock && moveInput <= scissors)
+        move = moveInput;
     else
-        return -1;
-};
+        move = -1;
+}
+
+int Player::getMove()
+{
+    return move;
+}
+
+void Player::printPlayerMove()
+{
+    enum moves
+    {
+        invalid = -1,
+        rock = 1,
+        paper = 2,
+        scissors = 3
+    };
+    if (move < 0)
+        cout << "The player move is invalid!\n";
+    else
+    {
+        cout << "Player : ";
+        if (move == rock)
+            cout << "Rock\n";
+        else if (move == paper)
+            cout << "Paper\n";
+        else if (move == scissors)
+            cout << "Scissors\n";
+    }
+}
