@@ -1,6 +1,6 @@
-#include "SmartChooser.h"
-#include "GeniusChooser.h"
-#include "RandomChooser.h"
+#include "SmartCPU.h"
+#include "GeniusCPU.h"
+#include "RandomCPU.h"
 #include "CPU.h"
 
 #ifndef CHOOSERFACTORY_H

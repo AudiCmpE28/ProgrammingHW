@@ -2,7 +2,7 @@
 #include <iomanip>
 
 #include "headers/Game.h"
-#include "headers/RandomChooser.h"
+#include "headers/RandomCPU.h"
 #include "headers/ChooserFactory.h"
 #include "stdio.h"
 #include "stdlib.h"
