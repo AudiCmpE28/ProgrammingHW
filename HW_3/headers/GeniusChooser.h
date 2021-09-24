@@ -5,10 +5,10 @@
 using std::cout;
 using std::string;
 
-#ifndef GENIOUSCHOOSER_H
-#define GENIOUSCHOOSER_H
+#ifndef GENIUSCHOOSER_H
+#define GENIUSCHOOSER_H
 
-class GeniousChooser: public CPU
+class GeniusChooser : public CPU
 {
 private:
     int move;
