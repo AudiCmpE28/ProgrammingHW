@@ -9,8 +9,8 @@ private:
 public:
     CPU(/* args */);
     virtual void generateMove()=0;//pure virtual function
-    virtual int getMove()=0;
-    virtual void printCPUMove()=0;
+    int getMove();
+    void printCPUMove();
 };
 
 #endif /* CPU_H */

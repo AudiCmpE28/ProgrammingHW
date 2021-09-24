@@ -1,3 +1,8 @@
+#include "SmartCPU.h"
+#include "GeniusCPU.h"
+#include "RandomCPU.h"
+#include "CPU.h"
+
 #ifndef CHOOSERFACTORY_H
 #define CHOOSERFACTORY_H
 
@@ -5,15 +10,15 @@
 
 enum brainPower
 {
-    random = 1,
-    smart = 2,
-    genius = 3
+    r = 1,
+    s = 2,
+    g = 3
 };
 
-class ChooserFactory
+class ChooserFactory 
 {
 public:
-    static CPU *makeChooser(brainPower bp);
+    CPU *makeChooser(brainPower);
 };
 
 #endif /* CHOOSERFACTORY_H */

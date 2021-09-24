@@ -2,9 +2,8 @@
 #include <iomanip>
 
 #include "headers/Game.h"
-#include "headers/RandomChooser.h"
+#include "headers/RandomCPU.h"
 #include "headers/ChooserFactory.h"
-// #include "headers/printUI.h"
 #include "stdio.h"
 #include "stdlib.h"
 
@@ -23,8 +22,8 @@ Game::Game()
 void Game::executeMatch(brainPower which)
 {
     int playerInput;
-    //CPU *cpuTurn = ChooserFactory::makeChooser(which);
-    CPU *cpuTurn = new RandomChooser(); //just added this line and cpuTurn ->
+    ChooserFactory cf;
+    CPU *cpuTurn = cf.makeChooser(which);
     Player playerTurn;
     printUI printer;
     screenclear();
