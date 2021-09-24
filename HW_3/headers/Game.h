@@ -24,6 +24,12 @@ enum winner
     playerWin = 1,
     cpuWin = 2
 };
+enum difficulty
+{
+    random = 1,
+    smart = 2,
+    genius = 3
+};
 
 
 class Game

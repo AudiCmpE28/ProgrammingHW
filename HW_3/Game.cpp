@@ -2,6 +2,7 @@
 #include <iomanip>
 
 #include "headers/Game.h"
+#include "headers/RandomChooser.h"
 // #include "headers/printUI.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -21,7 +22,9 @@ Game::Game()
 void Game::executeMatch()
 {
     int playerInput;
-    CPU cpuTurn;
+    // ChooserFactory cf;
+    // CPU *cpuTurn = cf.make_chooser(which);
+    CPU *cpuTurn = new RandomChooser();//just added this line and cpuTurn ->
     Player playerTurn;
     printUI printer;
     screenclear();
@@ -29,7 +32,7 @@ void Game::executeMatch()
     while (roundNumber < 20)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cpuTurn.generateMove();
+        cpuTurn->generateMove();
 
         while (true)
         {
@@ -49,8 +52,8 @@ void Game::executeMatch()
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
-        cpuTurn.printCPUMove();
-        int result = calculateResult(playerTurn.getMove(), cpuTurn.getMove());
+        cpuTurn->printCPUMove();
+        int result = calculateResult(playerTurn.getMove(), cpuTurn->getMove());
         printer.printRoundResult(roundNumber+1,result);
         updateRound(result);
         cout << endl;
