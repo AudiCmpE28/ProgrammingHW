@@ -16,7 +16,7 @@ enum brainPower
 class ChooserFactory 
 {
 public:
-    CPU *makeChooser(brainPower);
+    static CPU *makeChooser(brainPower);
 };
 
 #endif /* CHOOSERFACTORY_H */
