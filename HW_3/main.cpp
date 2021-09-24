@@ -1,5 +1,6 @@
 #include <iostream>
 #include "headers/Game.h"
+#include "headers/ChooserFactory.h"
 #include <time.h>
 // #include "headers/Player.h"
 // #include "headers/CPU.h"
@@ -11,11 +12,10 @@ using std::endl;
 
 int main()
 {
-    //string which = "random";
     Game rockPaperScissors;
-    rockPaperScissors.executeMatch();
+    rockPaperScissors.executeMatch(random);
     return 0;
 }
 //----------------------HOW TO RUN------------------------
 //Make sure you're in the HW3 directory in terminal then copy and paste: 
-//cd "$cwd" ; if ($?) { g++ Game.cpp main.cpp CPU.cpp Player.cpp RandomChooser.cpp printUI.cpp -o main } ; if ($?) { .\main }
+//cd "$cwd" ; if ($?) { g++ Game.cpp main.cpp CPU.cpp Player.cpp RandomChooser.cpp printUI.cpp ChooserFactory.cpp -o main } ; if ($?) { .\main }

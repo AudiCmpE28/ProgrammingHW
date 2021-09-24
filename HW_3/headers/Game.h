@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "CPU.h"
 #include "printUI.h"
+#include "ChooserFactory.h"
 
 using std::cin;
 using std::cout;
@@ -24,13 +25,6 @@ enum winner
     playerWin = 1,
     cpuWin = 2
 };
-enum difficulty
-{
-    random = 1,
-    smart = 2,
-    genius = 3
-};
-
 
 class Game
 {
@@ -48,7 +42,7 @@ public:
     /**
      * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner
      */
-    void executeMatch();
+    void executeMatch(brainPower);
 
     /**
      * @brief Updates the vector that holds each rounds data and increments roundNumber
