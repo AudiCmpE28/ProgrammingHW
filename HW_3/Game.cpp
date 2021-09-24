@@ -24,7 +24,6 @@ void Game::executeMatch(brainPower which)
     int playerInput;
     ChooserFactory cf;
     CPU *cpuTurn = cf.makeChooser(which);
-    //CPU *cpuTurn = new RandomChooser();
     Player playerTurn;
     printUI printer;
     screenclear();
