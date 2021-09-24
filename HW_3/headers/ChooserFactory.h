@@ -1,6 +1,8 @@
 #ifndef CHOOSERFACTORY_H
 #define CHOOSERFACTORY_H
 
+#include "CPU.h"
+
 enum brainPower
 {
     random = 1,

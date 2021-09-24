@@ -1,3 +1,6 @@
+#ifndef RANDOMCHOOSER_H
+#define RANDOMCHOOSER_H
+
 #include "CPU.h"
 #include <iostream>
 #include <stdlib.h>
@@ -5,10 +8,7 @@
 using std::cout;
 using std::string;
 
-#ifndef RANDOMCHOOSER_H
-#define RANDOMCHOOSER_H
-
-class RandomChooser: public CPU
+class RandomChooser : public CPU
 {
 private:
     int move;

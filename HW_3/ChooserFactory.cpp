@@ -1,14 +1,14 @@
 #include "headers/ChooserFactory.h"
-#include "headers/CPU.h"
 
-
-
-static CPU *ChooserFactory::makeChooser(brainPower bp){
-    if(bp == random) return new RandomChooser();    
-    else if (bp == smart)  return new SmartChooser();    
-    else if (bp == genius) return new GeniusChooser();
+static CPU *ChooserFactory::makeChooser(brainPower bp)
+{
+    if (bp == random)
+        return new RandomChooser();
+    else if (bp == smart)
+        return new SmartChooser();
+    else if (bp == genius)
+        return new GeniusChooser();
 }
-
 
 /*
     CPU *cpuTurn;
