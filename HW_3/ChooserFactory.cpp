@@ -1,12 +1,16 @@
 #include "headers/ChooserFactory.h"
+#include "headers/Chooser.h"
+#include "headers/RandomCPU.h"
+#include "headers/SmartCPU.h"
+#include "headers/GeniusCPU.h"
 
-CPU *ChooserFactory::makeChooser(brainPower bp)
+Chooser *ChooserFactory::make_chooser(int choice)
 {
-    if (bp == r)
+    if (choice == random)
         return new RandomCPU();
-    else if (bp == s)
+    else if (choice == smart)
         return new SmartCPU();
-    else if (bp == g)
+    else if (choice == genius)
         return new GeniusCPU();
     else
         return nullptr;

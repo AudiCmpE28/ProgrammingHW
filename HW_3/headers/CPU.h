@@ -1,15 +1,20 @@
 #ifndef CPU_H
 #define CPU_H
 
-class CPU //an abstract class, its just a class with a pure virtual function in it.
+#include "ChooserFactory.h"
+
+class CPU
 {
 private:
     int move;
+    int choiceMethod;
 
 public:
     CPU(/* args */);
-    virtual void generateMove()=0;//pure virtual function
+    void generateMove();
     int getMove();
+    int getchoiceMethod();
+    int setchoiceMethod(int choice);
     void printCPUMove();
 };
 

@@ -1,9 +1,13 @@
+#include <iostream>
+
 #include "headers/SmartCPU.h"
-//empty for now.. assignment 4
+#include "headers/Chooser.h"
 
+using std::cout;
 
-void SmartCPU::generateMove()
+int SmartCPU::make_choice()
 {
-    int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
-    move = randMove;
+    int move = 1; // to do later.
+    cout << "This is not implemented and will swing rock every time\n";
+    return move;
 }

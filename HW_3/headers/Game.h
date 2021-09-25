@@ -31,18 +31,16 @@ class Game
 private:
     int scorePlayer;
     int scoreCPU;
-    int roundNumber; //tracks actual round
+    int roundNumber;            //tracks actual round
     vector<vector<int>> Rounds; //Cpu index 0, player index 1
 
 public:
-
-
     Game();
 
     /**
      * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner
      */
-    void executeMatch(brainPower);
+    void executeMatch();
 
     /**
      * @brief Updates the vector that holds each rounds data and increments roundNumber
@@ -68,17 +66,16 @@ public:
 
     // /**
     //  * @brief getter for Rounds
-    //  * 
-    //  * @return vector<gamedata> 
+    //  *
+    //  * @return vector<gamedata>
     //  */
     // vector<vector<int>> returnRounds();
 
     // /**
     //  * @brief Get the roundNumber
-    //  * 
-    //  * @return int 
+    //  *
+    //  * @return int
     //  */
     // int getRoundNumber();
-
 };
 #endif /* GAME_H */

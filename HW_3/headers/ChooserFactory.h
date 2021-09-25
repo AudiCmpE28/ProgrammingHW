@@ -1,24 +1,22 @@
+#ifndef CHOOSERFACTORY_H
+#define CHOOSERFACTORY_H
+
 #include "SmartCPU.h"
 #include "GeniusCPU.h"
 #include "RandomCPU.h"
 #include "CPU.h"
 
-#ifndef CHOOSERFACTORY_H
-#define CHOOSERFACTORY_H
-
-#include "CPU.h"
-
-enum brainPower
+enum cpuMode
 {
-    r = 1,
-    s = 2,
-    g = 3
+    random = 1,
+    smart = 2,
+    genius = 3
 };
 
-class ChooserFactory 
+class ChooserFactory
 {
 public:
-    static CPU *makeChooser(brainPower);
+    static Chooser *make_chooser(int choice);
 };
 
 #endif /* CHOOSERFACTORY_H */

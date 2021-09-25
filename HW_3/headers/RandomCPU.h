@@ -1,20 +1,12 @@
-#include "CPU.h"
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-using std::cout;
-using std::string;
-
 #ifndef RANDOMCPU_H
 #define RANDOMCPU_H
 
-class RandomCPU : public CPU
-{
-private:
-    int move;
+#include "Chooser.h"
 
+class RandomCPU : public Chooser
+{
 public:
-    void generateMove();
+    int make_choice();
 };
 
 #endif /* RANDOMCPU_H */

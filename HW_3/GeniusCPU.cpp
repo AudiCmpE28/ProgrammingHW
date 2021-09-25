@@ -1,8 +1,13 @@
-#include "headers/GeniusCPU.h"
-//empty for now
+#include <iostream>
 
-void GeniusCPU::generateMove()
+#include "headers/GeniusCPU.h"
+#include "headers/Chooser.h"
+
+using std::cout;
+
+int GeniusCPU::make_choice()
 {
-    int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
-    move = randMove;
+    int move = 1; // to do later.
+    cout << "This is not implemented and will swing rock every time\n";
+    return move;
 }
