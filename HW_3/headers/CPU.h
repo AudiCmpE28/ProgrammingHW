@@ -14,7 +14,7 @@ public:
     void generateMove();
     int getMove();
     int getchoiceMethod();
-    int setchoiceMethod(int choice);
+    void setchoiceMethod(int choice);
     void printCPUMove();
 };
 
