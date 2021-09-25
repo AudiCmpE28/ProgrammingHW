@@ -19,13 +19,6 @@ using std::setw;
 using std::string;
 using std::vector;
 
-enum winner
-{
-    tie = -1,
-    playerWin = 1,
-    cpuWin = 2
-};
-
 class Game
 {
 private:
@@ -33,6 +26,12 @@ private:
     int scoreCPU;
     int roundNumber;            //tracks actual round
     vector<vector<int>> Rounds; //Cpu index 0, player index 1
+    enum winner
+    {
+        tie = -1,
+        playerWin = 1,
+        cpuWin = 2
+    };
 
 public:
     Game();
