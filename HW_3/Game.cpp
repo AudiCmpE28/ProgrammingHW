@@ -27,8 +27,7 @@ void Game::printInitialPrompt()
         << "Here are the numbers that represent each moves:\n"
         << "1 -> Rock\n"
         << "2 -> Paper\n"
-        << "3 -> Scissors\n"
-        << "Please Enter a Number between 1-3 to choose your move! \n";
+        << "3 -> Scissors\n";
 }
 
 void Game::printRoundResult(int result)
@@ -90,15 +89,22 @@ int Game::printRowHelper(string name, int useCase)
 
 void Game::executeMatch()
 {
-    int playerInput;
+    int playerInput, cpuAlgo;
     CPU cpuTurn;
     Player playerTurn;
 
     printInitialPrompt();
-    while (roundNumber < 20) 
+    cout << "Choose how you want the CPU to pick his move:\n"
+         << "1 -> Random\n"
+         << "2 -> Smart\n"
+         << "3 -> Genius\n"
+         << "Enter Number: ";
+    cin >> cpuAlgo;
+
+    while (roundNumber < 20)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cpuTurn.generateMove();
+        cpuTurn.generateMove(cpuAlgo);
 
         while (true)
         {

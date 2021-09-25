@@ -1,6 +1,8 @@
 #ifndef CPU_H
 #define CPU_H
 
+#include "ChooserFactory.h"
+
 class CPU
 {
 private:
@@ -9,7 +11,7 @@ private:
 public:
     CPU(/* args */);
 
-    void generateMove();
+    void generateMove(int which);
     int getMove();
     void printCPUMove();
 };

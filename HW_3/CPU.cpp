@@ -4,6 +4,7 @@
 
 #include "headers/CPU.h"
 
+using std::cin;
 using std::cout;
 using std::rand;
 using std::string;
@@ -14,10 +15,10 @@ CPU::CPU()
     srand(time(NULL)); // seed the rand function
 };
 
-void CPU::generateMove()
+void CPU::generateMove(int which)
 {
-    int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
-    move = randMove;
+    Chooser *chooser = ChooserFactory::make_chooser(which);
+    move = chooser->make_choice();
 }
 
 int CPU::getMove()

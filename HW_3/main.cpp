@@ -3,7 +3,6 @@
 
 int main()
 {
-    srand(time(NULL)); //input time null
     Game rockPaperScissors;
     rockPaperScissors.executeMatch();
     return 0;
