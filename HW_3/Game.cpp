@@ -19,19 +19,37 @@ Game::Game()
     roundNumber = 0;
 }
 
-void Game::executeMatch(brainPower which)
+void Game::executeMatch()
 {
-    int playerInput;
-    ChooserFactory cf;
-    CPU *cpuTurn = cf.makeChooser(which);
+    int playerInput, cpuChoice;
     Player playerTurn;
+    CPU cpuTurn;
     printUI printer;
+    cout << "Choose how you want the CPU to pick his move:\n"
+         << "1 -> Random\n"
+         << "2 -> Smart\n"
+         << "3 -> Genius\n"
+         << "Enter Number: ";
+    while (true)
+    {
+        cin >> cpuChoice;
+
+        if ((cin) && (cpuChoice >= 1) && (cpuChoice <= 3))
+            break;
+        screenclear();
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid Input! Please enter a number between 1-3\n"
+             << "Enter Number for Choice: ";
+    }
+
+    cpuTurn.setchoiceMethod(cpuChoice);
     screenclear();
     printer.printInitialPrompt();
     while (roundNumber < 20)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cpuTurn->generateMove();
+        cpuTurn.generateMove();
 
         while (true)
         {
@@ -51,8 +69,8 @@ void Game::executeMatch(brainPower which)
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
-        cpuTurn->printCPUMove();
-        int result = calculateResult(playerTurn.getMove(), cpuTurn->getMove());
+        cpuTurn.printCPUMove();
+        int result = calculateResult(playerTurn.getMove(), cpuTurn.getMove());
         printer.printRoundResult(roundNumber + 1, result);
         updateRound(result);
         cout << endl;

@@ -5,18 +5,33 @@
 #include "headers/CPU.h"
 
 using std::cout;
-using std::string;
 
 CPU::CPU()
 {
     this->move = 0;
-    srand(time(NULL)); // seed the rand function
+    this->choiceMethod = 0; // init with random choice selection
+    srand(time(NULL));      // seed the rand function
 };
 
+void CPU::generateMove()
+{
+    Chooser *chooser = ChooserFactory::make_chooser(choiceMethod);
+    move = chooser->make_choice();
+}
 
 int CPU::getMove()
 {
     return move;
+}
+
+int CPU::getchoiceMethod()
+{
+    return choiceMethod;
+}
+
+int CPU::setchoiceMethod(int choice)
+{
+    choiceMethod = choice;
 }
 
 void CPU::printCPUMove()
