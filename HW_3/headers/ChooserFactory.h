@@ -4,7 +4,6 @@
 #include "SmartCPU.h"
 #include "GeniusCPU.h"
 #include "RandomCPU.h"
-#include "CPU.h"
 
 enum cpuMode
 {
