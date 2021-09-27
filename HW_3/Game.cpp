@@ -25,6 +25,7 @@ void Game::executeMatch()
     Player playerTurn;
     CPU cpuTurn;
     printUI printer;
+    screenclear();
     cout << "Choose how you want the CPU to pick his move:\n"
          << "1 -> Random\n"
          << "2 -> Smart\n"
