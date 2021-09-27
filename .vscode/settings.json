@@ -18,6 +18,12 @@
   "C_Cpp_Runner.debuggerPath": "C:\\Users\\Danish Khan\\Documents\\School\\SJSU\\MinGW\\bin\\gdb.exe",
   "C_Cpp_Runner.makePath": "C:\\Users\\Danish Khan\\Documents\\School\\SJSU\\MinGW\\bin\\make.exe",
   "files.associations": {
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "istream": "cpp",
+    "string": "cpp",
+    "vector": "cpp",
+    "iosfwd": "cpp",
+    "ostream": "cpp",
+    "ios": "cpp"
   }
 }

@@ -9,7 +9,7 @@
 #include "CPU.h"
 #include "printUI.h"
 #include "ChooserFactory.h"
-
+#include <fstream>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -18,6 +18,7 @@ using std::right;
 using std::setw;
 using std::string;
 using std::vector;
+using std::ofstream;
 
 enum winner
 {
@@ -38,16 +39,25 @@ public:
     Game();
 
     /**
+     * @brief Pass in a filepointer and vector<vector<int>> Rounds
+     * 
+     * @param fileptr 
+     * @param choices 
+     */
+    void ChoiceExport(vector<vector<int>> choices);
+
+    /**
      * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner
      */
     void executeMatch();
 
     /**
      * @brief Updates the vector that holds each rounds data and increments roundNumber
-     * 
      * @param result: Result of the round (playerWin, cpuWin, tie)
+     * @param pmove: Player move, 1, 2, 3
+     * @param cpumove: CPU move, 1, 2, 3
      */
-    void updateRound(int result);
+    void updateRound(int result,int pmove, int cpumove);
 
     /**
      * @brief 
@@ -64,18 +74,5 @@ public:
      */
     int calculateResult(int pmove, int cpumove);
 
-    // /**
-    //  * @brief getter for Rounds
-    //  *
-    //  * @return vector<gamedata>
-    //  */
-    // vector<vector<int>> returnRounds();
-
-    // /**
-    //  * @brief Get the roundNumber
-    //  *
-    //  * @return int
-    //  */
-    // int getRoundNumber();
 };
 #endif /* GAME_H */

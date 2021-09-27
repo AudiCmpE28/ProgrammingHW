@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "headers/SmartCPU.h"
 #include "headers/Chooser.h"
 #include <iostream>
@@ -16,8 +14,6 @@ int SmartCPU::make_choice()
     if(choicefile.is_open())
     {
 
-        cout << "This is not implemented and will swing rock every time\n";
-        choicefile<<move<<endl;
     }
     
     choicefile.close();
