@@ -2,6 +2,7 @@
 #include <iostream>
 using std::cout;
 using std::string;
+
 // using std::srand;
 
 Player::Player()
@@ -51,3 +52,4 @@ void Player::printPlayerMove()
             cout << "Scissors\n";
     }
 }
+

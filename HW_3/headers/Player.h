@@ -9,7 +9,6 @@ private:
 public:
     // Initialize move with an invalid move
     Player(/* args */);
-
     void setMove(int moveInput);
     int getMove();
     void printPlayerMove();
