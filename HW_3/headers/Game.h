@@ -14,11 +14,11 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::left;
+using std::ofstream;
 using std::right;
 using std::setw;
 using std::string;
 using std::vector;
-using std::ofstream;
 
 enum winner
 {
@@ -57,7 +57,7 @@ public:
      * @param pmove: Player move, 1, 2, 3
      * @param cpumove: CPU move, 1, 2, 3
      */
-    void updateRound(int result,int pmove, int cpumove);
+    void updateRound(int result, int pmove, int cpumove);
 
     /**
      * @brief 
@@ -73,6 +73,5 @@ public:
      * @return int  
      */
     int calculateResult(int pmove, int cpumove);
-
 };
 #endif /* GAME_H */
