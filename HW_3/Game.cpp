@@ -8,43 +8,26 @@
 #include "stdlib.h"
 
 using std::ofstream;using std::ifstream;
-#define MAXROUNDS 10
+#define MAXROUNDS 20
 void Game::ChoiceExport(vector<vector<int>> choices)
 {
     // string temp="";
     int roundSIZE=choices.size();
+    int count=0;
     ofstream fileptr;
     fileptr.open("Choices.txt", std::ios_base::app);
     if(fileptr.is_open())
     {
-            for(int i=0;i<roundSIZE;i++) //20 rounds, export 40 choices
-            {
+        for(int i=0;i<roundSIZE;i++) //20 rounds, export 40 choices
+        {
             fileptr<<choices[i][3]; // export player  
+            count++;
+            if(count%5==0)fileptr<<"\n";
             fileptr<<choices[i][2]; // export cpu
-            // if((i+1)%5==0)          // separate into groups of 5 choices
-            //     {
-            //     fileptr<<'\n';
-            //     }
-            // }
-            // char p=(choices[i][3]);
-            // char c=(choices[i][2]);
-            // temp+=p;
-            // temp+=c;
-    }
+            count++;
+            if(count%5==0)fileptr<<"\n";
+        }
     fileptr.close();
-    }
-}
-/**
- * @brief Helper function to format the Choices.txt into chunks of 5 choices per line?
- * 
- */
-void exportFormatter(){
-    string buffer;
-    ifstream fileptr;
-    fileptr.open("Choices.txt", std::ios_base::app);
-    if(fileptr.is_open())
-    {
-        //TODO: read into a string? then add \n every 5 chars? 
     }
 }
 
