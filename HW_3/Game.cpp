@@ -3,31 +3,36 @@
 
 #include "headers/Game.h"
 #include "headers/RandomCPU.h"
+#include "headers/SmartCPU.h"
 #include "headers/ChooserFactory.h"
 #include "stdio.h"
 #include "stdlib.h"
 
-using std::ofstream;using std::ifstream;
+using std::ifstream;
+using std::ofstream;
 #define MAXROUNDS 20
+
 void Game::ChoiceExport(vector<vector<int>> choices)
 {
     // string temp="";
-    int roundSIZE=choices.size();
-    int count=0;
+    int roundSIZE = choices.size();
+    int count = 0;
     ofstream fileptr;
     fileptr.open("Choices.txt", std::ios_base::app);
-    if(fileptr.is_open())
+    if (fileptr.is_open())
     {
-        for(int i=0;i<roundSIZE;i++) //20 rounds, export 40 choices
+        for (int i = 0; i < roundSIZE; i++) //20 rounds, export 40 choices
         {
-            fileptr<<choices[i][3]; // export player  
+            fileptr << choices[i][3]; // export player
             count++;
-            if(count%5==0)fileptr<<"\n";
-            fileptr<<choices[i][2]; // export cpu
+            if (count % 5 == 0)
+                fileptr << "\n";
+            fileptr << choices[i][2]; // export cpu
             count++;
-            if(count%5==0)fileptr<<"\n";
+            if (count % 5 == 0)
+                fileptr << "\n";
         }
-    fileptr.close();
+        fileptr.close();
     }
 }
 
@@ -50,7 +55,8 @@ void Game::executeMatch()
     Player playerTurn;
     CPU cpuTurn;
     printUI printer;
-    screenclear();
+    // screenclear();
+
     cout << "Choose how you want the CPU to pick his move:\n"
          << "1 -> Random\n"
          << "2 -> Smart\n"
@@ -62,7 +68,7 @@ void Game::executeMatch()
 
         if ((cin) && (cpuChoice >= 1) && (cpuChoice <= 3))
             break;
-        screenclear();
+        // screenclear();
         cin.clear();
         cin.ignore(1000, '\n');
         cout << "Invalid Input! Please enter a number between 1-3\n"
@@ -70,12 +76,12 @@ void Game::executeMatch()
     }
 
     cpuTurn.setchoiceMethod(cpuChoice);
-    screenclear();
+    // screenclear();   reinstate after
     printer.printInitialPrompt();
     while (roundNumber < MAXROUNDS)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cpuTurn.generateMove();
+        // cpuTurn.generateMove();
 
         while (true)
         {
@@ -83,24 +89,25 @@ void Game::executeMatch()
 
             if ((cin) && (playerInput >= 1) && (playerInput <= 3))
                 break;
-            screenclear();
+            // screenclear(); reinstate after
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid Input! Please enter a number between 1-3\n"
                  << "Your move: ";
         }
-
+        cpuTurn.generateMove();
         playerTurn.setMove(playerInput);
-        screenclear();
+
+        // screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
         cpuTurn.printCPUMove();
-        int pmove=playerTurn.getMove();
-        int cpumove=cpuTurn.getMove();
-        int result = calculateResult(pmove,cpumove);
+        int pmove = playerTurn.getMove();
+        int cpumove = cpuTurn.getMove();
+        int result = calculateResult(pmove, cpumove);
         printer.printRoundResult(roundNumber + 1, result);
-        updateRound(result,pmove,cpumove);
+        updateRound(result, pmove, cpumove);
         cout << endl;
     }
     screenclear();
@@ -110,7 +117,7 @@ void Game::executeMatch()
     printer.printFinalResults(Rounds);
 }
 
-void Game::updateRound(int result,int pmove, int cpumove)
+void Game::updateRound(int result, int pmove, int cpumove)
 {
     vector<int> scores;
     if (result == playerWin)
@@ -119,7 +126,6 @@ void Game::updateRound(int result,int pmove, int cpumove)
         scores.push_back(1);  //player win
         scores.push_back(cpumove);
         scores.push_back(pmove);
-
     }
     else if (result == cpuWin)
     {
