@@ -65,7 +65,8 @@ void Game::executeMatch()
 
         playerTurn.setMove(playerInput);
         cpuTurn.generateMove(playerInput);
-        screenclear();
+        cpuTurn.insertRecent(playerInput, cpuTurn.getMove());
+        //screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();

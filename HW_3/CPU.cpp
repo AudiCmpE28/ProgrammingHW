@@ -52,3 +52,26 @@ void CPU::printCPUMove()
     else if (move == scissors)
         cout << "Scissors\n";
 }
+
+void CPU::insertRecent(int playerMove, int CPUChoice)
+{
+    if (recentIndex < 3) // if there's less than 4 elements in the recent 5
+    {
+        recent5[recentIndex] = playerMove;
+        recentIndex++;
+        recent5[recentIndex] = CPUChoice;
+        recentIndex++;
+    }
+    else // if there's exactly 4 element [2] [3] [New 2] [New 3] [4]
+    {    //shift then add
+        recent5[0] = recent5[2];
+        recent5[1] = recent5[3];
+        recent5[2] = playerMove;
+        recent5[3] = CPUChoice;
+    }
+}
+
+int CPU::getrecentIndex()
+{
+    return recentIndex;
+}
