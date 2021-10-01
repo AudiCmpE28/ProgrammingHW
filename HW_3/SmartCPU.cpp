@@ -6,7 +6,6 @@
 #include "headers/SmartCPU.h"
 #include "headers/Chooser.h"
 #include "headers/RandomCPU.h"
-#include "headers/CPU.h"
 
 using std::cout;
 using std::string;
@@ -21,34 +20,36 @@ int randomChoice()
 
 SmartCPU::SmartCPU()
 {
+    recentIndex = 0;
     arrCount = 0;
     for (int i = 0; i < 243; i++)
     {
         dataCount[i] = 0; // set all count to 0
         MLdata[i] = 0;
     }
+    for (int i = 0; i < 5; i++)
+    {
+        recent5[i] = 0;
+    }
+    readData();
 }
 
 int SmartCPU::make_choice(int playerChoice)
 {
     int CPUChoice = -1;
-    readData();
-    int tempint = CPU::getrecentIndex();
-    if (tempint <= 2)
+    if (recentIndex <= 2)
     { // while there's less than 3 moves inside of the recent5
         // CPUChoice = randomChoice();
-        CPUChoice = 1;
-        cout << "Entered default choice\n";
+        CPUChoice = 1; // forced input for testing
     }
     else
     {
-        tempint = CPU::getrecentIndex();
-        int counterPlayer[3]; // 0 = Rock, 1 = Paper, 2 = Scissors in this array
+        int counterPlayer[3] = {0, 0, 0}; // 0 = Rock, 1 = Paper, 2 = Scissors in this array
         int highestOccuranceIndex = 0;
         string recent = "";
-        for (int i = 0; i <= tempint; i++)
+        for (int i = 0; i < recentIndex; i++)
         {
-            recent += std::to_string(CPU::recent5[i]);
+            recent += std::to_string(recent5[i]);
         }
         string temp = "";
         for (int i = 1; i < 4; i++)
@@ -67,25 +68,25 @@ int SmartCPU::make_choice(int playerChoice)
             else
                 counterPlayer[i] = 0;
         }
+
         if (counterPlayer[1] > counterPlayer[0])
             highestOccuranceIndex = 1;
         else if (counterPlayer[2] > counterPlayer[0])
             highestOccuranceIndex = 2;
 
-        if (highestOccuranceIndex == 0)
-        {                                             // if player usually goes rock
+        if (highestOccuranceIndex == 0) // if player usually goes rock
+        {
             if (counterPlayer[0] == counterPlayer[1]) // if there's no highest
                 CPUChoice = randomChoice();           // random move
             else
                 CPUChoice = 2; // counter with paper
         }
-        else if (highestOccuranceIndex == 1)
-        {                  // if player usually goes Paper
-            CPUChoice = 3; // Counter with scissors
-        }
-        else               // if player usually goes scissors
-            CPUChoice = 1; // Counter with rock
+        else if (highestOccuranceIndex == 1) // if player usually goes Paper
+            CPUChoice = 3;                   // Counter with scissors
+        else                                 // if player usually goes scissors
+            CPUChoice = 1;                   // Counter with rock
     }
+    insertRecent(playerChoice, CPUChoice);
     if (CPUChoice < 0)
     {
         cout << "THERE HAS BEEN AN ERROR WITH PROGRAM CHOICE, RESETTING TO ROCK";
@@ -94,27 +95,23 @@ int SmartCPU::make_choice(int playerChoice)
     return CPUChoice;
 }
 
-// void SmartCPU::insertRecent(int playerMove, int CPUChoice)
-// {
-//     if (recentIndex < 3) // if there's less than 4 elements in the recent 5
-//     {
-//         recent5[recentIndex] = playerMove;
-//         recentIndex++;
-//         recent5[recentIndex] = CPUChoice;
-//         recentIndex++;
-//         cout << "added stuff to recent5\n";
-//         cout << "recent5 index 0: " << recent5[0] << "\n";
-//         cout << "recent5 index 1: " << recent5[1] << "\n";
-//         cout << "recentIndex : " << recentIndex << "\n";
-//     }
-//     else // if there's exactly 4 element [2] [3] [New 2] [New 3] [4]
-//     {    //shift then add
-//         recent5[0] = recent5[2];
-//         recent5[1] = recent5[3];
-//         recent5[2] = playerMove;
-//         recent5[3] = CPUChoice;
-//     }
-// }
+void SmartCPU::insertRecent(int playerMove, int CPUChoice)
+{
+    if (recentIndex < 3) // if there's less than 4 elements in the recent 5
+    {
+        recent5[recentIndex] = playerMove;
+        recentIndex++;
+        recent5[recentIndex] = CPUChoice;
+        recentIndex++;
+    }
+    else // if there's exactly 4 element [2] [3] [New 2] [New 3] [4]
+    {    //shift then add
+        recent5[0] = recent5[2];
+        recent5[1] = recent5[3];
+        recent5[2] = playerMove;
+        recent5[3] = CPUChoice;
+    }
+}
 
 void SmartCPU::readData()
 {

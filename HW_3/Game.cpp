@@ -44,6 +44,7 @@ void Game::executeMatch()
     }
 
     cpuTurn.setchoiceMethod(cpuChoice);
+    cpuTurn.makeChooser();
     screenclear();
     printer.printInitialPrompt();
     while (roundNumber < 20)
@@ -65,7 +66,6 @@ void Game::executeMatch()
 
         playerTurn.setMove(playerInput);
         cpuTurn.generateMove(playerInput);
-        cpuTurn.insertRecent(playerInput, cpuTurn.getMove());
         //screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
