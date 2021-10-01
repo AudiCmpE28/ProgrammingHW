@@ -26,7 +26,7 @@ private:
     int scorePlayer;
     int scoreCPU;
     int roundNumber;            //tracks actual round
-    vector<vector<int>> Rounds; //Cpu index 0, player index 1
+    vector<vector<int> > Rounds; //Cpu index 0, player index 1
     enum winner
     {
         tie = -1,
@@ -38,12 +38,12 @@ public:
     Game();
 
     /**
-     * @brief Pass in a filepointer and vector<vector<int>> Rounds
+     * @brief Pass in a filepointer and vector<vector<int> > Rounds
      * 
      * @param fileptr 
      * @param choices 
      */
-    void ChoiceExport(vector<vector<int>> choices);
+    void ChoiceExport(vector<vector<int> > choices);
 
     /**
      * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner

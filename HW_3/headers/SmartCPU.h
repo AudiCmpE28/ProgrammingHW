@@ -1,32 +1,25 @@
 #ifndef SMARTCPU_H
 #define SMARTCPU_H
 
-#include "Chooser.h"
 #include <iostream>
-#include <fstream>
-#include <stdlib.h>
 
-using std::cout;
-using std::endl;
-using std::ofstream;
-
-#include <vector>
-#include <string>
-
-using std::string;
-using std::vector;
+#include "Chooser.h"
 
 class SmartCPU : public Chooser
 {
 private:
-    vector<vector<int>> choicesvector;
-    bool data_analyzed = false;
+    int recent5[5];
+    int MLdata[243];
+    int dataCount[243];
+    int recentIndex;
+    int arrCount;
 
 public:
-    int make_choice();
-    int user_game_pattern();
-    void analizeData();
-    bool duplicate_frequency(int val);
+    SmartCPU();
+    int make_choice(int playerChoice);
+    void insertRecent(int move1, int move2);
+    void readData();
+    int searchArray(int search);
 };
 
 #endif /* SMARTCPU_H */

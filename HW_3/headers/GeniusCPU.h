@@ -6,7 +6,7 @@
 class GeniusCPU : public Chooser
 {
 public:
-    int make_choice();
+    int make_choice(int playerChoice);
 };
 
 #endif /* GENIUSCPU_H */

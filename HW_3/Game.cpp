@@ -12,7 +12,7 @@ using std::ifstream;
 using std::ofstream;
 #define MAXROUNDS 20
 
-void Game::ChoiceExport(vector<vector<int>> choices)
+void Game::ChoiceExport(vector<vector<int> > choices)
 {
     // string temp="";
     int roundSIZE = choices.size();
@@ -76,12 +76,12 @@ void Game::executeMatch()
     }
 
     cpuTurn.setchoiceMethod(cpuChoice);
-    // screenclear();   reinstate after
+    cpuTurn.makeChooser();
+    screenclear();
     printer.printInitialPrompt();
     while (roundNumber < MAXROUNDS)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        // cpuTurn.generateMove();
 
         while (true)
         {
@@ -95,10 +95,9 @@ void Game::executeMatch()
             cout << "Invalid Input! Please enter a number between 1-3\n"
                  << "Your move: ";
         }
-        cpuTurn.generateMove();
         playerTurn.setMove(playerInput);
-
-        // screenclear();
+        cpuTurn.generateMove(playerInput);
+        //screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();
@@ -165,13 +164,3 @@ int Game::calculateResult(int pmove, int cpumove)
     else
         return tie;
 }
-
-// vector<vector<int>> Game::returnRounds()
-// {
-//     //A vector of 20 vectors (20 rounds)
-//     return this->Rounds;
-// }
-
-// int Game::getRoundNumber(){
-//     return this->roundNumber;
-// }
