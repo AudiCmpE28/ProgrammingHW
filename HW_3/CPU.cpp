@@ -13,10 +13,10 @@ CPU::CPU()
     srand(time(NULL));      // seed the rand function
 };
 
-void CPU::generateMove()
+void CPU::generateMove(int playerChoice)
 {
     Chooser *chooser = ChooserFactory::make_chooser(choiceMethod);
-    move = chooser->make_choice();
+    move = chooser->make_choice(playerChoice);
 }
 
 int CPU::getMove()

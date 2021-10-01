@@ -49,7 +49,6 @@ void Game::executeMatch()
     while (roundNumber < 20)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        cpuTurn.generateMove();
 
         while (true)
         {
@@ -65,6 +64,7 @@ void Game::executeMatch()
         }
 
         playerTurn.setMove(playerInput);
+        cpuTurn.generateMove(playerInput);
         screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";

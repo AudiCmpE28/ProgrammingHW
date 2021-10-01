@@ -11,7 +11,7 @@ private:
 
 public:
     CPU(/* args */);
-    void generateMove();
+    void generateMove(int playerChoice);
     int getMove();
     int getchoiceMethod();
     int setchoiceMethod(int choice);

@@ -7,7 +7,7 @@
 using std::cout;
 using std::rand;
 
-int RandomCPU::make_choice()
+int RandomCPU::make_choice(int playerChoice)
 {
     int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
     return randMove;
