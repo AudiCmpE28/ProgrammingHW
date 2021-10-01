@@ -40,6 +40,7 @@ int SmartCPU::make_choice(int playerChoice)
 
         // 3 temp integers to keep track of the count r = p = s then chuck random
         // if not: swing the winning move
+        //herro
     }
 }
 
