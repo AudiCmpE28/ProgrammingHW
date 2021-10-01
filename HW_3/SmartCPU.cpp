@@ -40,7 +40,7 @@ int SmartCPU::make_choice(int playerChoice)
     if (recentIndex <= 2)
     { // while there's less than 3 moves inside of the recent5
         // CPUChoice = randomChoice();
-        CPUChoice = 1; // forced input for testing
+        CPUChoice = 2; // forced input for testing
     }
     else
     {
@@ -77,7 +77,10 @@ int SmartCPU::make_choice(int playerChoice)
         if (highestOccuranceIndex == 0) // if player usually goes rock
         {
             if (counterPlayer[0] == counterPlayer[1]) // if there's no highest
-                CPUChoice = randomChoice();           // random move
+            {
+                CPUChoice = randomChoice(); // random move
+                cout << "Random Move played\n";
+            }
             else
                 CPUChoice = 2; // counter with paper
         }
