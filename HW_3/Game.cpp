@@ -19,7 +19,6 @@ using std::to_string;
 
 void Game::ChoiceExport(vector<vector<int>> choices)
 {
-    // string temp="";
     int roundSIZE = choices.size();
     int count = 0;
     ofstream fileptr;
