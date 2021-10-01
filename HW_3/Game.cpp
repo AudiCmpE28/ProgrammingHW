@@ -12,7 +12,7 @@ using std::ifstream;
 using std::ofstream;
 #define MAXROUNDS 20
 
-void Game::ChoiceExport(vector<vector<int>> choices)
+void Game::ChoiceExport(vector<vector<int> > choices)
 {
     // string temp="";
     int roundSIZE = choices.size();
@@ -164,13 +164,3 @@ int Game::calculateResult(int pmove, int cpumove)
     else
         return tie;
 }
-
-// vector<vector<int>> Game::returnRounds()
-// {
-//     //A vector of 20 vectors (20 rounds)
-//     return this->Rounds;
-// }
-
-// int Game::getRoundNumber(){
-//     return this->roundNumber;
-// }
