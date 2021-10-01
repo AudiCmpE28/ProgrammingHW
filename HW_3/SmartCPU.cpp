@@ -95,7 +95,6 @@ int SmartCPU::make_choice(int playerChoice)
         cout << "THERE HAS BEEN AN ERROR WITH PROGRAM CHOICE, RESETTING TO ROCK";
         CPUChoice = 1;
     }
-    CPUChoice = 1;
     return CPUChoice;
 }
 
