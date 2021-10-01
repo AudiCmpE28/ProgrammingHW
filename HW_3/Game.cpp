@@ -76,12 +76,12 @@ void Game::executeMatch()
     }
 
     cpuTurn.setchoiceMethod(cpuChoice);
-    // screenclear();   reinstate after
+    cpuTurn.makeChooser();
+    screenclear();
     printer.printInitialPrompt();
     while (roundNumber < MAXROUNDS)
     {
         cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
-        // cpuTurn.generateMove();
 
         while (true)
         {
@@ -95,10 +95,9 @@ void Game::executeMatch()
             cout << "Invalid Input! Please enter a number between 1-3\n"
                  << "Your move: ";
         }
-        cpuTurn.generateMove();
         playerTurn.setMove(playerInput);
-
-        // screenclear();
+        cpuTurn.generateMove(playerInput);
+        //screenclear();
 
         cout << "###  Round " << roundNumber + 1 << "  ###\n";
         playerTurn.printPlayerMove();

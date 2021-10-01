@@ -1,143 +1,159 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+
 #include "headers/SmartCPU.h"
 #include "headers/Chooser.h"
-#include <algorithm> //for std::unique, std::distance
+#include "headers/RandomCPU.h"
 
-int SmartCPU::make_choice()
+using std::cout;
+using std::string;
+using std::stringstream;
+using std::to_string;
+
+int randomChoice()
 {
-    if (!data_analyzed)
-    {
-        analizeData();
-        data_analyzed = true;
-    }
-    int user_expected_move = user_game_pattern();
-    // for (int i = 0; i < choicesvector.size(); i++)  //debug purpose
-    // {
-    //     cout << "NUM: " << choicesvector[i][0] << " Freq: " << choicesvector[i][1] << endl;
-    // }
+    int randMove = rand() % 3 + 1; //1-3 Rock, Paper, Scissors
+    return randMove;
+}
 
-    if (user_expected_move == 1)
+SmartCPU::SmartCPU()
+{
+    recentIndex = 0;
+    arrCount = 0;
+    for (int i = 0; i < 243; i++)
     {
-        cout << "CPU: 1 \n";
+        dataCount[i] = 0; // set all count to 0
+        MLdata[i] = 0;
     }
-    else if (user_expected_move == 2)
+    for (int i = 0; i < 5; i++)
     {
-        cout << "CPU: 2 \n";
+        recent5[i] = 0;
+    }
+    readData();
+}
+
+int SmartCPU::make_choice(int playerChoice)
+{
+    int CPUChoice = -1;
+    if (recentIndex <= 2)
+    { // while there's less than 3 moves inside of the recent5
+        // CPUChoice = randomChoice();
+        CPUChoice = 1; // forced input for testing
     }
     else
-    { //user_expected_move == 3
-        cout << "CPU: 3 \n";
-    }
+    {
+        int counterPlayer[3] = {0, 0, 0}; // 0 = Rock, 1 = Paper, 2 = Scissors in this array
+        int highestOccuranceIndex = 0;
+        string recent = "";
+        for (int i = 0; i < recentIndex; i++)
+        {
+            recent += to_string(recent5[i]);
+        }
+        string temp = "";
+        for (int i = 1; i < 4; i++)
+        {
+            temp = recent + to_string(i);
+            stringstream num(temp);
+            num >> counterPlayer[i - 1];
+        }
+        for (int i = 0; i < 3; i++) // set the occurance of the player's next move
+        {
+            if (searchArray(counterPlayer[i]) >= 0)
+            {
+                int temp = searchArray(counterPlayer[i]);
+                counterPlayer[i] = dataCount[temp];
+            }
+            else
+                counterPlayer[i] = 0;
+        }
 
-    return (rand() % 3 + 1); //1-3 Rock, Paper, Scissors
+        if (counterPlayer[1] > counterPlayer[0])
+            highestOccuranceIndex = 1;
+        else if (counterPlayer[2] > counterPlayer[0])
+            highestOccuranceIndex = 2;
+
+        if (highestOccuranceIndex == 0) // if player usually goes rock
+        {
+            if (counterPlayer[0] == counterPlayer[1]) // if there's no highest
+                CPUChoice = randomChoice();           // random move
+            else
+                CPUChoice = 2; // counter with paper
+        }
+        else if (highestOccuranceIndex == 1) // if player usually goes Paper
+            CPUChoice = 3;                   // Counter with scissors
+        else                                 // if player usually goes scissors
+            CPUChoice = 1;                   // Counter with rock
+    }
+    insertRecent(playerChoice, CPUChoice);
+    if (CPUChoice < 0)
+    {
+        cout << "THERE HAS BEEN AN ERROR WITH PROGRAM CHOICE, RESETTING TO ROCK";
+        CPUChoice = 1;
+    }
+    return CPUChoice;
 }
 
-int SmartCPU::user_game_pattern()
+void SmartCPU::insertRecent(int playerMove, int CPUChoice)
 {
-    vector<int> testing;
-    testing.push_back(1121);
-    int freq1 = 0, freq2 = 0, freq3 = 0;
-    // for (int i = 0; i < choicesvector.size(); i++) //debug purpose
-    // {
-    //     if ((testing[1] / 10000 % 10) == (choicesvector[i][0] / 10000 % 10))
-    //     {
-    //         if ((testing[1] / 1000 % 10) == (choicesvector[i][0] / 1000 % 10))
-    //         {
-    //             if ((testing[1] / 100 % 10) == (choicesvector[i][0] / 100 % 10))
-    //             {
-    //                 if ((testing[1] / 10 % 10) == (choicesvector[i][0] / 10 % 10))
-    //                 {
-    //                     if (choicesvector[i][0] % 10 == 1)
-    //                     {
-    //                         freq1 = choicesvector[i][1];
-    //                     }
-    //                     if (choicesvector[i][0] % 10 == 2)
-    //                     {
-    //                         freq2 = choicesvector[i][1];
-    //                     }
-    //                     if (choicesvector[i][0] % 10 == 3)
-    //                     {
-    //                         freq3 = choicesvector[i][1];
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    if (freq3 > freq2 && freq3 > freq1)
+    if (recentIndex < 3) // if there's less than 4 elements in the recent 5
     {
-        return 3;
+        recent5[recentIndex] = playerMove;
+        recentIndex++;
+        recent5[recentIndex] = CPUChoice;
+        recentIndex++;
     }
-    else if (freq2 > freq3 && freq2 > freq1)
-    {
-        return 2;
+    else // if there's exactly 4 element [2] [3] [New 2] [New 3] [4]
+    {    //shift then add
+        recent5[0] = recent5[2];
+        recent5[1] = recent5[3];
+        recent5[2] = playerMove;
+        recent5[3] = CPUChoice;
     }
-    return 1;
 }
 
-/*reads txt file to collect data*/
-void SmartCPU::analizeData()
+void SmartCPU::readData()
 {
-    vector<string> temp;   //grabs text file data
-    vector<int> frequency; //will count frequency with its data
-    int tracker = 1;       // all data is there once
-    string line;           //used to grab each line in text file
-    bool duplicate = false;
-
-    std::ifstream choicefile("Choices.txt");
-    if (!choicefile.is_open()) //if it cannot open thats bad
+    int number;
+    int indexFound = -1;
+    std::ifstream fileData("Choices.txt");
+    if (!fileData.is_open()) //if it cannot open thats bad
     {
         cout << "ERROR: could not open file for SmartCPU";
     }
     else
     {
-        while (std::getline(choicefile, line))
+        while (fileData >> number)
         {
-            // std::cout << "Element found: " << line << endl;  //debug purpose
-            temp.push_back(line);
-        }
-
-        choicefile.close();
-    }
-
-    int i = 0;
-    //will collect frequency by traversing through vector
-    for (auto it1 = temp.begin(); it1 != temp.end(); it1++)
-    {
-        frequency.push_back(std::stoi(*it1));
-        /*for loop counts frequency*/
-        for (auto it2 = it1 + 1; it2 != temp.end(); it2++)
-        {
-            if (*it1 == *it2)
+            indexFound = searchArray(number);
+            if (indexFound >= 0)
             {
-                tracker++;
+                dataCount[indexFound]++;
+                indexFound = -1;
+            }
+            else
+            {
+                MLdata[arrCount] = number;
+                dataCount[arrCount]++;
+                arrCount++;
             }
         }
-        frequency.push_back(tracker);
 
-        duplicate = duplicate_frequency(std::stoi(*it1));
-        if (!duplicate)
-        {
-            choicesvector.push_back(frequency);
-        }
-
-        /*resets all values and vector */
-        duplicate = false;
-        tracker = 1;
-        frequency.clear();
+        fileData.close();
     }
-    /*removes duplicates in 2D vector*/
-    // choicesvector.erase(std::unique(choicesvector.begin(), choicesvector.end()), choicesvector.end());  //debug purpose
 }
 
-bool SmartCPU::duplicate_frequency(int val)
+int SmartCPU::searchArray(int search)
 {
-    for (int i = 0; i < choicesvector.size(); i++)
+    int index = -1;
+    for (int i = 0; i < arrCount; i++)
     {
-        if (choicesvector[i][0] == val)
+        if (MLdata[i] == search)
         {
-            return true;
+            index = i;
+            break;
         }
     }
-    return false;
+    return index;
 }
