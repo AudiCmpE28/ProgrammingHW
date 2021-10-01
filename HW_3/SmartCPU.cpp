@@ -36,40 +36,6 @@ SmartCPU::SmartCPU()
 
 int SmartCPU::make_choice(int playerChoice)
 {
-<<<<<<< HEAD
-    vector<int> testing;
-    testing.push_back(11212);
-    int freq1 = 0, freq2 = 0, freq3 = 0;
-    // for (int i = 0; i < choicesvector.size(); i++) //debug purpose
-    // {
-    //     if ((testing[1] / 10000 % 10) == (choicesvector[i][0] / 10000 % 10))
-    //     {
-    //         if ((testing[1] / 1000 % 10) == (choicesvector[i][0] / 1000 % 10))
-    //         {
-    //             if ((testing[1] / 100 % 10) == (choicesvector[i][0] / 100 % 10))
-    //             {
-    //                 if ((testing[1] / 10 % 10) == (choicesvector[i][0] / 10 % 10))
-    //                 {
-    //                     if (choicesvector[i][0] % 10 == 1)
-    //                     {
-    //                         freq1 = choicesvector[i][1];
-    //                     }
-    //                     if (choicesvector[i][0] % 10 == 2)
-    //                     {
-    //                         freq2 = choicesvector[i][1];
-    //                     }
-    //                     if (choicesvector[i][0] % 10 == 3)
-    //                     {
-    //                         freq3 = choicesvector[i][1];
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-
-    if (freq3 > freq2 && freq3 > freq1)
-=======
     int CPUChoice = -1;
     if (recentIndex <= 2)
     { // while there's less than 3 moves inside of the recent5
@@ -77,7 +43,6 @@ int SmartCPU::make_choice(int playerChoice)
         CPUChoice = 1; // forced input for testing
     }
     else
->>>>>>> cfaecb3c9314e10c6b0e9e3f4df3a352953c40e3
     {
         int counterPlayer[3] = {0, 0, 0}; // 0 = Rock, 1 = Paper, 2 = Scissors in this array
         int highestOccuranceIndex = 0;
