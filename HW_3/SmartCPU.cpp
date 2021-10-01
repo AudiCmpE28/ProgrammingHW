@@ -114,7 +114,7 @@ int SmartCPU::make_choice(int playerChoice)
 //         recent5[2] = playerMove;
 //         recent5[3] = CPUChoice;
 //     }
-// }s
+// }
 
 void SmartCPU::readData()
 {
