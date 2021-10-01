@@ -33,7 +33,7 @@ int CPU::getchoiceMethod()
     return choiceMethod;
 }
 
-int CPU::setchoiceMethod(int choice)
+void CPU::setchoiceMethod(int choice)
 {
     choiceMethod = choice;
 }

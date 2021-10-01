@@ -7,6 +7,34 @@
 #include "stdio.h"
 #include "stdlib.h"
 
+using std::ifstream;
+using std::ofstream;
+#define MAXROUNDS 20
+
+void Game::ChoiceExport(vector<vector<int>> choices)
+{
+    // string temp="";
+    int roundSIZE = choices.size();
+    int count = 0;
+    ofstream fileptr;
+    fileptr.open("Choices.txt", std::ios_base::app);
+    if (fileptr.is_open())
+    {
+        for (int i = 0; i < roundSIZE; i++) //20 rounds, export 40 choices
+        {
+            fileptr << choices[i][3]; // export player
+            count++;
+            if (count % 5 == 0)
+                fileptr << "\n";
+            fileptr << choices[i][2]; // export cpu
+            count++;
+            if (count % 5 == 0)
+                fileptr << "\n";
+        }
+        fileptr.close();
+    }
+}
+
 void screenclear()
 {
     system("@cls||clear");
@@ -78,7 +106,7 @@ void Game::executeMatch()
     }
     screenclear();
     cout << "All 20 Rounds have been played! The game is over!\n";
-
+    ChoiceExport(Rounds);
     printer.printFinalResults(Rounds);
 }
 

@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include "Player.h"
 #include "CPU.h"
 #include "printUI.h"
@@ -14,6 +15,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 using std::left;
+using std::ofstream;
 using std::right;
 using std::setw;
 using std::string;
@@ -41,6 +43,14 @@ public:
      * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner
      */
     void executeMatch();
+
+    /**
+     * @brief Pass in a filepointer and vector<vector<int>> Rounds
+     * 
+     * @param fileptr 
+     * @param choices 
+     */
+    void ChoiceExport(vector<vector<int>> choices);
 
     /**
      * @brief Updates the vector that holds each rounds data and increments roundNumber
