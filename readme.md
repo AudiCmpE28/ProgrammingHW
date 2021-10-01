@@ -1,11 +1,7 @@
 <!-- CMPE 135 Group: Snooze Goose -->
 
-By: 
-    - Simon Altamirano
-    - Danish Khan
-    - Anh Huynh
-    - Thanh V Nguyen
-    
+By: - Simon Altamirano - Danish Khan - Anh Huynh - Thanh V Nguyen
+
 ######################################################################################################################
 IMPORTANT:
 ADD personal things to GITIGNORE by right clicking it.
@@ -26,7 +22,6 @@ https://github.com/microsoft/vscode-cpptools/issues/513
 debugg
 https://stackoverflow.com/questions/51117196/undefined-reference-error-in-vscode
 
-
 ######################################################################################################################
 
 How to Compile c++ c++ in VS code:
@@ -37,13 +32,19 @@ inside { g++ main.cpp -o main } add any .cpp files used with main such as:
 cd "c:\{Where You Created Folder Or Workspace}" ; if ($?) { g++ main.cpp Game.cpp -o main } ; 
 if ($?) { .\main }
 
-Shorter entry: 
+Shorter entry:
 cd "$cwd" ; if ($?) { g++ main.cpp Game.cpp -o main } ; if ($?) { .\main }
 
 Best Way recently discovered by Danke (it compiles all .cpp files):
-cd "$cwd" ; if ($?) { g++ -std=c++0x *.cpp -o main } ; if ($?) { .\main }
+cd "$cwd" ; if ($?) { g++ -std=c++0x \*.cpp -o main } ; if ($?) { .\main }
 
-*    *    *    *    *    *    *    *
+---
+
 For convinience, keep all .cpp files in same folder for compilation. ".h" (header) files may be stored
 in a different folder, but must be specified in included files such as: #include "folderName/header.h"
-*    *    *    *    *    *    *    *
+
+---
+
+Homework 4:
+smartML.txt contains a file that is learned to counter a player that only swings rock every single time
+Choices.txt contains a file with randomly generated "machine learning" data, so it will probably not win that much.
