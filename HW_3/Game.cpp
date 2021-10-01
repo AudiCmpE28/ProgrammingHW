@@ -30,7 +30,6 @@ void Game::ChoiceExport(vector<vector<int>> choices)
         for (int i = 0; i < roundSIZE; i++)
         {
             temp += to_string(choices[i][3]); // Player move
-            cout << "length of temp is" << temp.length() << "\n";
             if (temp.length() == 5)
             {
                 ; // do nothing
