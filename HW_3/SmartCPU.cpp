@@ -34,7 +34,7 @@ int SmartCPU::make_choice()
 int SmartCPU::user_game_pattern()
 {
     vector<int> testing;
-    testing.push_back(1121);
+    testing.push_back(11212);
     int freq1 = 0, freq2 = 0, freq3 = 0;
     // for (int i = 0; i < choicesvector.size(); i++) //debug purpose
     // {
