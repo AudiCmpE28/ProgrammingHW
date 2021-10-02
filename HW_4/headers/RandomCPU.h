@@ -6,7 +6,7 @@
 class RandomCPU : public Chooser
 {
 public:
-    int make_choice();
+    int make_choice(int playerChoice);
 };
 
 #endif /* RANDOMCPU_H */

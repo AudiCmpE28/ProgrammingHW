@@ -21,7 +21,7 @@ class printUI
 {
 private:
     int roundNumber;
-    vector<vector<int>> Rounds;
+    vector<vector<int> > Rounds;
 public:
     printUI();
 
@@ -49,12 +49,12 @@ public:
      * CPUStats: Prints whether the CPU won or lost in order of round 1 to size of gamedata vector
      * @return int: the amount of wins the row calculated (if the use case is playerStats or CPUStats)
      */
-    int printRowHelper(string name, int useCase, vector<vector<int>> Rounds);
+    int printRowHelper(string name, int useCase, vector<vector<int> > Rounds);
     
     /**
      * @brief Displays a table with the rounds, who won, total wins, and game result
      */
-    void printFinalResults(vector<vector<int>> Rounds);
+    void printFinalResults(vector<vector<int> > Rounds);
 };
 
 #endif /* printUI.h */
