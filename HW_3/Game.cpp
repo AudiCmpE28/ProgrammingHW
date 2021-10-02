@@ -15,6 +15,7 @@ using std::ofstream;
 using std::string;
 using std::stringstream;
 using std::to_string;
+
 #define MAXROUNDS 20
 
 void Game::ChoiceExport(vector<vector<int>> choices)
