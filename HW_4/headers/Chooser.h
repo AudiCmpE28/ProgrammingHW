@@ -4,7 +4,7 @@
 class Chooser
 {
 public:
-    virtual int make_choice() = 0;
+    virtual int make_choice(int playerChoice) = 0;
 };
 
 #endif /* CHOOSER_H */

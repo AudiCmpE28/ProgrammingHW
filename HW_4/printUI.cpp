@@ -38,7 +38,7 @@ void printUI::printRoundResult(int roundNumber,int result)
         cout << "Round #" << roundNumber<< " Result: Tie!\n";
 }
 
-int printUI::printRowHelper(string name, int useCase, vector<vector<int>> Rounds)
+int printUI::printRowHelper(string name, int useCase, vector<vector<int> > Rounds)
 {
     enum uses
     {
@@ -86,7 +86,7 @@ int printUI::printRowHelper(string name, int useCase, vector<vector<int>> Rounds
     return winCount;
 }
 
-void printUI::printFinalResults(vector<vector<int>> Rounds)
+void printUI::printFinalResults(vector<vector<int> > Rounds)
 {
     int CPU, Player = 0;
     enum uses
