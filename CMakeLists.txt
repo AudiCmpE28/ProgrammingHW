@@ -20,24 +20,10 @@
     # make 
     # ./projectName
 #------------------------------- HW_5 CMAKE -------------------------------#
-# #/* This Format: Will call Folder HW_5's CMakeLists.txt */
-# cmake_minimum_required(VERSION 3.0.0)
-
-# project(GUI_RPS) 
-
-# set(CMAKE_CXX_STANDARD 17)
-# set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# # Will put exe in the "build" folder
-# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
-
-# add_subdirectory(HW_5)
-
-#--------------------------- HelloWorldApp CMAKE ---------------------------#
 #/* This Format: Will call Folder HW_5's CMakeLists.txt */
-cmake_minimum_required(VERSION 3.0.0)
 
-project(HelloWorld_APP) 
+cmake_minimum_required(VERSION 3.0.0)
+project(GUI_RPS) 
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -45,4 +31,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Will put exe in the "build" folder
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
-add_subdirectory(HelloWorldApp)
+add_subdirectory(Test)
+
+#--------------------------- HelloWorldApp CMAKE ---------------------------#
+# /* This Format: Will call Folder HelloWorldApp's CMakeLists.txt */
+
+# cmake_minimum_required(VERSION 3.0.0)
+# project(HelloWorld_APP) 
+
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# # Will put exe in the "build" folder
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+
+# add_subdirectory(HelloWorldApp)

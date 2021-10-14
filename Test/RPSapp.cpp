@@ -1,14 +1,14 @@
 #include <wx/wx.h>
-#include "headers/HelloWorldApp.h"
-#include "headers/HelloWorldFrame.h"
+#include "headers/RPSapp.h"
+#include "headers/RPSframe.h"
 
 using namespace std;
 
-bool HelloWorldApp::OnInit()
+bool RPS_App::OnInit()
 {
-    cout << "OnInit: Initializing Hello World app!" << endl;
+    cout << "OnInit: Initializing Rock-Paper-Scissors" << endl;
 
-    HelloWorldFrame *frame = new HelloWorldFrame("Hello World",
+    RPS_Frame *frame = new RPS_Frame("Rock-Paper-Scissors",
                                                  wxPoint(50, 50),
                                                  wxSize(450, 340) );
     frame->Show(true);
@@ -16,4 +16,4 @@ bool HelloWorldApp::OnInit()
 }
 
 // Create a new application object.
-wxIMPLEMENT_APP(HelloWorldApp);
+wxIMPLEMENT_APP(RPS_App);

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <wx/wx.h>
-#include "HelloWorldFrame.h"
+#include "headers/HelloWorldFrame.h"
 
 using namespace std;
 

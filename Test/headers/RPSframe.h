@@ -1,12 +1,12 @@
-#ifndef HELLOWORLDFRAME_H_
-#define HELLOWORLDFRAME_H_
+#ifndef RPSFRAME_H_
+#define RPSFRAME_H_
 
 #include <wx/wx.h>
 
-class HelloWorldFrame: public wxFrame
+class RPS_Frame: public wxFrame
 {
 public:
-    HelloWorldFrame(const wxString& title,
+    RPS_Frame(const wxString& title,
                     const wxPoint& pos, const wxSize& size);
 
 private:
@@ -26,4 +26,4 @@ enum
     ID_GutenTag = 3
 };
 
-#endif /* HELLOWORLDFRAME_H_ */
+#endif /* RPSFRAME_H_ */
