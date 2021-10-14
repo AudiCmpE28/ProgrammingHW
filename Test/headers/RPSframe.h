@@ -11,8 +11,8 @@ public:
 
 private:
     void OnHello(wxCommandEvent& event);
-    void OnBonjour(wxCommandEvent& event);
-    void OnGutenTag(wxCommandEvent& event);
+    // void OnBonjour(wxCommandEvent& event);
+    // void OnGutenTag(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 
@@ -21,9 +21,9 @@ private:
 
 enum
 {
-    ID_Hello    = 1,
-    ID_Bonjour  = 2,
-    ID_GutenTag = 3
+    ID_Hello    = 1
+    // ID_Bonjour  = 2,
+    // ID_GutenTag = 3
 };
 
 #endif /* RPSFRAME_H_ */

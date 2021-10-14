@@ -6,8 +6,8 @@ using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
-    EVT_MENU(ID_Bonjour,  RPS_Frame::OnBonjour)
-    EVT_MENU(ID_GutenTag, RPS_Frame::OnGutenTag)
+    // EVT_MENU(ID_Bonjour,  RPS_Frame::OnBonjour)
+    // EVT_MENU(ID_GutenTag, RPS_Frame::OnGutenTag)
     EVT_MENU(wxID_ABOUT,  RPS_Frame::OnAbout)
     EVT_MENU(wxID_EXIT,   RPS_Frame::OnExit)
 wxEND_EVENT_TABLE()
@@ -17,8 +17,8 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Hello!");
     menuFile->AppendSeparator();
-    menuFile->Append(ID_Bonjour, "&Bonjour...\tCtrl-B", "Status string: Bonjour!");
-    menuFile->Append(ID_GutenTag, "&Guten Tag...\tCtrl-G", "Status string: Guten Tag!");
+    // menuFile->Append(ID_Bonjour, "&Bonjour...\tCtrl-B", "Status string: Bonjour!");
+    // menuFile->Append(ID_GutenTag, "&Guten Tag...\tCtrl-G", "Status string: Guten Tag!");
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit Wx-helloworld");
 
     wxMenu *menuHelp = new wxMenu;
@@ -44,21 +44,23 @@ void RPS_Frame::OnAbout(wxCommandEvent& event) {
 }
 
 void RPS_Frame::OnExit(wxCommandEvent& event) {
-    cout << "OnExit: Exiting Hello World app!" << endl;
+    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
     Close(true);
 }
 
 void RPS_Frame::OnHello(wxCommandEvent& event) {
-    wxMessageBox("Hello, world!",
+    wxMessageBox("Hello, foo!",
                  "OnHello", wxOK | wxICON_INFORMATION);
 }
 
-void RPS_Frame::OnBonjour(wxCommandEvent& event) {
-    wxMessageBox("Bonjour, monde!",
-                 "OnBonjour", wxOK | wxICON_INFORMATION);
-}
+//French
+// void RPS_Frame::OnBonjour(wxCommandEvent& event) {
+//     wxMessageBox("Bonjour, monde!",
+//                  "OnBonjour", wxOK | wxICON_INFORMATION);
+// }
 
-void RPS_Frame::OnGutenTag(wxCommandEvent& event) {
-    wxMessageBox("Guten Tag, Welt!",
-                 "OnGutenTag", wxOK | wxICON_INFORMATION);
-}
+//German
+// void RPS_Frame::OnGutenTag(wxCommandEvent& event) {
+//     wxMessageBox("Guten Tag, Welt!",
+//                  "OnGutenTag", wxOK | wxICON_INFORMATION);
+// }
