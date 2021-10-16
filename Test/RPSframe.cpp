@@ -4,22 +4,29 @@
 
 using namespace std;
 
+const long RPS_Frame::idButtonRock = ::wxNewId();       //Rock Button
+const long RPS_Frame::idButtonPaper = ::wxNewId();      //Paper Button
+const long RPS_Frame::idButtonScissors = ::wxNewId();   //Scissors Button
+
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
     // EVT_MENU(ID_Bonjour,  RPS_Frame::OnBonjour)
     // EVT_MENU(ID_GutenTag, RPS_Frame::OnGutenTag)
     EVT_MENU(wxID_ABOUT,  RPS_Frame::OnAbout)
     EVT_MENU(wxID_EXIT,   RPS_Frame::OnExit)
+    EVT_BUTTON(idButtonRock, RPS_Frame::OnClickRock)
+    EVT_BUTTON(idButtonPaper, RPS_Frame::OnClickPaper)
+    EVT_BUTTON(idButtonScissors, RPS_Frame::OnClickScissors)
 wxEND_EVENT_TABLE()
 
 RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size)
             : wxFrame(NULL, wxID_ANY, title, pos, size) {
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Hello!");
+    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Welcome!");
     menuFile->AppendSeparator();
     // menuFile->Append(ID_Bonjour, "&Bonjour...\tCtrl-B", "Status string: Bonjour!");
     // menuFile->Append(ID_GutenTag, "&Guten Tag...\tCtrl-G", "Status string: Guten Tag!");
-    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit Wx-helloworld");
+    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
@@ -31,6 +38,22 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 
     CreateStatusBar();
     SetStatusText("Welcome to Jurrasic Park!");
+
+    // Button Set up
+    this->SetSizeHints(wxDefaultSize, wxDefaultSize);
+    mainBox_config = new wxBoxSizer(wxHORIZONTAL);
+
+    button_config = new wxButton(this, idButtonRock, _T("Rock"), wxDefaultPosition, wxDefaultSize, 0);
+    mainBox_config->Add(button_config, 0, wxALL, 5);
+
+    button_config = new wxButton(this, idButtonPaper, _T("Paper"), wxDefaultPosition, wxDefaultSize, 0);
+    mainBox_config->Add(button_config, 0, wxALL, 5);
+
+    button_config = new wxButton(this, idButtonScissors, _T("Scissors"), wxDefaultPosition, wxDefaultSize, 0);
+    mainBox_config->Add(button_config, 0, wxALL, 5);
+
+    this->SetSizer(mainBox_config);
+    this->Layout();
 }
 
 void RPS_Frame::OnAbout(wxCommandEvent& event) {
@@ -51,6 +74,23 @@ void RPS_Frame::OnExit(wxCommandEvent& event) {
 void RPS_Frame::OnHello(wxCommandEvent& event) {
     wxMessageBox("Hello, foo!",
                  "OnHello", wxOK | wxICON_INFORMATION);
+}
+
+void RPS_Frame::OnClickRock(wxCommandEvent& event) {
+    // wxString msg = _T("Hello World");
+    // wxString info = _T("linux-buddy");
+    wxMessageBox("Rock!",
+                 "Rock Button", wxOK | wxICON_INFORMATION, this);
+}
+
+void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
+    wxMessageBox("Paper!",
+                 "Paper Button", wxOK | wxICON_INFORMATION, this);
+}
+
+void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
+    wxMessageBox("Scissors!",
+                 "Scissors Button", wxOK | wxICON_INFORMATION, this);
 }
 
 //French
