@@ -4,12 +4,12 @@
 
 using namespace std;
 
-bool RPS_App::OnInit()
-{
+bool RPS_App::OnInit(){
     cout << "OnInit: Initializing Rock-Paper-Scissors" << endl;
 
     RPS_Frame *frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640) );
     frame->Show(true);
+    
     return true;
 }
 

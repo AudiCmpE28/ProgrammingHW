@@ -2,6 +2,9 @@
 #include <wx/wx.h>
 #include "headers/RPSframe.h"
 
+#include "wx/sizer.h"
+
+#include "icons/slider.xpm"
 using namespace std;
 
 const long RPS_Frame::idButtonRock = ::wxNewId();       //Rock Button
@@ -10,13 +13,15 @@ const long RPS_Frame::idButtonScissors = ::wxNewId();   //Scissors Button
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
-    // EVT_MENU(ID_Bonjour,  RPS_Frame::OnBonjour)
-    // EVT_MENU(ID_GutenTag, RPS_Frame::OnGutenTag)
     EVT_MENU(wxID_ABOUT,  RPS_Frame::OnAbout)
     EVT_MENU(wxID_EXIT,   RPS_Frame::OnExit)
+
     EVT_BUTTON(idButtonRock, RPS_Frame::OnClickRock)
     EVT_BUTTON(idButtonPaper, RPS_Frame::OnClickPaper)
     EVT_BUTTON(idButtonScissors, RPS_Frame::OnClickScissors)
+
+    // EVT_SLIDER(ID_SLIDER, RPS_Frame::OnScroll)
+
 wxEND_EVENT_TABLE()
 
 RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size)
@@ -24,8 +29,6 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Welcome!");
     menuFile->AppendSeparator();
-    // menuFile->Append(ID_Bonjour, "&Bonjour...\tCtrl-B", "Status string: Bonjour!");
-    // menuFile->Append(ID_GutenTag, "&Guten Tag...\tCtrl-G", "Status string: Guten Tag!");
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
@@ -54,6 +57,12 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 
     this->SetSizer(mainBox_config);
     this->Layout();
+
+    // Slider for Rounds
+    fill = 0;
+    slider = new wxSlider(this, ID_SLIDER, 0, 0, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
+    Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(RPS_Frame::OnScroll)); 
+    
 }
 
 void RPS_Frame::OnAbout(wxCommandEvent& event) {
@@ -79,28 +88,27 @@ void RPS_Frame::OnHello(wxCommandEvent& event) {
 void RPS_Frame::OnClickRock(wxCommandEvent& event) {
     // wxString msg = _T("Hello World");
     // wxString info = _T("linux-buddy");
-    wxMessageBox("Rock!",
-                 "Rock Button", wxOK | wxICON_INFORMATION, this);
+    wxMessageBox("Rock!", "Rock Button", wxOK | wxICON_INFORMATION, this);
 }
 
 void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
-    wxMessageBox("Paper!",
-                 "Paper Button", wxOK | wxICON_INFORMATION, this);
+    wxMessageBox("Paper!", "Paper Button", wxOK | wxICON_INFORMATION, this);
 }
 
 void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
-    wxMessageBox("Scissors!",
-                 "Scissors Button", wxOK | wxICON_INFORMATION, this);
+    wxMessageBox("Scissors!", "Scissors Button", wxOK | wxICON_INFORMATION, this);
 }
 
-//French
-// void RPS_Frame::OnBonjour(wxCommandEvent& event) {
-//     wxMessageBox("Bonjour, monde!",
-//                  "OnBonjour", wxOK | wxICON_INFORMATION);
-// }
 
-//German
-// void RPS_Frame::OnGutenTag(wxCommandEvent& event) {
-//     wxMessageBox("Guten Tag, Welt!",
-//                  "OnGutenTag", wxOK | wxICON_INFORMATION);
-// }
+Slider::Slider(const wxString& title)
+        : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(270, 200)) {
+    Center();
+}
+
+
+void RPS_Frame::OnScroll(wxScrollEvent& event) {
+  fill = slider->GetValue();
+  cout << "OnScroll: " << fill << endl;
+  wxDisplayChangedEvent();
+  Refresh();
+}
