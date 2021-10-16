@@ -17,9 +17,6 @@ class RPS_Frame: public wxFrame {
         //Button set up for RPS
         wxBoxSizer* mainBox_config;
         wxButton* button_config;
-        static const long idButtonRock;
-        static const long idButtonPaper;
-        static const long idButtonScissors;
         void OnClickRock(wxCommandEvent& event);
         void OnClickPaper(wxCommandEvent& event);
         void OnClickScissors(wxCommandEvent& event);

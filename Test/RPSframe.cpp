@@ -7,9 +7,14 @@
 #include "icons/slider.xpm"
 using namespace std;
 
-const long RPS_Frame::idButtonRock = ::wxNewId();       //Rock Button
-const long RPS_Frame::idButtonPaper = ::wxNewId();      //Paper Button
-const long RPS_Frame::idButtonScissors = ::wxNewId();   //Scissors Button
+ //Rock Button
+ //Paper Button
+ //Scissors Button
+enum ButtonIDs {
+    idButtonRock= wxID_LAST+1,
+    idButtonPaper,
+    idButtonScissors
+};
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
