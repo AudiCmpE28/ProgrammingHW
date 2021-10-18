@@ -2,7 +2,6 @@
 #define RPSFRAME_H_
 
 #include <wx/wx.h>
-#include <wx/slider.h>
 
 class RPS_Frame: public wxFrame {
     public:
@@ -21,29 +20,18 @@ class RPS_Frame: public wxFrame {
         void OnClickPaper(wxCommandEvent& event);
         void OnClickScissors(wxCommandEvent& event);
 
-        // slider
-        void OnScroll(wxScrollEvent& event);
-        wxSlider *slider;
-        int fill;
-        
+
         wxDECLARE_EVENT_TABLE();
 };
 
-class Slider : public wxFrame {
-    public:
-        Slider(const wxString& title);
-};
-
-
 enum {
-    ID_Hello    = 1
+    ID_Hello = 1
 };
 
-enum RPS_button{
-    button1 = 1,
-    button2 = 2,
-    button3 = 3
+enum RPS_buttons{
+    buttonRock_ID = 101,
+    buttonPaper_ID = 102,
+    buttonScissors_ID = 103,
 };
-const int ID_SLIDER = 100;
 
 #endif /* RPSFRAME_H_ */

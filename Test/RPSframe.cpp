@@ -2,28 +2,20 @@
 #include <wx/wx.h>
 #include "headers/RPSframe.h"
 
-#include "wx/sizer.h"
-
-#include "icons/slider.xpm"
 using namespace std;
 
  //Rock Button
  //Paper Button
  //Scissors Button
-enum ButtonIDs {
-    idButtonRock= wxID_LAST+1,
-    idButtonPaper,
-    idButtonScissors
-};
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
     EVT_MENU(wxID_ABOUT,  RPS_Frame::OnAbout)
     EVT_MENU(wxID_EXIT,   RPS_Frame::OnExit)
 
-    EVT_BUTTON(idButtonRock, RPS_Frame::OnClickRock)
-    EVT_BUTTON(idButtonPaper, RPS_Frame::OnClickPaper)
-    EVT_BUTTON(idButtonScissors, RPS_Frame::OnClickScissors)
+    EVT_BUTTON(buttonRock_ID, RPS_Frame::OnClickRock)
+    EVT_BUTTON(buttonPaper_ID, RPS_Frame::OnClickPaper)
+    EVT_BUTTON(buttonScissors_ID, RPS_Frame::OnClickScissors)
 
     // EVT_SLIDER(ID_SLIDER, RPS_Frame::OnScroll)
 
@@ -31,6 +23,7 @@ wxEND_EVENT_TABLE()
 
 RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size)
             : wxFrame(NULL, wxID_ANY, title, pos, size) {
+
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Welcome!");
     menuFile->AppendSeparator();
@@ -45,30 +38,35 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Welcome to Jurrasic Park!");
+    SetStatusText("Welcome to RPS!");
 
-    // Button Set up
+
+
+    /*Play Game*/
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
     mainBox_config = new wxBoxSizer(wxHORIZONTAL);
 
-    button_config = new wxButton(this, idButtonRock, _T("Rock"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config = new wxButton(this, buttonRock_ID, _T("Rock"), wxDefaultPosition, wxDefaultSize, 0);
     mainBox_config->Add(button_config, 0, wxALL, 5);
 
-    button_config = new wxButton(this, idButtonPaper, _T("Paper"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config = new wxButton(this, buttonPaper_ID, _T("Paper"), wxDefaultPosition, wxDefaultSize, 0);
     mainBox_config->Add(button_config, 0, wxALL, 5);
 
-    button_config = new wxButton(this, idButtonScissors, _T("Scissors"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config = new wxButton(this, buttonScissors_ID, _T("Scissors"), wxDefaultPosition, wxDefaultSize, 0);
     mainBox_config->Add(button_config, 0, wxALL, 5);
 
     this->SetSizer(mainBox_config);
     this->Layout();
-
-    // Slider for Rounds
-    fill = 0;
-    slider = new wxSlider(this, ID_SLIDER, 0, 0, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
-    Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(RPS_Frame::OnScroll)); 
     
 }
+
+
+/*
+*
+*  
+          FUNCTIONS
+*
+*/
 
 void RPS_Frame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("Welcome to Rock, Paper, Scissors!\n" 
@@ -90,6 +88,9 @@ void RPS_Frame::OnHello(wxCommandEvent& event) {
                  "OnHello", wxOK | wxICON_INFORMATION);
 }
 
+
+
+/*Play*/
 void RPS_Frame::OnClickRock(wxCommandEvent& event) {
     // wxString msg = _T("Hello World");
     // wxString info = _T("linux-buddy");
@@ -102,18 +103,4 @@ void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
 
 void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
     wxMessageBox("Scissors!", "Scissors Button", wxOK | wxICON_INFORMATION, this);
-}
-
-
-Slider::Slider(const wxString& title)
-        : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(270, 200)) {
-    Center();
-}
-
-
-void RPS_Frame::OnScroll(wxScrollEvent& event) {
-  fill = slider->GetValue();
-  cout << "OnScroll: " << fill << endl;
-  wxDisplayChangedEvent();
-  Refresh();
 }
