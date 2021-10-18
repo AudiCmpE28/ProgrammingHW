@@ -14,8 +14,9 @@ wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
     EVT_BUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
     EVT_BUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
     EVT_BUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
-
     // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
+
+    EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)
 
 wxEND_EVENT_TABLE()
 
@@ -38,7 +39,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Welcome to RPS!");
+    SetStatusText("Welcome to RPS!      For Game Info, go to Help -> About");
 
 /* SET UP */
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
@@ -46,7 +47,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
 
     //Title
     window_layout->AddSpacer(20);
-    wxFont title_font(14, wxDEFAULT, wxNORMAL, wxBOLD);
+    wxFont title_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
     heading = new wxStaticText(this, wxID_ANY, wxT("Rock Paper Scissors Configuration"), wxPoint(50, 15));
     heading->SetFont(title_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
@@ -55,7 +56,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
 
 /*CPU Mode */
     // Title
-    wxFont cpuMode_font(10, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    wxFont cpuMode_font(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
     heading = new wxStaticText(this, wxID_ANY, wxT("Choose CPU Mode:"), wxPoint(50, 15));
     heading->SetFont(cpuMode_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
@@ -63,13 +64,13 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
 
     // Button Set
     setup_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
-    setup_button_config = new wxButton(this, buttonRandCPU_ID, _T("RandCPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxButton(this, buttonRandCPU_ID, _T("Rand CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
 
-    setup_button_config = new wxButton(this, buttonSmartCPU_ID, _T("SmartCPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxButton(this, buttonSmartCPU_ID, _T("Smart CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5);
 
-    setup_button_config = new wxButton(this, buttonGeniusCPU_ID, _T("GeniusCPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxButton(this, buttonGeniusCPU_ID, _T("Genius CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5);
 
     window_layout->Add(setup_box_config, 0, wxALIGN_CENTER, 10);
@@ -78,7 +79,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
 
 /*Round Amount */
     // Slider Title
-    wxFont slider_title(10, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    wxFont slider_title(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
     heading = new wxStaticText(this, wxID_ANY, wxT("Choose Amount of Rounds:"), wxPoint(50, 15));
     heading->SetFont(slider_title);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
@@ -89,18 +90,25 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     slider = new wxSlider(this, ID_SLIDER, 0, 0, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
     Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(RPS_Setup::OnScroll)); 
     window_layout->Add(slider, 0, wxALIGN_CENTER, 10);
+    
+    //Slider Rounds Number selected
+    wxFont display_slider(8, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    roundNum = new wxStaticText(this, wxID_ANY, wxT("Rounds: 0"), wxPoint(50, 15)); // initial message
+    roundNum->SetFont(display_slider);
+    window_layout->Add(roundNum, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(80);
 
-    wxFont display_slider(10, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    heading = new wxStaticText(this, wxID_ANY, round_amount, wxPoint(50, 15));
-    heading->SetFont(display_slider);
-    window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(10);
+/*Submit Button*/
+    //button config
+    submit_button_config = new wxButton(this, buttonSubmit_ID, _T("Submit Configuration"), wxDefaultPosition, wxDefaultSize, 0);
+    window_layout->Add(submit_button_config, 0, wxALIGN_BOTTOM | wxALIGN_CENTER , 10);
+    // window_layout->AddSpacer(20);
 
 
+/*Finalize layout*/
     this->SetSizer(window_layout);
     this->Layout();
-    this->Centre();
-   
+    this->Centre();   
 }
 
 void RPS_Setup::OnAbout(wxCommandEvent& event) {
@@ -124,7 +132,6 @@ void RPS_Setup::OnHello(wxCommandEvent& event) {
 }
 
 
-
 /*SET UP*/
 
 void RPS_Setup::OnClick_RandCPU(wxCommandEvent& event) {
@@ -144,11 +151,13 @@ Slider::Slider(const wxString& title)
     Center();
 }
 
-
 void RPS_Setup::OnScroll(wxScrollEvent& event) {
   fill = slider->GetValue();
-  round_amount = wxString::Format(wxT("Count: %i"), fill);
-  cout << "OnScroll: " << round_amount << endl;
+  roundNum->SetLabel(wxString::Format(wxT("Rounds: %i"), fill)); //update display
   wxDisplayChangedEvent(); // update immediatelly do not wait a second
   Refresh();
+}
+
+void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent& event) {
+    wxMessageBox("Submitted!", "SubmitInfo Button", wxOK | wxICON_INFORMATION, this);
 }

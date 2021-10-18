@@ -30,10 +30,14 @@ class RPS_Setup : public wxFrame {
       void OnClick_GeniusCPU(wxCommandEvent& event);
 
       // slider
-      void OnScroll(wxScrollEvent& event);
-      wxSlider *slider;
       int fill;
-      wxString round_amount;
+      wxStaticText *roundNum;
+      wxSlider *slider;
+      void OnScroll(wxScrollEvent& event);
+
+      //submit game settings button
+      wxButton* submit_button_config;
+      void OnClick_SubmitInfo(wxCommandEvent& event);
 
       wxDECLARE_EVENT_TABLE();
 };
@@ -46,6 +50,7 @@ class Slider : public wxFrame {
 enum {
     ID_Hello2 = 10,
     ID_SLIDER = 100,
+    buttonSubmit_ID = 99,
 };
 
 enum CPU_mode{
