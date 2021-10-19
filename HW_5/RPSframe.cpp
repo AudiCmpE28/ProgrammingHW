@@ -1,6 +1,7 @@
 #include <iostream>
 #include <wx/wx.h>
 #include "headers/RPSframe.h"
+#include "headers/RPSsetup.h" //other class
 
 using namespace std;
 
@@ -9,25 +10,26 @@ using namespace std;
  //Scissors Button
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
-    EVT_MENU(ID_Hello,    RPS_Frame::OnHello)
-    EVT_MENU(wxID_ABOUT,  RPS_Frame::OnAbout)
-    EVT_MENU(wxID_EXIT,   RPS_Frame::OnExit)
+    EVT_MENU(ID_RestartGame, RPS_Frame::OnRestart)
+    EVT_MENU(wxID_ABOUT, RPS_Frame::OnAbout)
+    EVT_MENU(wxID_EXIT, RPS_Frame::OnExit)
 
     EVT_BUTTON(buttonRock_ID, RPS_Frame::OnClickRock)
     EVT_BUTTON(buttonPaper_ID, RPS_Frame::OnClickPaper)
     EVT_BUTTON(buttonScissors_ID, RPS_Frame::OnClickScissors)
 
     // EVT_SLIDER(ID_SLIDER, RPS_Frame::OnScroll)
-
 wxEND_EVENT_TABLE()
+
+
 
 RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size)
             : wxFrame(NULL, wxID_ANY, title, pos, size) {
 
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "Status string: Welcome!");
+    menuFile->Append(ID_RestartGame, "&Restart...\tCtrl-H", "Restart Game!");
     menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit the Game");
+    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
@@ -162,6 +164,7 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 }
 
 
+/*Top Bar Menu*/
 void RPS_Frame::OnAbout(wxCommandEvent& event) {
     wxMessageBox("Welcome to Rock, Paper, Scissors!\n" 
                  "\nThe game is simple, pick rock, paper, or scissors by entering a number between 1 to 3."
@@ -172,16 +175,18 @@ void RPS_Frame::OnAbout(wxCommandEvent& event) {
                  "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
+void RPS_Frame::OnRestart(wxCommandEvent& event){
+    Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
+    Setup_Game_Frame->Center();
+    Setup_Game_Frame->Show(true);
+
+    Destroy();
+}
+
 void RPS_Frame::OnExit(wxCommandEvent& event) {
     cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
     Close(true);
 }
-
-void RPS_Frame::OnHello(wxCommandEvent& event) {
-    wxMessageBox("Hello, foo!",
-                 "OnHello", wxOK | wxICON_INFORMATION);
-}
-
 
 
 /*Play*/

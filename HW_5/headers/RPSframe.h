@@ -3,13 +3,18 @@
 
 #include <wx/wx.h>
 
+class RPS_Setup;
+
 class RPS_Frame: public wxFrame {
     public:
         RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
+        RPS_Setup* getSetup_Game_Frame();
 
     private:
+        RPS_Setup* Setup_Game_Frame;
+
         //menu on top bar
-        void OnHello(wxCommandEvent& event);
+        void OnRestart(wxCommandEvent& event);
         void OnExit(wxCommandEvent& event);
         void OnAbout(wxCommandEvent& event);
             
@@ -57,7 +62,7 @@ class RPS_Frame: public wxFrame {
 };
 
 enum {
-    ID_Hello = 1
+    ID_RestartGame = 4
 };
 
 enum RPS_buttons{

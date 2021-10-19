@@ -31,7 +31,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Will put exe in the "build" folder
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
-add_subdirectory(Test)
+add_subdirectory(HW_5)
 
 #--------------------------- HelloWorldApp CMAKE ---------------------------#
 # /* This Format: Will call Folder HelloWorldApp's CMakeLists.txt */

@@ -1,23 +1,24 @@
-#include <iostream>
 #include <wx/wx.h>
-#include "headers/RPSsetup.h"
-
 #include "wx/sizer.h"
 #include "icons/slider.xpm"
+
+#include <iostream>
+#include "headers/RPSsetup.h"
+#include "headers/RPSframe.h" // other class
+
 using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
-    EVT_MENU(ID_Hello2,    RPS_Setup::OnHello)
-    EVT_MENU(wxID_ABOUT,  RPS_Setup::OnAbout)
-    EVT_MENU(wxID_EXIT,   RPS_Setup::OnExit)
+    EVT_MENU(ID_Hello, RPS_Setup::OnHello)
+    EVT_MENU(wxID_ABOUT, RPS_Setup::OnAbout)
+    EVT_MENU(wxID_EXIT, RPS_Setup::OnExit)
 
     EVT_TOGGLEBUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
     EVT_TOGGLEBUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
     EVT_TOGGLEBUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
     // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
 
-    EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)
-    
+    EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)   
 
 wxEND_EVENT_TABLE()
 
@@ -27,9 +28,9 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
             : wxFrame(NULL, wxID_ANY, title, pos, size) {
 
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello2, "&Hello...\tCtrl-H", "Status string: Welcome!");
+    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "The Game isn't here!");
     menuFile->AppendSeparator();
-    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Status string: Quit the Game");
+    menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
     menuHelp->Append(wxID_ABOUT);
@@ -163,5 +164,11 @@ void RPS_Setup::OnScroll(wxScrollEvent& event) {
 }
 
 void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent& event) {
-    wxMessageBox("Submitted!", "SubmitInfo Button", wxOK | wxICON_INFORMATION, this);
+    // wxMessageBox("Submitted!", "SubmitInfo Button", wxOK | wxICON_INFORMATION, this);
+    cout << "Submitted button pressed" << endl;
+    RPS_Game_Frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640));
+    RPS_Game_Frame->Center();
+    RPS_Game_Frame->Show(true);
+
+    Destroy(); //closes window [dangerous doe, yolo]
 }

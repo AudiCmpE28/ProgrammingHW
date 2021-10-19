@@ -7,8 +7,8 @@
 using namespace std;
 
 class RPS_App: public wxApp {
-public:
-    virtual bool OnInit() override;
+    public:
+        virtual bool OnInit() override;
 };
 
 #endif /* RPSAPP_H_ */
