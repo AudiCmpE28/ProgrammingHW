@@ -180,7 +180,7 @@ void RPS_Frame::OnRestart(wxCommandEvent& event){
     Setup_Game_Frame->Center();
     Setup_Game_Frame->Show(true);
 
-    Destroy();
+    Close(true);
 }
 
 void RPS_Frame::OnExit(wxCommandEvent& event) {
@@ -198,11 +198,9 @@ void RPS_Frame::OnClickRock(wxCommandEvent& event) {
 }
 
 void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
-    // wxMessageBox("Paper!", "Paper Button", wxOK | wxICON_INFORMATION, this);
     Player_choice->SetLabel("Player's Move: Paper");
 }
 
 void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
-    // wxMessageBox("Scissors!", "Scissors Button", wxOK | wxICON_INFORMATION, this);
     Player_choice->SetLabel("Player's Move: Scissors");
 }

@@ -170,5 +170,6 @@ void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent& event) {
     RPS_Game_Frame->Center();
     RPS_Game_Frame->Show(true);
 
-    Destroy(); //closes window [dangerous doe, yolo]
+    Close(true); // closes window
+    // Destroy(); //force closes window
 }
