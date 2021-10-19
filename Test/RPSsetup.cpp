@@ -11,12 +11,13 @@ wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
     EVT_MENU(wxID_ABOUT,  RPS_Setup::OnAbout)
     EVT_MENU(wxID_EXIT,   RPS_Setup::OnExit)
 
-    EVT_BUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
-    EVT_BUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
-    EVT_BUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
+    EVT_TOGGLEBUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
+    EVT_TOGGLEBUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
+    EVT_TOGGLEBUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
     // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
 
     EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)
+    
 
 wxEND_EVENT_TABLE()
 
@@ -64,13 +65,13 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
 
     // Button Set
     setup_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
-    setup_button_config = new wxButton(this, buttonRandCPU_ID, _T("Rand CPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxToggleButton(this, buttonRandCPU_ID, _T("Rand CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
 
-    setup_button_config = new wxButton(this, buttonSmartCPU_ID, _T("Smart CPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxToggleButton(this, buttonSmartCPU_ID, _T("Smart CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5);
 
-    setup_button_config = new wxButton(this, buttonGeniusCPU_ID, _T("Genius CPU"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxToggleButton(this, buttonGeniusCPU_ID, _T("Genius CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5);
 
     window_layout->Add(setup_box_config, 0, wxALIGN_CENTER, 10);
@@ -135,15 +136,18 @@ void RPS_Setup::OnHello(wxCommandEvent& event) {
 /*SET UP*/
 
 void RPS_Setup::OnClick_RandCPU(wxCommandEvent& event) {
-    wxMessageBox("RandCPU!", "RandCPU Button", wxOK | wxICON_INFORMATION, this);
+    // wxMessageBox("RandCPU!", "RandCPU Button", wxOK | wxICON_INFORMATION, this);
+    cout << "RandCPU button pressed" << endl;
 }
 
 void RPS_Setup::OnClick_SmartCPU(wxCommandEvent& event) {
-    wxMessageBox("SmartCPU!", "SmartCPU Button", wxOK | wxICON_INFORMATION, this);
+    // wxMessageBox("SmartCPU!", "SmartCPU Button", wxOK | wxICON_INFORMATION, this);
+    cout << "SmartCPU button pressed" << endl;
 }
 
 void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent& event) {
-    wxMessageBox("GeniusCPU!", "GeniusCPU Button", wxOK | wxICON_INFORMATION, this);
+    // wxMessageBox("GeniusCPU!", "GeniusCPU Button", wxOK | wxICON_INFORMATION, this);
+    cout << "GeniusCPU button pressed" << endl;
 }
 
 Slider::Slider(const wxString& title)

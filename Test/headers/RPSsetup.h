@@ -2,7 +2,8 @@
 #define RPSSETUP_H_
 
 #include <wx/wx.h>
-#include <wx/slider.h>
+#include <wx/slider.h> //slider 
+#include <wx/tglbtn.h> //toggle button
 
 class RPS_Setup : public wxFrame {
   public:
@@ -24,7 +25,7 @@ class RPS_Setup : public wxFrame {
 
       //button configuration
       wxBoxSizer* setup_box_config;
-      wxButton* setup_button_config;
+      wxToggleButton* setup_button_config;
       void OnClick_RandCPU(wxCommandEvent& event);
       void OnClick_SmartCPU(wxCommandEvent& event);
       void OnClick_GeniusCPU(wxCommandEvent& event);
