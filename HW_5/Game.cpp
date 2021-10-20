@@ -49,10 +49,6 @@ void Game::ChoiceExport(vector<vector<int>> choices) {
     }
 }
 
-void screenclear()
-{
-    system("@cls||clear");
-}
 
 Game::Game()
 {
@@ -64,10 +60,9 @@ Game::Game()
 void Game::executeSetup(int setRounds, int setCPUmode) {
     cout << "Rounds: " << setRounds << endl;
     cout << "CPU Mode: " << setCPUmode << endl;
-    player_round_amount = setRounds;
-    cpu_chosen_mode = setCPUmode;
+    max_round = setRounds;
     
-    cpuTurn.setchoiceMethod(cpu_chosen_mode); //cpu_chosen_mode
+    cpuTurn.setchoiceMethod(setCPUmode); //cpu_chosen_mode
     cpuTurn.makeChooser();
 }
 
@@ -75,7 +70,6 @@ void Game::executeSetup(int setRounds, int setCPUmode) {
 GameStats Game::executeMatch(int playerInput) {
     GameStats Round_stats = {0};
     ofstream fileptr;
-            
     
     playerTurn.setMove(playerInput);
     cpuTurn.generateMove(playerInput);
@@ -85,13 +79,17 @@ GameStats Game::executeMatch(int playerInput) {
     Round_stats.Round_Winner = calculateResult(pmove, Round_stats.CPU_move);
 
     updateRound(Round_stats.Round_Winner, pmove, Round_stats.CPU_move);
-    
+        
 
     return Round_stats;
 }
 
-void Game::updateRound(int result, int pmove, int cpumove)
-{
+void Game::update_text_file(){
+    if(cpuTurn.getchoiceMethod() == 2)
+        ChoiceExport(Rounds);
+}
+
+void Game::updateRound(int result, int pmove, int cpumove) {
     vector<int> scores;
     if (result == playerWin) {
         scores.push_back(-1); //cpu loss

@@ -51,8 +51,7 @@ class Game {
         Player playerTurn;
         CPU cpuTurn;
         RPS_Frame *RPS_Game_Frame; 
-        int player_round_amount;
-        int cpu_chosen_mode;
+        int max_round;
 
     public:
         Game();
@@ -72,11 +71,8 @@ class Game {
         
         void executeSetup(int setRounds, int setCPUmode);
         GameStats executeMatch(int playerInput); //play players move
-        int get_Round_Winner();
-        int get_CPU_prediction();
-        int get_CPU_wins();
-        int get_Player_wins();
-        int get_total_ties();
+
+        void update_text_file();
 
         /**
          * @brief Updates the vector that holds each rounds data and increments roundNumber
