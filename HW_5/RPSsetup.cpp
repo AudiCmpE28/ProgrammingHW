@@ -12,25 +12,24 @@ using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
     EVT_MENU(wxID_ABOUT, RPS_Setup::OnAbout)
-        EVT_MENU(wxID_EXIT, RPS_Setup::OnExit)
+    EVT_MENU(wxID_EXIT, RPS_Setup::OnExit)
 
-            EVT_BUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
-                EVT_BUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
-                    EVT_BUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
+    EVT_BUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
+    EVT_BUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
+    EVT_BUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
     // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
 
     EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)
-        wxEND_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
-            RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &size)
-    : wxFrame(NULL, wxID_ANY, title, pos, size)
-{
-
+RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &size)
+    : wxFrame(NULL, wxID_ANY, title, pos, size){
+/*Menu Top Bar*/
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
-    menuHelp->Append(wxID_ABOUT);
+    menuHelp->Append(wxID_ABOUT, "&About...\tCtrl-P", "Game Instructions!");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
@@ -38,7 +37,7 @@ wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Welcome to RPS!      For Game Info, go to Help -> About");
+    SetStatusText("For Game Info, go to 'Help->About' or 'Ctrl-P'");
 
     /* SET UP */
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
@@ -128,28 +127,24 @@ void RPS_Setup::OnAbout(wxCommandEvent &event)
                  "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
-void RPS_Setup::OnExit(wxCommandEvent &event)
-{
+void RPS_Setup::OnExit(wxCommandEvent &event){
     cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
     Close(true);
 }
 
 /*SET UP*/
 
-void RPS_Setup::OnClick_RandCPU(wxCommandEvent &event)
-{
+void RPS_Setup::OnClick_RandCPU(wxCommandEvent &event){
     CPUmode_display->SetLabel("CPU Mode Selected: Random");
     CPUMode = 1;
 }
 
-void RPS_Setup::OnClick_SmartCPU(wxCommandEvent &event)
-{
+void RPS_Setup::OnClick_SmartCPU(wxCommandEvent &event){
     CPUmode_display->SetLabel("CPU Mode Selected: Smart");
     CPUMode = 2;
 }
 
-void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent &event)
-{
+void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent &event){
     // CPUmode_display->SetLabel("CPU Mode Selected: Genius");
     // CPUMode = 3;
     CPUmode_display->SetLabel("Genius CPU DLC Locked ~ Coming Soon");
@@ -162,24 +157,19 @@ Slider::Slider(const wxString &title)
     Center();
 }
 
-void RPS_Setup::OnScroll(wxScrollEvent &event)
-{
+void RPS_Setup::OnScroll(wxScrollEvent &event) {
     fill = slider->GetValue();
     roundNum->SetLabel(wxString::Format(wxT("Rounds: %i"), fill)); //update display
     wxDisplayChangedEvent();                                       // update immediatelly do not wait a second
     Refresh();
 }
 
-void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent &event)
-{
-    if (CPUMode == -1)
-    {
+void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent &event){
+    if (CPUMode == -1) {
         wxMessageBox("Please Select CPU Mode!\n",
                      "No CPU Mode Selected", wxOK | wxICON_INFORMATION);
-    }
-    else
-    {
-        RPS_Game_Frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640));
+    } else {
+        RPS_Game_Frame = new RPS_Frame("", wxPoint(50, 50), wxSize(450, 640));
         RPS_Game_Frame->Center();
         RPS_Game_Frame->Show(true);
         RPS_Game_Frame->set_config(slider->GetValue(), CPUMode);

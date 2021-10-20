@@ -10,7 +10,6 @@
 
 #include "Player.h"
 #include "CPU.h"
-#include "printUI.h"
 #include "ChooserFactory.h"
 
 using std::cin;

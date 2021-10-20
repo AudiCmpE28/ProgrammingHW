@@ -13,27 +13,26 @@ using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     EVT_MENU(ID_RestartGame, RPS_Frame::OnRestart)
-        EVT_MENU(wxID_ABOUT, RPS_Frame::OnAbout)
-            EVT_MENU(wxID_EXIT, RPS_Frame::OnExit)
+    EVT_MENU(wxID_ABOUT, RPS_Frame::OnAbout)
+    EVT_MENU(wxID_EXIT, RPS_Frame::OnExit)
 
-                EVT_BUTTON(buttonRock_ID, RPS_Frame::OnClickRock)
-                    EVT_BUTTON(buttonPaper_ID, RPS_Frame::OnClickPaper)
-                        EVT_BUTTON(buttonScissors_ID, RPS_Frame::OnClickScissors)
+    EVT_BUTTON(buttonRock_ID, RPS_Frame::OnClickRock)
+    EVT_BUTTON(buttonPaper_ID, RPS_Frame::OnClickPaper)
+    EVT_BUTTON(buttonScissors_ID, RPS_Frame::OnClickScissors)
 
     // EVT_SLIDER(ID_SLIDER, RPS_Frame::OnScroll)
-    wxEND_EVENT_TABLE()
+wxEND_EVENT_TABLE()
 
-        RPS_Frame::RPS_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
-    : wxFrame(NULL, wxID_ANY, title, pos, size)
-{
-
+RPS_Frame::RPS_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
+    : wxFrame(NULL, wxID_ANY, title, pos, size) {
+/*Top Bar Menu*/
     wxMenu *menuFile = new wxMenu;
     menuFile->Append(ID_RestartGame, "&Restart...\tCtrl-H", "Restart Game!");
     menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
-    menuHelp->Append(wxID_ABOUT);
+    menuHelp->Append(wxID_ABOUT, "&About...\tCtrl-P", "Game Instructions!");
 
     wxMenuBar *menuBar = new wxMenuBar;
     menuBar->Append(menuFile, "&File");
@@ -41,9 +40,9 @@ wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     SetMenuBar(menuBar);
 
     CreateStatusBar();
-    SetStatusText("Welcome to RPS!      For Game Info, go to Help -> About");
+    SetStatusText("For Game Info, go to 'Help->About' or 'Ctrl-P'");
 
-    /*Play Game*/
+/*Play Game*/
     //window layout for game
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
     game_window = new wxBoxSizer(wxVERTICAL); //items placed vertical
@@ -70,7 +69,7 @@ wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     game_window->Add(round_winner, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(40);
 
-    /*Choose Rock or Paper or Scissors*/
+/*Choose Rock or Paper or Scissors*/
     //bplayer label
     wxFont user_spot(12, wxDEFAULT, wxNORMAL, wxBOLD);
     displayName = new wxStaticText(this, wxID_ANY, wxT("Your Options"), wxPoint(50, 15));
@@ -105,7 +104,7 @@ wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     game_window->Add(Player_choice, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(40);
 
-    /*CPU Data*/
+/*CPU Data*/
     //CPU label
     wxFont cpu_label(12, wxDEFAULT, wxNORMAL, wxBOLD);
     CPU_Opponent_Type = new wxStaticText(this, wxID_ANY, wxT("Modes Computer"), wxPoint(50, 15));
@@ -127,7 +126,7 @@ wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     game_window->Add(CPU_choice, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(40);
 
-    /*Display Totals*/
+/*Display Totals*/
     //stats title
     wxFont stats(12, wxDEFAULT, wxNORMAL, wxBOLD);
     displayName = new wxStaticText(this, wxID_ANY, wxT("Scoreboard"), wxPoint(50, 15));
@@ -156,11 +155,11 @@ wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
     game_window->Add(total_ties, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(20);
 
-    /* finalize window layout*/
+/* finalize window layout*/
     this->SetSizer(game_window);
     this->Layout();
 
-    /*Variables Initial Values*/
+/*Variables Initial Values*/
     round_counter = 1;
     lock_game = false;
 }
@@ -177,17 +176,15 @@ void RPS_Frame::OnAbout(wxCommandEvent &event)
                  "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
-void RPS_Frame::OnRestart(wxCommandEvent &event)
-{
-    Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
+void RPS_Frame::OnRestart(wxCommandEvent &event){
+    Setup_Game_Frame = new RPS_Setup("Re-configuration", wxPoint(50, 50), wxSize(450, 640));
     Setup_Game_Frame->Center();
     Setup_Game_Frame->Show(true);
 
     Close(true);
 }
 
-void RPS_Frame::OnExit(wxCommandEvent &event)
-{
+void RPS_Frame::OnExit(wxCommandEvent &event) {
     cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
     Close(true);
 }
@@ -277,11 +274,11 @@ void RPS_Frame::execute_match(int player_RPS_move)
     //if game is over, lock the game
     if (round_counter > RoundsChosen && lock_game == false)
     {
-        champion = wxString::Format(wxT("%s"
+        champion = wxString::Format(wxT("%s\n"
                                         "\n\nTo Restart Game:\n"
-                                        "\tFile->Restart\n"
+                                        "\tFile->Restart or Ctrl-H\n"
                                         "\nTo Exit Game:\n"
-                                        "\tFile->Exit"),
+                                        "\tFile->Exit or Ctrl-X"),
                                     champion);
         wxMessageBox(champion, "Game Over", wxOK | wxICON_INFORMATION);
         RockPaperScissors->update_text_file();
@@ -289,18 +286,12 @@ void RPS_Frame::execute_match(int player_RPS_move)
     }
 }
 
-void RPS_Frame::set_config(int rounds, int CPUchosen)
-{
-    if (CPUchosen == 1)
-    {
+void RPS_Frame::set_config(int rounds, int CPUchosen) {
+    if (CPUchosen == 1) {
         CPU_Opponent_Type->SetLabel("Random Computer");
-    }
-    else if (CPUchosen == 2)
-    {
+    }else if (CPUchosen == 2) {
         CPU_Opponent_Type->SetLabel("Smart Computer");
-    }
-    else
-    {
+    }else{
         CPU_Opponent_Type->SetLabel("Genius Computer");
     }
 

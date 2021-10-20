@@ -13,13 +13,9 @@ using namespace std;
 bool RPS_App::OnInit(){
     cout << "OnInit: Initializing Rock-Paper-Scissors" << endl;
 
-    RPS_Setup *SetUpFrame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
+    RPS_Setup *SetUpFrame = new RPS_Setup("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
     SetUpFrame->Center();
     SetUpFrame->Show(true);
-    
-    // Game rockPaperScissors;
-    // rockPaperScissors.executeSetup();
-    // rockPaperScissors.executeMatch();
 
     return true;
 }
