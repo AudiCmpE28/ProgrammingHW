@@ -16,8 +16,6 @@ using std::string;
 using std::stringstream;
 using std::to_string;
 
-#define MAXROUNDS 20
-
 void Game::ChoiceExport(vector<vector<int>> choices)
 {
     int roundSIZE = choices.size();
@@ -53,42 +51,25 @@ Game::Game()
     roundNumber = 0;
 }
 
-void Game::executeMatch()
+void Game::initializeGame(int max_rounds, int cpuChoice) {
+    maxRounds = max_rounds;
+    computer.setchoiceMethod(cpuChoice);
+    computer.makeChooser(); // Make chooser based on the cpu choice
+}
+
+void Game::executeRound(int playerMove)
 {
-    int playerInput, cpuChoice, maxRounds;
-    ofstream fileptr;
-    Player playerTurn;
-    CPU cpuTurn;
+    player.setMove(playerMove); // use button input to set move
+    computer.generateMove(playerMove); // make a move based on educated guest from player move
 
-    // somehow get input from screen to cpuChoice
-    cin >> cpuChoice;
-    // get max rounds from screen
-    cin >> maxRounds;
-    cpuTurn.setchoiceMethod(cpuChoice);
-    cpuTurn.makeChooser(); // make chooser based on CPU choice
-    // Print instructions somewhere on the screen around this point
-    while (roundNumber < maxRounds) // roundNumber part of the game class, updated in updateRound class
-    {
-        // get player input from button
-        cin >> playerInput;
+    int result = calculateResult(player.getMove(), computer.getMove()); // Gets the round result based on the move
+    updateRound(result, player.getMove(), computer.getMove()); // Updates the vector with the moves, and who won
 
-        playerTurn.setMove(playerInput); // use button input to set move
-        cpuTurn.generateMove(playerInput); // make a move based on educated guest from player move
+}
 
-        playerTurn.printPlayerMove(); // Function used to print player move, move this to UI
-        cpuTurn.printCPUMove(); // Function used to print CPU move, move this to UI by calling "move" variable in class 
-        int pmove = playerTurn.getMove();
-        int cpumove = cpuTurn.getMove();
-        int result = calculateResult(pmove, cpumove); // Gets the round result based on the move
-        // printer.printRoundResult(roundNumber + 1, result); // Print result on UI, so get rid of this and print in UI instead
-        updateRound(result, pmove, cpumove); // Updates the vector with the moves, and who won
-    }
-
-    // Game is over once while loop is over
-
-    if (cpuTurn.getchoiceMethod() == 2)
-        ChoiceExport(Rounds); // Export round results to file
-    // printer.printFinalResults(Rounds); // print final results, but this should be moved to UI
+void Game::exportGameData() {
+    if (computer.getchoiceMethod() == 2) // if the game was a smartCPU game
+        ChoiceExport(Rounds);
 }
 
 void Game::updateRound(int result, int pmove, int cpumove)
@@ -125,12 +106,6 @@ void Game::updateRound(int result, int pmove, int cpumove)
 
 int Game::calculateResult(int pmove, int cpumove)
 {
-    enum move
-    {
-        rock = 1,
-        paper,
-        scissors
-    };
     // Rock =1, Paper=2, Scissors=3
     if ((pmove == cpumove - 1) || (pmove - 2 == cpumove))
         return cpuWin;
@@ -138,4 +113,28 @@ int Game::calculateResult(int pmove, int cpumove)
         return playerWin;
     else
         return tie;
+}
+
+string convertNumToMove(int move) {
+    string retValue;
+    if (move == 1) 
+        retValue = "Rock";
+    else if (move == 2) 
+        retValue = "Paper";
+    else if (move == 3)
+        retValue = "Scissors";
+
+    return retValue;
+}
+
+string convertNumToWinner(int winner) {
+    string retValue;
+    if (winner == 1) 
+        retValue = "Player Wins!";
+    else if (winner == 2) 
+        retValue = "CPU Wins!";
+    else if (winner == -1)
+        retValue = "Tie!";
+
+    return retValue;
 }

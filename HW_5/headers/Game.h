@@ -22,15 +22,22 @@ using std::ofstream;
 class Game
 {
 private:
-    int scorePlayer;
-    int scoreCPU;
     int roundNumber;            //tracks actual round
-    vector<vector<int> > Rounds; //Cpu index 0, player index 1
+    int maxRounds;
+    vector<vector<int>> Rounds; //Cpu index 0, player index 1
+    Player player;
+    CPU computer;
     enum winner
     {
         tie = -1,
         playerWin = 1,
         cpuWin = 2
+    };
+    enum moveTypes
+    {
+        rock = 1,
+        paper,
+        scissors
     };
 
 public:
@@ -45,9 +52,19 @@ public:
     void ChoiceExport(vector<vector<int> > choices);
 
     /**
-     * @brief Prints the prompt, ask for input per round for 20 rounds, then display a summary table and overall winner
+     * @brief Set the player move, make the CPU move, calculate and save winner, update round
      */
-    void executeMatch();
+    void executeRound(int playerMove);
+
+    /**
+     * @brief Initialize how many rounds and what the CPU chooser is
+     */
+    void initializeGame(int round, int cpuChoice);
+
+    /**
+     * @brief Used at the end of the game to export game data for smartCPU games
+     */
+    void exportGameData();
 
     /**
      * @brief Updates the vector that holds each rounds data and increments roundNumber
