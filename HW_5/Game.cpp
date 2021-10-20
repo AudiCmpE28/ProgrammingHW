@@ -10,16 +10,19 @@
 #include "stdio.h"
 #include "stdlib.h"
 
+// #include <wx/wx.h>
+// #include "headers/RPSmain.h"
+// #include "headers/RPSsetup.h"
+#include "headers/RPSframe.h"
+
 using std::ifstream;
 using std::ofstream;
 using std::string;
 using std::stringstream;
 using std::to_string;
 
-#define MAXROUNDS 20
 
-void Game::ChoiceExport(vector<vector<int>> choices)
-{
+void Game::ChoiceExport(vector<vector<int>> choices) {
     int roundSIZE = choices.size();
     int count = 0;
     ofstream fileptr;
@@ -58,80 +61,39 @@ Game::Game()
     roundNumber = 0;
 }
 
-void Game::executeMatch()
-{
-    int playerInput, cpuChoice;
-    ofstream fileptr;
-    Player playerTurn;
-    CPU cpuTurn;
-    printUI printer;
-    screenclear();
-
-    cout << "Choose how you want the CPU to pick his move:\n"
-         << "1 -> Random\n"
-         << "2 -> Smart\n"
-         << "3 -> Genius\n"
-         << "Enter Number: ";
-    while (true)
-    {
-        cin >> cpuChoice;
-
-        if ((cin) && (cpuChoice >= 1) && (cpuChoice <= 3))
-            break;
-        screenclear();
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << "Invalid Input! Please enter a number between 1-3\n"
-             << "Enter Number for Choice: ";
-    }
-
-    cpuTurn.setchoiceMethod(cpuChoice);
+void Game::executeSetup(int setRounds, int setCPUmode) {
+    cout << "Rounds: " << setRounds << endl;
+    cout << "CPU Mode: " << setCPUmode << endl;
+    player_round_amount = setRounds;
+    cpu_chosen_mode = setCPUmode;
+    
+    cpuTurn.setchoiceMethod(cpu_chosen_mode); //cpu_chosen_mode
     cpuTurn.makeChooser();
-    screenclear();
-    printer.printInitialPrompt();
-    while (roundNumber < MAXROUNDS)
-    {
-        cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
+}
 
-        while (true)
-        {
-            cin >> playerInput;
 
-            if ((cin) && (playerInput >= 1) && (playerInput <= 3))
-                break;
-            screenclear();
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid Input! Please enter a number between 1-3\n"
-                 << "Your move: ";
-        }
-        playerTurn.setMove(playerInput);
-        cpuTurn.generateMove(playerInput);
-        screenclear();
+GameStats Game::executeMatch(int playerInput) {
+    GameStats Round_stats = {0};
+    ofstream fileptr;
+            
+    
+    playerTurn.setMove(playerInput);
+    cpuTurn.generateMove(playerInput);
+    
+    int pmove = playerTurn.getMove();
+    Round_stats.CPU_move = cpuTurn.getMove();
+    Round_stats.Round_Winner = calculateResult(pmove, Round_stats.CPU_move);
 
-        cout << "###  Round " << roundNumber + 1 << "  ###\n";
-        playerTurn.printPlayerMove();
-        cpuTurn.printCPUMove();
-        int pmove = playerTurn.getMove();
-        int cpumove = cpuTurn.getMove();
-        int result = calculateResult(pmove, cpumove);
-        printer.printRoundResult(roundNumber + 1, result);
-        updateRound(result, pmove, cpumove);
-        cout << endl;
-    }
-    screenclear();
-    cout << "All 20 Rounds have been played! The game is over!\n";
+    updateRound(Round_stats.Round_Winner, pmove, Round_stats.CPU_move);
+    
 
-    if (cpuTurn.getchoiceMethod() == 2)
-        ChoiceExport(Rounds);
-    printer.printFinalResults(Rounds);
+    return Round_stats;
 }
 
 void Game::updateRound(int result, int pmove, int cpumove)
 {
     vector<int> scores;
-    if (result == playerWin)
-    {
+    if (result == playerWin) {
         scores.push_back(-1); //cpu loss
         scores.push_back(1);  //player win
         scores.push_back(cpumove);
@@ -158,6 +120,8 @@ void Game::updateRound(int result, int pmove, int cpumove)
     Rounds.push_back(scores);
     roundNumber++;
 }
+
+
 
 int Game::calculateResult(int pmove, int cpumove)
 {

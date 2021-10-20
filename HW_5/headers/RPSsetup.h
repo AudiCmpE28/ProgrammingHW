@@ -8,13 +8,16 @@
 
 class RPS_Frame; //to not include class and cause infinite repetition
 
+// class Game;
+
 class RPS_Setup : public wxFrame {
   public:
     RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& size);
-    RPS_Frame* getGameFrame();
+    
 
   private:
     RPS_Frame* RPS_Game_Frame;
+    // Game* rockPaperScissors;
 
     //menu on top bar
     void OnHello(wxCommandEvent& event);
@@ -28,6 +31,10 @@ class RPS_Setup : public wxFrame {
 
 /*Title*/
     wxStaticText *heading;
+
+/*CPU Mode*/
+    wxStaticText *CPUmode_display;
+    int CPUMode;
 
 /*button configuration*/
     wxBoxSizer* setup_box_config;
@@ -44,7 +51,6 @@ class RPS_Setup : public wxFrame {
 
 /*submit game settings button*/
     wxButton* submit_button_config;
-    
     void OnClick_SubmitInfo(wxCommandEvent& event);
 
     wxDECLARE_EVENT_TABLE();

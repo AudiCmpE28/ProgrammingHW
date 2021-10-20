@@ -6,6 +6,8 @@
 #include "headers/RPSsetup.h"
 #include "headers/RPSframe.h" // other class
 
+#include "headers/Game.h"
+
 using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
@@ -64,7 +66,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(10);
 
-    // Button Set
+    // Button Set 
     setup_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
     setup_button_config = new wxToggleButton(this, buttonRandCPU_ID, _T("Rand CPU"), wxDefaultPosition, wxDefaultSize, 0);
     setup_box_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
@@ -76,8 +78,14 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     setup_box_config->Add(setup_button_config, 0, wxALL, 5);
 
     window_layout->Add(setup_box_config, 0, wxALIGN_CENTER, 10);
-    window_layout->AddSpacer(50);
+    window_layout->AddSpacer(10);
 
+    // Button Set Display
+    wxFont cpuMode_display(8, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    CPUmode_display = new wxStaticText(this, wxID_ANY, wxT("CPU Mode Selected: None"), wxPoint(50, 15));
+    CPUmode_display->SetFont(cpuMode_display);
+    window_layout->Add(CPUmode_display, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(50);
 
 /*Round Amount */
     // Slider Title
@@ -89,7 +97,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     
     // Slider for Rounds
     fill = 0;
-    slider = new wxSlider(this, ID_SLIDER, 0, 0, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
+    slider = new wxSlider(this, ID_SLIDER, 1, 1, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
     Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(RPS_Setup::OnScroll)); 
     window_layout->Add(slider, 0, wxALIGN_CENTER, 10);
     
@@ -98,19 +106,26 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     roundNum = new wxStaticText(this, wxID_ANY, wxT("Rounds: 0"), wxPoint(50, 15)); // initial message
     roundNum->SetFont(display_slider);
     window_layout->Add(roundNum, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(80);
+    window_layout->AddSpacer(70);
 
 /*Submit Button*/
     //button config
     submit_button_config = new wxButton(this, buttonSubmit_ID, _T("Submit Configuration"), wxDefaultPosition, wxDefaultSize, 0);
     window_layout->Add(submit_button_config, 0, wxALIGN_BOTTOM | wxALIGN_CENTER , 10);
-    // window_layout->AddSpacer(20);
-
+    window_layout->AddSpacer(10);
+    // //submit button
+    // wxFont slider_title(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    // heading = new wxStaticText(this, wxID_ANY, wxT("Choose Amount of Rounds:"), wxPoint(50, 15));
+    // heading->SetFont(slider_title);
+    // window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    // window_layout->AddSpacer(80);
 
 /*Finalize layout*/
     this->SetSizer(window_layout);
     this->Layout();
     this->Centre();   
+
+    CPUMode = 0;
 }
 
 void RPS_Setup::OnAbout(wxCommandEvent& event) {
@@ -139,16 +154,22 @@ void RPS_Setup::OnHello(wxCommandEvent& event) {
 void RPS_Setup::OnClick_RandCPU(wxCommandEvent& event) {
     // wxMessageBox("RandCPU!", "RandCPU Button", wxOK | wxICON_INFORMATION, this);
     cout << "RandCPU button pressed" << endl;
+    CPUmode_display->SetLabel("CPU Mode Selected: Random");
+    CPUMode = 1;
 }
 
 void RPS_Setup::OnClick_SmartCPU(wxCommandEvent& event) {
     // wxMessageBox("SmartCPU!", "SmartCPU Button", wxOK | wxICON_INFORMATION, this);
     cout << "SmartCPU button pressed" << endl;
+    CPUmode_display->SetLabel("CPU Mode Selected: Smart");
+    CPUMode = 2;
 }
 
 void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent& event) {
     // wxMessageBox("GeniusCPU!", "GeniusCPU Button", wxOK | wxICON_INFORMATION, this);
     cout << "GeniusCPU button pressed" << endl;
+    CPUmode_display->SetLabel("CPU Mode Selected: Genius");
+    CPUMode = 3;
 }
 
 Slider::Slider(const wxString& title)
@@ -169,7 +190,13 @@ void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent& event) {
     RPS_Game_Frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640));
     RPS_Game_Frame->Center();
     RPS_Game_Frame->Show(true);
+    RPS_Game_Frame->set_config(slider->GetValue(), CPUMode);
 
     Close(true); // closes window
-    // Destroy(); //force closes window
+    // // Destroy(); //force closes window
+
+    // rockPaperScissors = new Game();
+    // rockPaperScissors->executeSetup(slider->GetValue(), CPUMode);
+    // rockPaperScissors->executeMatch(); 
 }
+

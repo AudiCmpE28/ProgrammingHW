@@ -3,6 +3,8 @@
 #include "headers/RPSframe.h"
 #include "headers/RPSsetup.h" //other class
 
+#include "headers/Game.h"
+
 using namespace std;
 
  //Rock Button
@@ -161,6 +163,8 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 /* finalize window layout*/
     this->SetSizer(game_window);
     this->Layout();    
+
+    player_chose_RPS=false;
 }
 
 
@@ -176,11 +180,12 @@ void RPS_Frame::OnAbout(wxCommandEvent& event) {
 }
 
 void RPS_Frame::OnRestart(wxCommandEvent& event){
-    Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
-    Setup_Game_Frame->Center();
-    Setup_Game_Frame->Show(true);
+    // Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
+    // Setup_Game_Frame->Center();
+    // Setup_Game_Frame->Show(true);
 
-    Close(true);
+    // Close(true);
+    cout << "N/A ATM" << endl;
 }
 
 void RPS_Frame::OnExit(wxCommandEvent& event) {
@@ -191,16 +196,42 @@ void RPS_Frame::OnExit(wxCommandEvent& event) {
 
 /*Play*/
 void RPS_Frame::OnClickRock(wxCommandEvent& event) {
-    // // wxString msg = _T("Hello World");
-    // // wxString info = _T("linux-buddy");
-    // wxMessageBox("Rock!", "Rock Button", wxOK | wxICON_INFORMATION, this);
     Player_choice->SetLabel("Player's Move: Rock");
+    GameStats game_info = RockPaperScissors->executeMatch(1); 
+    cout << "CPU Move: " << game_info.CPU_move << endl;
+    cout << "round winnerL  " << game_info.Round_Winner << endl;
 }
 
 void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
     Player_choice->SetLabel("Player's Move: Paper");
+    // player_RPS_move = 2;
+    // player_chose_RPS = true;
+    GameStats game_info = RockPaperScissors->executeMatch(2); 
+    cout << "CPU Move: " << game_info.CPU_move << endl;
+    cout << "round winnerL  " << game_info.Round_Winner << endl;
 }
 
 void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
     Player_choice->SetLabel("Player's Move: Scissors");
+    // player_RPS_move = 3;
+    // player_chose_RPS = true;
+    GameStats game_info = RockPaperScissors->executeMatch(3); 
+    cout << "CPU Move: " << game_info.CPU_move << endl;
+    cout << "round winnerL  " << game_info.Round_Winner << endl;
+}
+
+int RPS_Frame::getPlayerMove(){
+    return player_RPS_move;
+}
+
+void RPS_Frame::resetPlayerMove(){
+    player_chose_RPS = false;
+}
+
+void RPS_Frame::set_config(int rounds, int cpusMove){
+    RoundsChosen = rounds;
+    CPUchosen = cpusMove;
+
+    RockPaperScissors = new Game();
+    RockPaperScissors->executeSetup(RoundsChosen, CPUchosen);
 }

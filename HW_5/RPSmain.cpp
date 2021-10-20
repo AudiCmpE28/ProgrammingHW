@@ -2,6 +2,11 @@
 #include "headers/RPSmain.h"
 #include "headers/RPSsetup.h"
 
+#include <iostream>
+#include "headers/Game.h"
+#include "headers/ChooserFactory.h"
+#include <time.h>
+
 using namespace std;
 
 
@@ -11,6 +16,10 @@ bool RPS_App::OnInit(){
     RPS_Setup *SetUpFrame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
     SetUpFrame->Center();
     SetUpFrame->Show(true);
+    
+    // Game rockPaperScissors;
+    // rockPaperScissors.executeSetup();
+    // rockPaperScissors.executeMatch();
 
     return true;
 }

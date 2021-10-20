@@ -3,15 +3,22 @@
 
 #include <wx/wx.h>
 
-class RPS_Setup;
+class Game;
 
 class RPS_Frame: public wxFrame {
     public:
         RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-        RPS_Setup* getSetup_Game_Frame();
+        // RPS_Setup* getSetup_Game_Frame();
+        int getPlayerMove();
+        void resetPlayerMove();
+        bool player_chose_RPS;
+
+        void set_config(int rounds, int cpusMove);
+
 
     private:
-        RPS_Setup* Setup_Game_Frame;
+        // RPS_Setup* Setup_Game_Frame;
+        Game *RockPaperScissors;
 
         //menu on top bar
         void OnRestart(wxCommandEvent& event);
@@ -35,6 +42,9 @@ class RPS_Frame: public wxFrame {
         //Player choice
         wxStaticText *Player_choice;
 
+        //Player's Move
+        int player_RPS_move;
+
         //Button set up for RPS
         wxBoxSizer* game_button_layout;
         wxButton* game_button_config;
@@ -57,6 +67,11 @@ class RPS_Frame: public wxFrame {
 
         //total ties between CPU and Player
         wxStaticText *total_ties;
+
+/*Player made Move*/
+        // bool player_chose_RPS;
+        int RoundsChosen;
+        int CPUchosen;
 
         wxDECLARE_EVENT_TABLE();
 };
