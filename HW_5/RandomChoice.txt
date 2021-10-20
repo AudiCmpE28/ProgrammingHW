@@ -1,0 +1,143 @@
+Choose how you want the CPU to pick his move:
+1 -> Random
+2 -> Smart
+3 -> Genius
+Enter Number: 1
+
+Welcome to Rock, Paper, Scissors!
+The game is simple, pick rock, paper, or scissors by entering a number between 1 to 3
+Paper beats Rock, Scissors beats paper, and Rock bears Scissors.
+There will be a total of 20 rounds!
+Here are the numbers that represent each moves:
+1 -> Rock
+2 -> Paper
+3 -> Scissors
+Please Enter a Number between 1-3 to choose your move!
+Enter your move for Round #1: 2
+###  Round 1  ###
+Player : Paper
+CPU : Rock
+Round #1 Result: Player Wins!
+
+Enter your move for Round #2: 3
+###  Round 2  ###
+Player : Scissors
+CPU : Rock
+Round #2 Result: CPU Wins!
+
+Enter your move for Round #3: 1
+###  Round 3  ###
+Player : Rock
+CPU : Paper
+Round #3 Result: CPU Wins!
+
+Enter your move for Round #4: 2
+###  Round 4  ###
+Player : Paper
+CPU : Rock
+Round #4 Result: Player Wins!
+
+Enter your move for Round #5: 1
+###  Round 5  ###
+Player : Rock
+CPU : Paper
+Round #5 Result: CPU Wins!
+
+Enter your move for Round #6: 3
+###  Round 6  ###
+Player : Scissors
+CPU : Paper
+Round #6 Result: Player Wins!
+
+Enter your move for Round #7: 2
+###  Round 7  ###
+Player : Paper
+CPU : Rock
+Round #7 Result: Player Wins!
+
+Enter your move for Round #8: 3
+###  Round 8  ###
+Player : Scissors
+CPU : Scissors
+Round #8 Result: Tie!
+
+Enter your move for Round #9: 1
+###  Round 9  ###
+Player : Rock
+CPU : Paper
+Round #9 Result: CPU Wins!
+
+Enter your move for Round #10: 2
+###  Round 10  ###
+Player : Paper
+CPU : Rock
+Round #10 Result: Player Wins!
+
+Enter your move for Round #11: 3
+###  Round 11  ###
+Player : Scissors
+CPU : Scissors
+Round #11 Result: Tie!
+
+Enter your move for Round #12: 1
+###  Round 12  ###
+Player : Rock
+CPU : Rock
+Round #12 Result: Tie!
+
+Enter your move for Round #13: 2
+###  Round 13  ###
+Player : Paper
+CPU : Paper
+Round #13 Result: Tie!
+
+Enter your move for Round #14: 3
+###  Round 14  ###
+Player : Scissors
+CPU : Scissors
+Round #14 Result: Tie!
+
+Enter your move for Round #15: 1
+###  Round 15  ###
+Player : Rock
+CPU : Scissors
+Round #15 Result: Player Wins!
+
+Enter your move for Round #16: 2
+###  Round 16  ###
+Player : Paper
+CPU : Rock
+Round #16 Result: Player Wins!
+
+Enter your move for Round #17: 3
+###  Round 17  ###
+Player : Scissors
+CPU : Scissors
+Round #17 Result: Tie!
+
+Enter your move for Round #18: 2
+###  Round 18  ###
+Player : Paper
+CPU : Rock
+Round #18 Result: Player Wins!
+
+Enter your move for Round #19: 3
+###  Round 19  ###
+Player : Scissors
+CPU : Paper
+Round #19 Result: Player Wins!
+
+Enter your move for Round #20: 1
+###  Round 20  ###
+Player : Rock
+CPU : Scissors
+Round #20 Result: Player Wins!
+
+All 20 Rounds have been played! The game is over!
+#########################################[Round details]##########################################
+# Round          :   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20
+# Player Stats   :   W   L   L   W   L   W   W   -   L   W   -   -   -   -   W   W   -   W   W   W
+# CPU Stats      :   L   W   W   L   W   L   L   -   W   L   -   -   -   -   L   L   -   L   L   L
+# Player Total   :   10
+# CPU Total      :   4
+##########################################[PLAYER WINS]###########################################

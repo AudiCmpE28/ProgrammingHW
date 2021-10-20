@@ -8,10 +8,12 @@ class CPU
 private:
     int move;
     int choiceMethod;
+    Chooser *chooser;
 
 public:
     CPU(/* args */);
-    void generateMove();
+    void generateMove(int playerChoice);
+    void makeChooser();
     int getMove();
     int getchoiceMethod();
     void setchoiceMethod(int choice);
