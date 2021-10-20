@@ -7,7 +7,6 @@
 #include <iomanip>
 #include "Player.h"
 #include "CPU.h"
-#include "printUI.h"
 #include "ChooserFactory.h"
 #include <fstream>
 using std::cin;

@@ -46,11 +46,6 @@ void Game::ChoiceExport(vector<vector<int>> choices)
     }
 }
 
-void screenclear()
-{
-    system("@cls||clear");
-}
-
 Game::Game()
 {
     // this->turn = turn & 1; //0 or 1, start game with player or CPU turn
@@ -60,71 +55,40 @@ Game::Game()
 
 void Game::executeMatch()
 {
-    int playerInput, cpuChoice;
+    int playerInput, cpuChoice, maxRounds;
     ofstream fileptr;
     Player playerTurn;
     CPU cpuTurn;
-    printUI printer;
-    screenclear();
 
-    cout << "Choose how you want the CPU to pick his move:\n"
-         << "1 -> Random\n"
-         << "2 -> Smart\n"
-         << "3 -> Genius\n"
-         << "Enter Number: ";
-    while (true)
-    {
-        cin >> cpuChoice;
-
-        if ((cin) && (cpuChoice >= 1) && (cpuChoice <= 3))
-            break;
-        screenclear();
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << "Invalid Input! Please enter a number between 1-3\n"
-             << "Enter Number for Choice: ";
-    }
-
+    // somehow get input from screen to cpuChoice
+    cin >> cpuChoice;
+    // get max rounds from screen
+    cin >> maxRounds;
     cpuTurn.setchoiceMethod(cpuChoice);
-    cpuTurn.makeChooser();
-    screenclear();
-    printer.printInitialPrompt();
-    while (roundNumber < MAXROUNDS)
+    cpuTurn.makeChooser(); // make chooser based on CPU choice
+    // Print instructions somewhere on the screen around this point
+    while (roundNumber < maxRounds) // roundNumber part of the game class, updated in updateRound class
     {
-        cout << "Enter your move for Round #" << roundNumber + 1 << ": ";
+        // get player input from button
+        cin >> playerInput;
 
-        while (true)
-        {
-            cin >> playerInput;
+        playerTurn.setMove(playerInput); // use button input to set move
+        cpuTurn.generateMove(playerInput); // make a move based on educated guest from player move
 
-            if ((cin) && (playerInput >= 1) && (playerInput <= 3))
-                break;
-            screenclear();
-            cin.clear();
-            cin.ignore(1000, '\n');
-            cout << "Invalid Input! Please enter a number between 1-3\n"
-                 << "Your move: ";
-        }
-        playerTurn.setMove(playerInput);
-        cpuTurn.generateMove(playerInput);
-        screenclear();
-
-        cout << "###  Round " << roundNumber + 1 << "  ###\n";
-        playerTurn.printPlayerMove();
-        cpuTurn.printCPUMove();
+        playerTurn.printPlayerMove(); // Function used to print player move, move this to UI
+        cpuTurn.printCPUMove(); // Function used to print CPU move, move this to UI by calling "move" variable in class 
         int pmove = playerTurn.getMove();
         int cpumove = cpuTurn.getMove();
-        int result = calculateResult(pmove, cpumove);
-        printer.printRoundResult(roundNumber + 1, result);
-        updateRound(result, pmove, cpumove);
-        cout << endl;
+        int result = calculateResult(pmove, cpumove); // Gets the round result based on the move
+        // printer.printRoundResult(roundNumber + 1, result); // Print result on UI, so get rid of this and print in UI instead
+        updateRound(result, pmove, cpumove); // Updates the vector with the moves, and who won
     }
-    screenclear();
-    cout << "All 20 Rounds have been played! The game is over!\n";
+
+    // Game is over once while loop is over
 
     if (cpuTurn.getchoiceMethod() == 2)
-        ChoiceExport(Rounds);
-    printer.printFinalResults(Rounds);
+        ChoiceExport(Rounds); // Export round results to file
+    // printer.printFinalResults(Rounds); // print final results, but this should be moved to UI
 }
 
 void Game::updateRound(int result, int pmove, int cpumove)
