@@ -1,17 +1,18 @@
 #ifndef GAME_H
 #define GAME_H
 
-
-
 #include <vector>
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
+#include <wx/wx.h>
+
 #include "Player.h"
 #include "CPU.h"
 #include "printUI.h"
 #include "ChooserFactory.h"
-#include <fstream>
+
 using std::cin;
 using std::cout;
 using std::endl;
@@ -21,11 +22,10 @@ using std::setw;
 using std::string;
 using std::vector;
 using std::ofstream;
+using std::ifstream;
+using std::stringstream;
+using std::to_string;
 
-#include <wx/wx.h>
-
-
-class RPS_Frame;
 
 struct GameStats{
     int Round_Winner;
@@ -50,8 +50,7 @@ class Game {
         };
         Player playerTurn;
         CPU cpuTurn;
-        RPS_Frame *RPS_Game_Frame; 
-        int max_round;
+        int CPU_Mode;
 
     public:
         Game();
@@ -69,7 +68,7 @@ class Game {
          */
         
         
-        void executeSetup(int setRounds, int setCPUmode);
+        void executeSetup(int setCPUmode);
         GameStats executeMatch(int playerInput); //play players move
 
         void update_text_file();

@@ -10,12 +10,13 @@ class RPS_Setup;
 class RPS_Frame: public wxFrame {
     public:
         RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-        // RPS_Setup* reset_game();
+
+        //
         int getPlayerMove();
         void resetPlayerMove();
         bool player_chose_RPS;
 
-        void set_config(int rounds, int cpusMove);
+        void set_config(int rounds, int CPUchosen);
 
 
     private:
@@ -58,6 +59,9 @@ class RPS_Frame: public wxFrame {
         void execute_match(int player_RPS_move);
 
 /*CPU*/
+        //CPU Mode Type
+        wxStaticText *CPU_Opponent_Type;
+        
         //CPU player prediction
         wxStaticText *CPU_prediction;
 
@@ -76,7 +80,6 @@ class RPS_Frame: public wxFrame {
 /*Player made Move*/
         // bool player_chose_RPS;
         int RoundsChosen;
-        int CPUchosen;
 
         void calculateFinalWinner(int cpu_wins, int player_wins);
         wxString champion;
@@ -84,7 +87,7 @@ class RPS_Frame: public wxFrame {
         wxDECLARE_EVENT_TABLE();
 };
 
-enum {
+enum id_nums{
     ID_RestartGame = 4
 };
 

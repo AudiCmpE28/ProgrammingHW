@@ -11,7 +11,6 @@
 using namespace std;
 
 wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
-    EVT_MENU(ID_Hello, RPS_Setup::OnHello)
     EVT_MENU(wxID_ABOUT, RPS_Setup::OnAbout)
     EVT_MENU(wxID_EXIT, RPS_Setup::OnExit)
 
@@ -21,7 +20,6 @@ wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
     // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
 
     EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)   
-
 wxEND_EVENT_TABLE()
 
 
@@ -30,8 +28,6 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
             : wxFrame(NULL, wxID_ANY, title, pos, size) {
 
     wxMenu *menuFile = new wxMenu;
-    menuFile->Append(ID_Hello, "&Hello...\tCtrl-H", "The Game isn't here!");
-    menuFile->AppendSeparator();
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
@@ -103,7 +99,7 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     
     //Slider Rounds Number selected
     wxFont display_slider(8, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    roundNum = new wxStaticText(this, wxID_ANY, wxT("Rounds: 0"), wxPoint(50, 15)); // initial message
+    roundNum = new wxStaticText(this, wxID_ANY, wxT("Rounds: Default 1"), wxPoint(50, 15)); // initial message
     roundNum->SetFont(display_slider);
     window_layout->Add(roundNum, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(70);
@@ -113,19 +109,14 @@ RPS_Setup::RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& si
     submit_button_config = new wxButton(this, buttonSubmit_ID, _T("Submit Configuration"), wxDefaultPosition, wxDefaultSize, 0);
     window_layout->Add(submit_button_config, 0, wxALIGN_BOTTOM | wxALIGN_CENTER , 10);
     window_layout->AddSpacer(10);
-    // //submit button
-    // wxFont slider_title(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    // heading = new wxStaticText(this, wxID_ANY, wxT("Choose Amount of Rounds:"), wxPoint(50, 15));
-    // heading->SetFont(slider_title);
-    // window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    // window_layout->AddSpacer(80);
 
 /*Finalize layout*/
     this->SetSizer(window_layout);
     this->Layout();
     this->Centre();   
 
-    CPUMode = 0;
+/*Declare variables*/
+    CPUMode = -1;
 }
 
 void RPS_Setup::OnAbout(wxCommandEvent& event) {
@@ -143,29 +134,24 @@ void RPS_Setup::OnExit(wxCommandEvent& event) {
     Close(true);
 }
 
-void RPS_Setup::OnHello(wxCommandEvent& event) {
-    wxMessageBox("Hello, foo!", "OnHello", wxOK | wxICON_INFORMATION);
-}
-
 
 /*SET UP*/
 
 void RPS_Setup::OnClick_RandCPU(wxCommandEvent& event) {
-    // wxMessageBox("RandCPU!", "RandCPU Button", wxOK | wxICON_INFORMATION, this);
     CPUmode_display->SetLabel("CPU Mode Selected: Random");
     CPUMode = 1;
 }
 
 void RPS_Setup::OnClick_SmartCPU(wxCommandEvent& event) {
-    // wxMessageBox("SmartCPU!", "SmartCPU Button", wxOK | wxICON_INFORMATION, this);
     CPUmode_display->SetLabel("CPU Mode Selected: Smart");
     CPUMode = 2;
 }
 
 void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent& event) {
-    // wxMessageBox("GeniusCPU!", "GeniusCPU Button", wxOK | wxICON_INFORMATION, this);
-    CPUmode_display->SetLabel("CPU Mode Selected: Genius");
-    CPUMode = 3;
+    // CPUmode_display->SetLabel("CPU Mode Selected: Genius");
+    // CPUMode = 3;
+    CPUmode_display->SetLabel("Genius CPU DLC Locked ~ Coming Soon");
+    CPUMode = -1; //temporary
 }
 
 Slider::Slider(const wxString& title)
@@ -181,18 +167,17 @@ void RPS_Setup::OnScroll(wxScrollEvent& event) {
 }
 
 void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent& event) {
-    // wxMessageBox("Submitted!", "SubmitInfo Button", wxOK | wxICON_INFORMATION, this);
-    cout << "Submitted button pressed" << endl;
-    RPS_Game_Frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640));
-    RPS_Game_Frame->Center();
-    RPS_Game_Frame->Show(true);
-    RPS_Game_Frame->set_config(slider->GetValue(), CPUMode);
+    if(CPUMode == -1){
+            wxMessageBox("Please Select CPU Mode!\n", 
+                 "No CPU Mode Selected", wxOK | wxICON_INFORMATION);
+    }else{
+        RPS_Game_Frame = new RPS_Frame("Rock-Paper-Scissors", wxPoint(50, 50), wxSize(450, 640));
+        RPS_Game_Frame->Center();
+        RPS_Game_Frame->Show(true);
+        RPS_Game_Frame->set_config(slider->GetValue(), CPUMode);
 
-    Close(true); // closes window
-    // // Destroy(); //force closes window
-
-    // rockPaperScissors = new Game();
-    // rockPaperScissors->executeSetup(slider->GetValue(), CPUMode);
-    // rockPaperScissors->executeMatch(); 
+        Close(true); // closes window
+        // Destroy(); //force closes window [Dangerous]
+    }
 }
 

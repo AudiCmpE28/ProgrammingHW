@@ -111,9 +111,9 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 /*CPU Data*/
     //CPU label
     wxFont cpu_label(12, wxDEFAULT, wxNORMAL, wxBOLD);
-    displayName = new wxStaticText(this, wxID_ANY, wxT("Computer"), wxPoint(50, 15));
-    displayName->SetFont(cpu_label);
-    game_window->Add(displayName, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    CPU_Opponent_Type = new wxStaticText(this, wxID_ANY, wxT("Modes Computer"), wxPoint(50, 15));
+    CPU_Opponent_Type->SetFont(cpu_label);
+    game_window->Add(CPU_Opponent_Type, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(20);
 
     //CPU Predcition
@@ -164,7 +164,8 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
     this->SetSizer(game_window);
     this->Layout();  
 
-    round_counter = 2;  
+/*Variables Initial Values*/
+    round_counter = 1;  
     lock_game = false;
 }
 
@@ -246,35 +247,49 @@ void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins){
 }
 
 void RPS_Frame::execute_match(int player_RPS_move){
+    //while within round amount
     if(round_counter <= RoundsChosen){
         GameStats game_info = RockPaperScissors->executeMatch(player_RPS_move);
         
-        //set display names correct 
         current_round->SetLabel(wxString::Format(wxT("Round: %i"), round_counter));
         round_counter++;
         round_winner->SetLabel(wxString::Format(wxT("Winner: %s"), NtoWinner(game_info.Round_Winner)));
-
-        CPU_prediction->SetLabel(wxString::Format(wxT("CPU predicted Player Move To Be: %s"), NtoMove(game_info.CPU_prediction)));
+        if(game_info.CPU_prediction != 0){
+            CPU_prediction->SetLabel(wxString::Format(wxT("CPU predicted Player Move To Be: %s"), NtoMove(game_info.CPU_prediction)));
+        }
         CPU_choice->SetLabel(wxString::Format(wxT("Computer's Move: %s"), NtoMove(game_info.CPU_move)));
         
         total_CPU_wins->SetLabel(wxString::Format(wxT("CPU Wins: %i"), game_info.CPU_wins));
         total_Player_wins->SetLabel(wxString::Format(wxT("Player Wins: %i"), game_info.Player_wins));
         total_ties->SetLabel(wxString::Format(wxT("Total Ties: %i"), game_info.total_ties));
         calculateFinalWinner(game_info.CPU_wins, game_info.Player_wins);
-
-    } else if (lock_game == false){
-        wxMessageBox(champion, "About Hello World", wxOK | wxICON_INFORMATION);
+    } 
+    //if game is over, lock the game
+    if (round_counter > RoundsChosen && lock_game == false){
+        champion = wxString::Format(wxT("%s"
+                "\n\nTo Restart Game:\n"
+                "\tFile->Restart\n"
+                "\nTo Exit Game:\n"
+                "\tFile->Exit"), champion);
+        wxMessageBox(champion, "Game Over", wxOK | wxICON_INFORMATION);
         RockPaperScissors->update_text_file();
         lock_game=true; 
     }
 }
 
 
-void RPS_Frame::set_config(int rounds, int cpusMove){
+void RPS_Frame::set_config(int rounds, int CPUchosen){
+    if(CPUchosen == 1){
+        CPU_Opponent_Type->SetLabel("Random Computer");
+    }else if (CPUchosen == 2){  
+        CPU_Opponent_Type->SetLabel("Smart Computer");
+    }else{
+        CPU_Opponent_Type->SetLabel("Genius Computer");
+    }
+    
     RoundsChosen = rounds;
-    CPUchosen = cpusMove;
 
     RockPaperScissors = new Game();
-    RockPaperScissors->executeSetup(RoundsChosen, CPUchosen);
+    RockPaperScissors->executeSetup(CPUchosen);
 }
 

@@ -10,17 +10,6 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-// #include <wx/wx.h>
-// #include "headers/RPSmain.h"
-// #include "headers/RPSsetup.h"
-#include "headers/RPSframe.h"
-
-using std::ifstream;
-using std::ofstream;
-using std::string;
-using std::stringstream;
-using std::to_string;
-
 
 void Game::ChoiceExport(vector<vector<int>> choices) {
     int roundSIZE = choices.size();
@@ -50,18 +39,14 @@ void Game::ChoiceExport(vector<vector<int>> choices) {
 }
 
 
-Game::Game()
-{
+Game::Game(){
     // this->turn = turn & 1; //0 or 1, start game with player or CPU turn
     Rounds.reserve(20);
     roundNumber = 0;
 }
 
-void Game::executeSetup(int setRounds, int setCPUmode) {
-    cout << "Rounds: " << setRounds << endl;
-    cout << "CPU Mode: " << setCPUmode << endl;
-    max_round = setRounds;
-    
+void Game::executeSetup(int setCPUmode) {
+    CPU_Mode = setCPUmode;
     cpuTurn.setchoiceMethod(setCPUmode); //cpu_chosen_mode
     cpuTurn.makeChooser();
 }
@@ -98,9 +83,9 @@ GameStats Game::executeMatch(int playerInput) {
             Round_stats.total_ties++;
         }
     }
-
-    Round_stats.CPU_prediction = return_predict_move(Round_stats.CPU_move);
-
+    if(CPU_Mode == 2){
+        Round_stats.CPU_prediction = return_predict_move(Round_stats.CPU_move);
+    }
     return Round_stats;
 }
 

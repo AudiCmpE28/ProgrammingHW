@@ -8,19 +8,14 @@
 
 class RPS_Frame; //to not include class and cause infinite repetition
 
-// class Game;
-
 class RPS_Setup : public wxFrame {
   public:
     RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& size);
     
-
   private:
     RPS_Frame* RPS_Game_Frame;
-    // Game* rockPaperScissors;
 
     //menu on top bar
-    void OnHello(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 
@@ -61,8 +56,7 @@ class Slider : public wxFrame {
         Slider(const wxString& title);
 };
 
-enum {
-    ID_Hello = 10,
+enum id_numbers{
     ID_SLIDER = 100,
     buttonSubmit_ID = 99,
 };
