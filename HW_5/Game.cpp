@@ -66,6 +66,15 @@ void Game::executeSetup(int setRounds, int setCPUmode) {
     cpuTurn.makeChooser();
 }
 
+int return_predict_move(int cpuMove){
+    if(cpuMove == 1){
+        return 3;
+    } else if (cpuMove == 2){
+        return 1;
+    }else{
+        return 2;
+    }
+}
 
 GameStats Game::executeMatch(int playerInput) {
     GameStats Round_stats = {0};
@@ -79,14 +88,27 @@ GameStats Game::executeMatch(int playerInput) {
     Round_stats.Round_Winner = calculateResult(pmove, Round_stats.CPU_move);
 
     updateRound(Round_stats.Round_Winner, pmove, Round_stats.CPU_move);
-        
+    
+    for(int i = 0; i < Rounds.size(); i++){
+        if(Rounds[i][0] == 1){ //cpu wins
+            Round_stats.CPU_wins++;
+        }else if(Rounds[i][1] == 1){ //player wins
+            Round_stats.Player_wins++;
+        } else { //ties
+            Round_stats.total_ties++;
+        }
+    }
+
+    Round_stats.CPU_prediction = return_predict_move(Round_stats.CPU_move);
 
     return Round_stats;
 }
 
+
 void Game::update_text_file(){
-    if(cpuTurn.getchoiceMethod() == 2)
+    if(cpuTurn.getchoiceMethod() == 2){
         ChoiceExport(Rounds);
+    }
 }
 
 void Game::updateRound(int result, int pmove, int cpumove) {
@@ -121,10 +143,8 @@ void Game::updateRound(int result, int pmove, int cpumove) {
 
 
 
-int Game::calculateResult(int pmove, int cpumove)
-{
-    enum move
-    {
+int Game::calculateResult(int pmove, int cpumove) {
+    enum move {
         rock = 1,
         paper,
         scissors

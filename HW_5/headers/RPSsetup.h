@@ -38,7 +38,7 @@ class RPS_Setup : public wxFrame {
 
 /*button configuration*/
     wxBoxSizer* setup_box_config;
-    wxToggleButton* setup_button_config;
+    wxButton* setup_button_config;
     void OnClick_RandCPU(wxCommandEvent& event);
     void OnClick_SmartCPU(wxCommandEvent& event);
     void OnClick_GeniusCPU(wxCommandEvent& event);

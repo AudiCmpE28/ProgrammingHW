@@ -5,10 +5,12 @@
 
 class Game;
 
+class RPS_Setup;
+
 class RPS_Frame: public wxFrame {
     public:
         RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-        // RPS_Setup* getSetup_Game_Frame();
+        // RPS_Setup* reset_game();
         int getPlayerMove();
         void resetPlayerMove();
         bool player_chose_RPS;
@@ -17,7 +19,7 @@ class RPS_Frame: public wxFrame {
 
 
     private:
-        // RPS_Setup* Setup_Game_Frame;
+        RPS_Setup* Setup_Game_Frame;
         Game *RockPaperScissors;
 
         //menu on top bar
@@ -34,6 +36,7 @@ class RPS_Frame: public wxFrame {
 
         //round number
         wxStaticText *current_round;
+        int round_counter;
 
         //round winner
         wxStaticText *round_winner;
@@ -42,8 +45,8 @@ class RPS_Frame: public wxFrame {
         //Player choice
         wxStaticText *Player_choice;
 
-        //Player's Move
-        int player_RPS_move;
+        // //Player's Move
+        // int player_RPS_move;
 
         //Button set up for RPS
         wxBoxSizer* game_button_layout;
@@ -51,6 +54,8 @@ class RPS_Frame: public wxFrame {
         void OnClickRock(wxCommandEvent& event);
         void OnClickPaper(wxCommandEvent& event);
         void OnClickScissors(wxCommandEvent& event);
+
+        void execute_match(int player_RPS_move);
 
 /*CPU*/
         //CPU player prediction
@@ -73,6 +78,9 @@ class RPS_Frame: public wxFrame {
         int RoundsChosen;
         int CPUchosen;
 
+        void calculateFinalWinner(int cpu_wins, int player_wins);
+        wxString champion;
+        bool lock_game;
         wxDECLARE_EVENT_TABLE();
 };
 

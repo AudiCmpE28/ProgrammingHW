@@ -134,9 +134,9 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 /*Display Totals*/
     //stats title
     wxFont stats(12, wxDEFAULT, wxNORMAL, wxBOLD);
-    current_round = new wxStaticText(this, wxID_ANY, wxT("Scoreboard"), wxPoint(50, 15));
-    current_round->SetFont(stats);
-    game_window->Add(current_round, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    displayName = new wxStaticText(this, wxID_ANY, wxT("Scoreboard"), wxPoint(50, 15));
+    displayName->SetFont(stats);
+    game_window->Add(displayName, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     game_window->AddSpacer(20);
 
     //Display Total CPU wins
@@ -162,9 +162,10 @@ RPS_Frame::RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& si
 
 /* finalize window layout*/
     this->SetSizer(game_window);
-    this->Layout();    
+    this->Layout();  
 
-    player_chose_RPS=false;
+    round_counter = 2;  
+    lock_game = false;
 }
 
 
@@ -180,12 +181,11 @@ void RPS_Frame::OnAbout(wxCommandEvent& event) {
 }
 
 void RPS_Frame::OnRestart(wxCommandEvent& event){
-    // Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
-    // Setup_Game_Frame->Center();
-    // Setup_Game_Frame->Show(true);
+    Setup_Game_Frame = new RPS_Setup("Rock-Paper-Scissors-configure", wxPoint(50, 50), wxSize(450, 640));
+    Setup_Game_Frame->Center();
+    Setup_Game_Frame->Show(true);
 
-    // Close(true);
-    cout << "N/A ATM" << endl;
+    Close(true);
 }
 
 void RPS_Frame::OnExit(wxCommandEvent& event) {
@@ -197,36 +197,78 @@ void RPS_Frame::OnExit(wxCommandEvent& event) {
 /*Play*/
 void RPS_Frame::OnClickRock(wxCommandEvent& event) {
     Player_choice->SetLabel("Player's Move: Rock");
-    GameStats game_info = RockPaperScissors->executeMatch(1); 
-    cout << "CPU Move: " << game_info.CPU_move << endl;
-    cout << "round winnerL  " << game_info.Round_Winner << endl;
+    execute_match(1);
 }
 
 void RPS_Frame::OnClickPaper(wxCommandEvent& event) {
     Player_choice->SetLabel("Player's Move: Paper");
-    // player_RPS_move = 2;
-    // player_chose_RPS = true;
-    GameStats game_info = RockPaperScissors->executeMatch(2); 
-    cout << "CPU Move: " << game_info.CPU_move << endl;
-    cout << "round winnerL  " << game_info.Round_Winner << endl;
+    execute_match(2);
 }
 
 void RPS_Frame::OnClickScissors(wxCommandEvent& event) {
     Player_choice->SetLabel("Player's Move: Scissors");
-    // player_RPS_move = 3;
-    // player_chose_RPS = true;
-    GameStats game_info = RockPaperScissors->executeMatch(3); 
-    cout << "CPU Move: " << game_info.CPU_move << endl;
-    cout << "round winnerL  " << game_info.Round_Winner << endl;
+    execute_match(3);
 }
 
-int RPS_Frame::getPlayerMove(){
-    return player_RPS_move;
+
+string NtoMove(int move) {
+    string retValue;
+    if (move == 1) 
+        retValue = "Rock";
+    else if (move == 2) 
+        retValue = "Paper";
+    else if (move == 3)
+        retValue = "Scissors";
+
+    return retValue;
 }
 
-void RPS_Frame::resetPlayerMove(){
-    player_chose_RPS = false;
+string NtoWinner(int winner) {
+    string retValue;
+    if (winner == 1) 
+        retValue = "Player Wins!";
+    else if (winner == 2) 
+        retValue = "CPU Wins!";
+    else if (winner == -1)
+        retValue = "Tie!";
+
+    return retValue;
 }
+
+void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins){
+    if(cpu_wins > player_wins){
+        champion = "Game Champion: Computer";
+    }else if(cpu_wins < player_wins){
+        champion = "Game Champion: Player";
+    }else{
+        champion = "Game Champion: No-One";
+    }    
+}
+
+void RPS_Frame::execute_match(int player_RPS_move){
+    if(round_counter <= RoundsChosen){
+        GameStats game_info = RockPaperScissors->executeMatch(player_RPS_move);
+        
+        //set display names correct 
+        current_round->SetLabel(wxString::Format(wxT("Round: %i"), round_counter));
+        round_counter++;
+        round_winner->SetLabel(wxString::Format(wxT("Winner: %s"), NtoWinner(game_info.Round_Winner)));
+
+        CPU_prediction->SetLabel(wxString::Format(wxT("CPU predicted Player Move To Be: %s"), NtoMove(game_info.CPU_prediction)));
+        CPU_choice->SetLabel(wxString::Format(wxT("Computer's Move: %s"), NtoMove(game_info.CPU_move)));
+        
+        total_CPU_wins->SetLabel(wxString::Format(wxT("CPU Wins: %i"), game_info.CPU_wins));
+        total_Player_wins->SetLabel(wxString::Format(wxT("Player Wins: %i"), game_info.Player_wins));
+        total_ties->SetLabel(wxString::Format(wxT("Total Ties: %i"), game_info.total_ties));
+        calculateFinalWinner(game_info.CPU_wins, game_info.Player_wins);
+
+    } else if (lock_game == false){
+        wxMessageBox(champion, "About Hello World", wxOK | wxICON_INFORMATION);
+        RockPaperScissors->update_text_file();
+        lock_game=true; 
+    }
+}
+
 
 void RPS_Frame::set_config(int rounds, int cpusMove){
     RoundsChosen = rounds;
@@ -235,3 +277,4 @@ void RPS_Frame::set_config(int rounds, int cpusMove){
     RockPaperScissors = new Game();
     RockPaperScissors->executeSetup(RoundsChosen, CPUchosen);
 }
+
