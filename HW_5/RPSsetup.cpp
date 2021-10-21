@@ -116,8 +116,7 @@ RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &si
     CPUMode = -1;
 }
 
-void RPS_Setup::OnAbout(wxCommandEvent &event)
-{
+void RPS_Setup::OnAbout(wxCommandEvent &event){
     wxMessageBox("Welcome to Rock, Paper, Scissors!\n"
                  "\nThe game is simple, pick rock, paper, or scissors by entering a number between 1 to 3."
                  "\n\nThere are only 3 rules to win or lose: "

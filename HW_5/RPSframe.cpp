@@ -161,7 +161,6 @@ RPS_Frame::RPS_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
 
 /*Variables Initial Values*/
     round_counter = 1;
-    lock_game = false;
 }
 
 /*Top Bar Menu*/
@@ -185,7 +184,7 @@ void RPS_Frame::OnRestart(wxCommandEvent &event){
 }
 
 void RPS_Frame::OnExit(wxCommandEvent &event) {
-    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
+    cout << "OnExit: Exiting Gaming app!" << endl;
     Close(true);
 }
 
@@ -234,34 +233,28 @@ string NtoWinner(int winner)
     return retValue;
 }
 
-void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins)
-{
-    if (cpu_wins > player_wins)
-    {
+void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins) {
+    if (cpu_wins > player_wins) {
         champion = "Game Champion: Computer";
-    }
-    else if (cpu_wins < player_wins)
-    {
+    } else if (cpu_wins < player_wins) {
         champion = "Game Champion: Player";
-    }
-    else
-    {
+    } else {
         champion = "Game Champion: No-One";
     }
 }
 
-void RPS_Frame::execute_match(int player_RPS_move)
-{
+
+
+
+void RPS_Frame::execute_match(int player_RPS_move) {
     //while within round amount
-    if (round_counter <= RoundsChosen)
-    {
+    if (round_counter <= RoundsChosen) {
         GameStats game_info = RockPaperScissors->executeMatch(player_RPS_move);
 
-        current_round->SetLabel(wxString::Format(wxT("Round: %i"), round_counter));
+        current_round->SetLabel(wxString::Format(wxT("Round: %i"), round_counter));       
         round_counter++;
         round_winner->SetLabel(wxString::Format(wxT("Winner: %s"), NtoWinner(game_info.Round_Winner)));
-        if (game_info.CPU_prediction != 0)
-        {
+        if (game_info.CPU_prediction != 0) {
             CPU_prediction->SetLabel(wxString::Format(wxT("CPU predicted Player Move To Be: %s"), NtoMove(game_info.CPU_prediction)));
         }
         CPU_choice->SetLabel(wxString::Format(wxT("Computer's Move: %s"), NtoMove(game_info.CPU_move)));
@@ -270,20 +263,27 @@ void RPS_Frame::execute_match(int player_RPS_move)
         total_Player_wins->SetLabel(wxString::Format(wxT("Player Wins: %i"), game_info.Player_wins));
         total_ties->SetLabel(wxString::Format(wxT("Total Ties: %i"), game_info.total_ties));
         calculateFinalWinner(game_info.CPU_wins, game_info.Player_wins);
+    
     }
-    //if game is over, lock the game
-    if (round_counter > RoundsChosen && lock_game == false)
-    {
-        champion = wxString::Format(wxT("%s\n"
-                                        "\n\nTo Restart Game:\n"
-                                        "\tFile->Restart or Ctrl-H\n"
-                                        "\nTo Exit Game:\n"
-                                        "\tFile->Exit or Ctrl-X"),
-                                    champion);
-        wxMessageBox(champion, "Game Over", wxOK | wxICON_INFORMATION);
+    if(round_counter > RoundsChosen){ //if game is over, lock the game   
+        wxCommandEvent unusedEvent; //Event for temporary use 
+        this->Game_Over(unusedEvent);     
+    }
+}
+
+void RPS_Frame::Game_Over(wxCommandEvent &event){
+        wxMessageDialog *dial = new wxMessageDialog(NULL, champion, "Game Over", wxOK | wxCANCEL | wxCANCEL_DEFAULT| wxICON_AUTH_NEEDED);
+        dial->SetOKCancelLabels("Restart Game", "Quit Game"); // change Ok and Cancel Button names respectfully
+        
+        int buttonPressed = dial->ShowModal();// displays message box everytime its called
+        
+        if(buttonPressed == wxID_OK){ //linked to restarting game
+            this->OnRestart(event);
+        }else if(buttonPressed == wxID_CANCEL){ //linked to exiting game
+            this->OnExit(event);
+        }
+
         RockPaperScissors->update_text_file();
-        lock_game = true;
-    }
 }
 
 void RPS_Frame::set_config(int rounds, int CPUchosen) {

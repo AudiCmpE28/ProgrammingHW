@@ -46,9 +46,6 @@ class RPS_Frame: public wxFrame {
         //Player choice
         wxStaticText *Player_choice;
 
-        // //Player's Move
-        // int player_RPS_move;
-
         //Button set up for RPS
         wxBoxSizer* game_button_layout;
         wxButton* game_button_config;
@@ -56,7 +53,12 @@ class RPS_Frame: public wxFrame {
         void OnClickPaper(wxCommandEvent& event);
         void OnClickScissors(wxCommandEvent& event);
 
+        //executes each round
         void execute_match(int player_RPS_move);
+
+        //Final pop up wiht game's winner and 2 options
+        void Game_Over(wxCommandEvent& event);
+        
 
 /*CPU*/
         //CPU Mode Type
@@ -81,9 +83,11 @@ class RPS_Frame: public wxFrame {
         // bool player_chose_RPS;
         int RoundsChosen;
 
+        //helper function to determine winner
         void calculateFinalWinner(int cpu_wins, int player_wins);
+        
+        //variables to keep track of game
         wxString champion;
-        bool lock_game;
         wxDECLARE_EVENT_TABLE();
 };
 
