@@ -131,7 +131,7 @@ Card Deck::DealFromDeck()
     {
         if (DEBUG)
             cout << "\nCard was dealt from empty deck!";
-        throw string("Deck is empty!");
+        // throw string("Deck is empty!"); //commenting out throws
     }
     // if(DEBUG)
     //     cout<<"\nCard "<<this->DeckSize<<" Dealt: "<<this->CardsInDeck[currentcard].GetCard();
