@@ -46,3 +46,17 @@ add_subdirectory(HW_5)
 # set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 # add_subdirectory(HelloWorldApp)
+
+#------------------------------- FinalProject CMAKE -------------------------------#
+#/* This Format: Will call Folder FinalProject's CMakeLists.txt */
+
+cmake_minimum_required(VERSION 3.0.0)
+project(Final_Project) 
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Will put exe in the "build" folder
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+
+add_subdirectory(FinalProject)
