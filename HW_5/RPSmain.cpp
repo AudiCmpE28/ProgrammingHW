@@ -13,7 +13,7 @@ using namespace std;
 bool RPS_App::OnInit(){
     cout << "OnInit: Initializing Rock-Paper-Scissors" << endl;
 
-    RPS_Setup *SetUpFrame = new RPS_Setup("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
+    MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
     SetUpFrame->Center();
     SetUpFrame->Show(true);
 

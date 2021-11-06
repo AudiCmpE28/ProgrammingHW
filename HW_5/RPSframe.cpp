@@ -11,19 +11,19 @@ using namespace std;
 //Paper Button
 //Scissors Button
 
-wxBEGIN_EVENT_TABLE(RPS_Frame, wxFrame)
-    EVT_MENU(ID_RestartGame, RPS_Frame::OnRestart)
-    EVT_MENU(wxID_ABOUT, RPS_Frame::OnAbout)
-    EVT_MENU(wxID_EXIT, RPS_Frame::OnExit)
+wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
+    EVT_MENU(ID_RestartGame, GAME_Frame::OnRestart)
+    EVT_MENU(wxID_ABOUT, GAME_Frame::OnAbout)
+    EVT_MENU(wxID_EXIT, GAME_Frame::OnExit)
 
-    EVT_BUTTON(buttonRock_ID, RPS_Frame::OnClickRock)
-    EVT_BUTTON(buttonPaper_ID, RPS_Frame::OnClickPaper)
-    EVT_BUTTON(buttonScissors_ID, RPS_Frame::OnClickScissors)
+    EVT_BUTTON(buttonRock_ID, GAME_Frame::OnClickRock)
+    EVT_BUTTON(buttonPaper_ID, GAME_Frame::OnClickPaper)
+    EVT_BUTTON(buttonScissors_ID, GAME_Frame::OnClickScissors)
 
-    // EVT_SLIDER(ID_SLIDER, RPS_Frame::OnScroll)
+    // EVT_SLIDER(ID_SLIDER, GAME_Frame::OnScroll)
 wxEND_EVENT_TABLE()
 
-RPS_Frame::RPS_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
+GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
     : wxFrame(NULL, wxID_ANY, title, pos, size) {
 /*Top Bar Menu*/
     wxMenu *menuFile = new wxMenu;
@@ -164,7 +164,7 @@ RPS_Frame::RPS_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
 }
 
 /*Top Bar Menu*/
-void RPS_Frame::OnAbout(wxCommandEvent &event)
+void GAME_Frame::OnAbout(wxCommandEvent &event)
 {
     wxMessageBox("Welcome to Rock, Paper, Scissors!\n"
                  "\nThe game is simple, pick rock, paper, or scissors by entering a number between 1 to 3."
@@ -175,33 +175,33 @@ void RPS_Frame::OnAbout(wxCommandEvent &event)
                  "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
-void RPS_Frame::OnRestart(wxCommandEvent &event){
-    Setup_Game_Frame = new RPS_Setup("Re-configuration", wxPoint(50, 50), wxSize(450, 640));
+void GAME_Frame::OnRestart(wxCommandEvent &event){
+    Setup_Game_Frame = new MAIN_Frame("Re-configuration", wxPoint(50, 50), wxSize(450, 640));
     Setup_Game_Frame->Center();
     Setup_Game_Frame->Show(true);
 
     Close(true);
 }
 
-void RPS_Frame::OnExit(wxCommandEvent &event) {
+void GAME_Frame::OnExit(wxCommandEvent &event) {
     cout << "OnExit: Exiting Gaming app!" << endl;
     Close(true);
 }
 
 /*Play*/
-void RPS_Frame::OnClickRock(wxCommandEvent &event)
+void GAME_Frame::OnClickRock(wxCommandEvent &event)
 {
     Player_choice->SetLabel("Player's Move: Rock");
     execute_match(1);
 }
 
-void RPS_Frame::OnClickPaper(wxCommandEvent &event)
+void GAME_Frame::OnClickPaper(wxCommandEvent &event)
 {
     Player_choice->SetLabel("Player's Move: Paper");
     execute_match(2);
 }
 
-void RPS_Frame::OnClickScissors(wxCommandEvent &event)
+void GAME_Frame::OnClickScissors(wxCommandEvent &event)
 {
     Player_choice->SetLabel("Player's Move: Scissors");
     execute_match(3);
@@ -233,7 +233,7 @@ string NtoWinner(int winner)
     return retValue;
 }
 
-void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins) {
+void GAME_Frame::calculateFinalWinner(int cpu_wins, int player_wins) {
     if (cpu_wins > player_wins) {
         champion = "Game Champion: Computer";
     } else if (cpu_wins < player_wins) {
@@ -246,7 +246,7 @@ void RPS_Frame::calculateFinalWinner(int cpu_wins, int player_wins) {
 
 
 
-void RPS_Frame::execute_match(int player_RPS_move) {
+void GAME_Frame::execute_match(int player_RPS_move) {
     //while within round amount
     if (round_counter <= RoundsChosen) {
         GameStats game_info = RockPaperScissors->executeMatch(player_RPS_move);
@@ -271,7 +271,7 @@ void RPS_Frame::execute_match(int player_RPS_move) {
     }
 }
 
-void RPS_Frame::Game_Over(wxCommandEvent &event){
+void GAME_Frame::Game_Over(wxCommandEvent &event){
         wxMessageDialog *dial = new wxMessageDialog(NULL, champion, "Game Over", wxOK | wxCANCEL | wxCANCEL_DEFAULT| wxICON_AUTH_NEEDED);
         dial->SetOKCancelLabels("Restart Game", "Quit Game"); // change Ok and Cancel Button names respectfully
         
@@ -286,7 +286,7 @@ void RPS_Frame::Game_Over(wxCommandEvent &event){
         RockPaperScissors->update_text_file();
 }
 
-void RPS_Frame::set_config(int rounds, int CPUchosen) {
+void GAME_Frame::set_config(int rounds, int CPUchosen) {
     if (CPUchosen == 1) {
         CPU_Opponent_Type->SetLabel("Random Computer");
     }else if (CPUchosen == 2) {

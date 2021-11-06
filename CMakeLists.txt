@@ -37,7 +37,7 @@
 # /* This Format: Will call Folder HelloWorldApp's CMakeLists.txt */
 
 cmake_minimum_required(VERSION 3.0.0)
-project(Jacks_Bank) 
+project(Jacks_Bank_GUI) 
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

@@ -5,11 +5,11 @@
 
 class Game;
 
-class RPS_Setup;
+class MAIN_Frame;
 
-class RPS_Frame: public wxFrame {
+class GAME_Frame: public wxFrame {
     public:
-        RPS_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
+        GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
 
         //
         int getPlayerMove();
@@ -20,7 +20,7 @@ class RPS_Frame: public wxFrame {
 
 
     private:
-        RPS_Setup* Setup_Game_Frame;
+        MAIN_Frame* Setup_Game_Frame;
         Game *RockPaperScissors;
 
         //menu on top bar

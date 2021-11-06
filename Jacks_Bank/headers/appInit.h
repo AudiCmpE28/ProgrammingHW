@@ -1,14 +1,14 @@
-#ifndef RPSAPP_H_
-#define RPSAPP_H_
+#ifndef APPINIT_H_
+#define APPINIT_H_
 
 #include <iostream>
 #include <wx/wx.h>
 
 using namespace std;
 
-class RPS_App: public wxApp {
+class App_Init: public wxApp {
     public:
         virtual bool OnInit() override;
 };
 
-#endif /* RPSAPP_H_ */
+#endif /* APPINIT_H_ */

@@ -10,19 +10,19 @@
 
 using namespace std;
 
-wxBEGIN_EVENT_TABLE(RPS_Setup, wxFrame)
-    EVT_MENU(wxID_ABOUT, RPS_Setup::OnAbout)
-    EVT_MENU(wxID_EXIT, RPS_Setup::OnExit)
+wxBEGIN_EVENT_TABLE(MAIN_Frame, wxFrame)
+    EVT_MENU(wxID_ABOUT, MAIN_Frame::OnAbout)
+    EVT_MENU(wxID_EXIT, MAIN_Frame::OnExit)
 
-    EVT_BUTTON(buttonRandCPU_ID, RPS_Setup::OnClick_RandCPU)
-    EVT_BUTTON(buttonSmartCPU_ID, RPS_Setup::OnClick_SmartCPU)
-    EVT_BUTTON(buttonGeniusCPU_ID, RPS_Setup::OnClick_GeniusCPU)
-    // EVT_SLIDER(ID_SLIDER, RPS_Setup::OnScroll)
+    EVT_BUTTON(buttonRandCPU_ID, MAIN_Frame::OnClick_RandCPU)
+    EVT_BUTTON(buttonSmartCPU_ID, MAIN_Frame::OnClick_SmartCPU)
+    EVT_BUTTON(buttonGeniusCPU_ID, MAIN_Frame::OnClick_GeniusCPU)
+    // EVT_SLIDER(ID_SLIDER, MAIN_Frame::OnScroll)
 
-    EVT_BUTTON(buttonSubmit_ID, RPS_Setup::OnClick_SubmitInfo)
+    EVT_BUTTON(buttonSubmit_ID, MAIN_Frame::OnClick_SubmitInfo)
 wxEND_EVENT_TABLE()
 
-RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &size)
+MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
     : wxFrame(NULL, wxID_ANY, title, pos, size){
 /*Menu Top Bar*/
     wxMenu *menuFile = new wxMenu;
@@ -91,7 +91,7 @@ RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &si
     // Slider for Rounds
     fill = 0;
     slider = new wxSlider(this, ID_SLIDER, 1, 1, 20, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
-    Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(RPS_Setup::OnScroll));
+    Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(MAIN_Frame::OnScroll));
     window_layout->Add(slider, 0, wxALIGN_CENTER, 10);
 
     //Slider Rounds Number selected
@@ -116,7 +116,7 @@ RPS_Setup::RPS_Setup(const wxString &title, const wxPoint &pos, const wxSize &si
     CPUMode = -1;
 }
 
-void RPS_Setup::OnAbout(wxCommandEvent &event){
+void MAIN_Frame::OnAbout(wxCommandEvent &event){
     wxMessageBox("Welcome to Rock, Paper, Scissors!\n"
                  "\nThe game is simple, pick rock, paper, or scissors by entering a number between 1 to 3."
                  "\n\nThere are only 3 rules to win or lose: "
@@ -126,24 +126,24 @@ void RPS_Setup::OnAbout(wxCommandEvent &event){
                  "About Hello World", wxOK | wxICON_INFORMATION);
 }
 
-void RPS_Setup::OnExit(wxCommandEvent &event){
+void MAIN_Frame::OnExit(wxCommandEvent &event){
     cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
     Close(true);
 }
 
 /*SET UP*/
 
-void RPS_Setup::OnClick_RandCPU(wxCommandEvent &event){
+void MAIN_Frame::OnClick_RandCPU(wxCommandEvent &event){
     CPUmode_display->SetLabel("CPU Mode Selected: Random");
     CPUMode = 1;
 }
 
-void RPS_Setup::OnClick_SmartCPU(wxCommandEvent &event){
+void MAIN_Frame::OnClick_SmartCPU(wxCommandEvent &event){
     CPUmode_display->SetLabel("CPU Mode Selected: Smart");
     CPUMode = 2;
 }
 
-void RPS_Setup::OnClick_GeniusCPU(wxCommandEvent &event){
+void MAIN_Frame::OnClick_GeniusCPU(wxCommandEvent &event){
     // CPUmode_display->SetLabel("CPU Mode Selected: Genius");
     // CPUMode = 3;
     CPUmode_display->SetLabel("Genius CPU DLC Locked ~ Coming Soon");
@@ -156,19 +156,19 @@ Slider::Slider(const wxString &title)
     Center();
 }
 
-void RPS_Setup::OnScroll(wxScrollEvent &event) {
+void MAIN_Frame::OnScroll(wxScrollEvent &event) {
     fill = slider->GetValue();
     roundNum->SetLabel(wxString::Format(wxT("Rounds: %i"), fill)); //update display
     wxDisplayChangedEvent();                                       // update immediatelly do not wait a second
     Refresh();
 }
 
-void RPS_Setup::OnClick_SubmitInfo(wxCommandEvent &event){
+void MAIN_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
     if (CPUMode == -1) {
         wxMessageBox("Please Select CPU Mode!\n",
                      "No CPU Mode Selected", wxOK | wxICON_INFORMATION);
     } else {
-        RPS_Game_Frame = new RPS_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        RPS_Game_Frame = new GAME_Frame("", wxPoint(50, 50), wxSize(450, 640));
         RPS_Game_Frame->Center();
         RPS_Game_Frame->Show(true);
         RPS_Game_Frame->set_config(slider->GetValue(), CPUMode);

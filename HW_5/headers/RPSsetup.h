@@ -6,14 +6,14 @@
 #include <wx/tglbtn.h> // toggle button
 #include "RPSframe.h"  // game
 
-class RPS_Frame; //to not include class and cause infinite repetition
+class GAME_Frame; //to not include class and cause infinite repetition
 
-class RPS_Setup : public wxFrame {
+class MAIN_Frame : public wxFrame {
   public:
-    RPS_Setup(const wxString& title, const wxPoint& pos, const wxSize& size);
+    MAIN_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
     
   private:
-    RPS_Frame* RPS_Game_Frame;
+    GAME_Frame* RPS_Game_Frame;
 
     //menu on top bar
     void OnExit(wxCommandEvent& event);
