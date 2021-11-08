@@ -7,7 +7,7 @@ using namespace std;
 bool App_Init::OnInit(){
     cout << "OnInit: Initializing Jack's Black" << endl;
 
-    MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(750, 840));
+    MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
     SetUpFrame->Center();
     SetUpFrame->Show(true);
 

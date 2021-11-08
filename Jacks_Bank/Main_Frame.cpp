@@ -2,13 +2,25 @@
 #include "wx/sizer.h"
 
 #include <iostream>
-#include "headers/mainFrame.h" //other class
+#include "headers/mainFrame.h" //main class
+#include "headers/gameFrame.h" //other class
+#include "headers/bankFrame.h" //other class
 
 using namespace std;
 
+/* ID's for Menu and Buttons */
 wxBEGIN_EVENT_TABLE(MAIN_Frame, wxFrame)
     EVT_MENU(wxID_ABOUT, MAIN_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, MAIN_Frame::OnExit)
+
+    EVT_BUTTON(ID_easy_button, MAIN_Frame::OnClick_Easy)   
+    EVT_BUTTON(ID_medium_button, MAIN_Frame::OnClick_Medium)   
+    EVT_BUTTON(ID_expert_button, MAIN_Frame::OnClick_Expert)   
+
+    EVT_BUTTON(ID_game_button, MAIN_Frame::OnClick_Game_Window)   
+    EVT_BUTTON(ID_bank_button, MAIN_Frame::OnClick_Bank_Window) 
+
+    EVT_TEXT(ID_player_name, MAIN_Frame::OnClick_Textbox)  
 wxEND_EVENT_TABLE()
 
 
@@ -29,24 +41,75 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     CreateStatusBar();
     SetStatusText("For Game Info, go to 'Help->About' or 'Ctrl-P'");
 
-    /* SET UP */
+/* SET UP */
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
     window_layout = new wxBoxSizer(wxVERTICAL); //items placed vertical
 
     //Title
     window_layout->AddSpacer(20);
-    wxFont title_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
-    heading = new wxStaticText(this, wxID_ANY, wxT("Jack's Bank"), wxPoint(50, 15));
+    wxFont title_font(17, wxDEFAULT, wxNORMAL, wxBOLD);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Jack's Bank Set Up"), wxPoint(50, 15));
     heading->SetFont(title_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
 
+/* Mode */
+    // Title
+    wxFont game_mode_font(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Game Difficulty:"), wxPoint(50, 15));
+    heading->SetFont(game_mode_font);
+    window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(15);
 
-    /*Finalize layout*/
+    // Button Layout
+    setup_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
+    setup_button_config = new wxButton(this, ID_easy_button, _T("Easy"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_box_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
+
+    setup_box_config->AddSpacer(20);
+    setup_button_config = new wxButton(this, ID_medium_button, _T("Medium"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_box_config->Add(setup_button_config, 0, wxALL, 5);
+    setup_box_config->AddSpacer(20);
+
+    setup_button_config = new wxButton(this, ID_expert_button, _T("Expert"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_box_config->Add(setup_button_config, 0, wxALL, 5);
+
+    window_layout->Add(setup_box_config, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(10);
+
+    // Button Set Display
+    wxFont mode_selected_display(10, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    mode_display = new wxStaticText(this, wxID_ANY, wxT("Mode Selected: None"), wxPoint(50, 15));
+    mode_display->SetFont(mode_selected_display);
+    window_layout->Add(mode_display, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(20);
+
+/* Username */
+    textbox_config = new wxBoxSizer(wxHORIZONTAL);
+
+
+/* Route to Next Window */
+    // window_layout->AddSpacer(290);
+    window_layout->AddSpacer(90);
+    //button Layout
+    window_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
+    window_button_config = new wxButton(this, ID_game_button, _T("Game Window"), wxDefaultPosition, wxDefaultSize, 0);
+    window_box_config->Add(window_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
+
+    window_box_config->AddSpacer(120);
+    window_button_config = new wxButton(this, ID_bank_button, _T("Bank Window"), wxDefaultPosition, wxDefaultSize, 0);
+    window_box_config->Add(window_button_config, 0, wxALL, 5);
+
+    window_layout->Add(window_box_config, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(10);
+
+/* Finalize layout */
     this->SetSizer(window_layout);
     this->Layout();
     this->Centre();
 
+/* Variables Initialized */
+    mode_selected = -1;
 }
 
 void MAIN_Frame::OnAbout(wxCommandEvent &event){
@@ -64,6 +127,48 @@ void MAIN_Frame::OnExit(wxCommandEvent &event){
     Close(true);
 }
 
-/*SET UP*/
+/* Button Set Up Functions */
+void MAIN_Frame::OnClick_Easy(wxCommandEvent& event){
+    cout << "Easy Button Pressed" << endl;
+    mode_display->SetLabel("Mode Selected: Easy");
+    mode_selected = 1;
+}
 
+void MAIN_Frame::OnClick_Medium(wxCommandEvent& event){
+    cout << "Medium Button Pressed" << endl;
+    mode_display->SetLabel("Mode Selected: Medium");
+    mode_selected = 2;
+}
 
+void MAIN_Frame::OnClick_Expert(wxCommandEvent& event){
+    cout << "Expert Button Pressed" << endl;
+    mode_display->SetLabel("Mode Selected: Expert");
+    mode_selected = 3;
+}
+
+/* Text Entry */
+void MAIN_Frame::OnClick_Textbox(wxCommandEvent& event){
+    cout << "textbox Button Pressed" << endl;
+}
+
+/* Next Window Buttons */
+void MAIN_Frame::OnClick_Game_Window(wxCommandEvent& event){
+    cout << "Game Window Button Pressed" << endl;
+    Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(650, 840));
+    Game_Window->Center();
+    Game_Window->Show(true);
+    // Game_Window->send_data(mode_selected, PlayerName);
+
+    Close(true);
+}
+
+void MAIN_Frame::OnClick_Bank_Window(wxCommandEvent& event){
+    cout << "Bank Window Button Pressed" << endl;
+    Bank_Window = new BANK_Frame("", wxPoint(50, 50), wxSize(650, 840));
+    Bank_Window->Center();
+    Bank_Window->Show(true);
+    // Bank_Window->send_data(mode_selected, PlayerName);
+
+    Close(true);
+    
+}
