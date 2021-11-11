@@ -1,14 +1,15 @@
 #include <wx/wx.h>
 #include "wx/sizer.h"
 
-#include <iostream>
 #include "headers/bankFrame.h" //main class
 
-using namespace std;
 
 wxBEGIN_EVENT_TABLE(BANK_Frame, wxFrame)
     EVT_MENU(wxID_ABOUT, BANK_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, BANK_Frame::OnExit)
+
+    EVT_BUTTON(ID_bank_deposit, BANK_Frame::OnClick_Deposit)   
+    EVT_BUTTON(ID_bank_withdraw, BANK_Frame::OnClick_Withdraw) 
 wxEND_EVENT_TABLE()
 
 BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
@@ -40,8 +41,37 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
 
+/* ATM */
+    /* Total Balance */
+    wxFont total_balance_heading(14, wxDEFAULT, wxNORMAL, wxBOLD);
+    total_balance = new wxStaticText(this, wxID_ANY, wxT("0.0"), wxPoint(30, 15));
+    total_balance->SetFont(total_balance_heading);
+    window_layout->Add(total_balance, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(50);
 
-    /*Finalize layout*/
+    /* Enter Amount */
+    // Create the textbox to input username 
+    amount_entered = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+            wxDefaultPosition, wxSize(200, 50));
+    //add to window layout
+    window_layout->Add(amount_entered, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(50);
+
+    /* Deposit and Withdraw Button Layout */
+    button_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
+    setup_button_config = new wxButton(this, ID_bank_deposit, _T("Deposit"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
+
+    button_config->AddSpacer(40); //space between them
+
+    setup_button_config = new wxButton(this, ID_bank_withdraw, _T("Withdraw"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config->Add(setup_button_config, 0, wxALL, 5);
+
+    window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(10);
+
+
+/*Finalize layout*/
     this->SetSizer(window_layout);
     this->Layout();
     this->Centre();
@@ -59,6 +89,17 @@ void BANK_Frame::OnAbout(wxCommandEvent &event){
 }
 
 void BANK_Frame::OnExit(wxCommandEvent &event){
-    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
+    std::cout << "OnExit: Exiting Rock-Paper-Scissors app!" << std::endl;
     Close(true);
+}
+
+/* Buttons Functions */
+void BANK_Frame::OnClick_Deposit(wxCommandEvent &event){
+    std::cout << "Depoist ma Money" << std::endl;
+
+}
+
+void BANK_Frame::OnClick_Withdraw(wxCommandEvent &event){
+    std::cout << "Withdraw ma Money" << std::endl;
+
 }

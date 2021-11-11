@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <wx/wx.h>
+#include <wx/textctrl.h>
 
 class BANK_Frame : public wxFrame {
   public:
@@ -19,7 +20,30 @@ class BANK_Frame : public wxFrame {
     /*Title*/
     wxStaticText *heading;
 
+    /*Total Balance*/
+    wxStaticText *total_balance;
+
+
+    /* Enter Amount to... */
+    wxTextCtrl* amount_entered;
+    std::string bank_fetch;
+    
+    //to add buttons for deposit and withdraw
+    wxBoxSizer* button_config;
+    wxButton* setup_button_config;
+
+    /*Bank Deposit*/
+    void OnClick_Deposit(wxCommandEvent& event);
+
+    /*Bank Withdraw*/
+    void OnClick_Withdraw(wxCommandEvent& event);
+
     wxDECLARE_EVENT_TABLE();
+};
+
+enum atm_id{
+  ID_bank_deposit = 60,
+  ID_bank_withdraw = 61
 };
 
 #endif /* BANKFRAME_H_ */

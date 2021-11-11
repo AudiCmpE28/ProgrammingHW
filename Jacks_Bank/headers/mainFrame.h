@@ -2,6 +2,8 @@
 #define MAINFRAME_H_
 
 #include <wx/wx.h>
+#include <wx/textctrl.h>
+
 #include <wx/slider.h> // slider 
 #include <wx/tglbtn.h> // toggle button
 
@@ -43,11 +45,8 @@ class MAIN_Frame : public wxFrame {
     int mode_selected;
 
 /* Text box for Player Name */
-    //textbox variables
-    wxBoxSizer* textbox_config;
-    wxTextEntry* player_name;
-    //Textbox functions
-    void OnClick_Textbox(wxCommandEvent& event);
+    wxTextCtrl* player_username;
+    std::string username_fetch;
 
 /* Choose Window to Go to */
     // Button variable

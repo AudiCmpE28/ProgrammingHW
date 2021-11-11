@@ -1,7 +1,5 @@
-#include <wx/wx.h>
 #include "wx/sizer.h"
 
-#include <iostream>
 #include "headers/mainFrame.h" //main class
 #include "headers/gameFrame.h" //other class
 #include "headers/bankFrame.h" //other class
@@ -19,8 +17,6 @@ wxBEGIN_EVENT_TABLE(MAIN_Frame, wxFrame)
 
     EVT_BUTTON(ID_game_button, MAIN_Frame::OnClick_Game_Window)   
     EVT_BUTTON(ID_bank_button, MAIN_Frame::OnClick_Bank_Window) 
-
-    EVT_TEXT(ID_player_name, MAIN_Frame::OnClick_Textbox)  
 wxEND_EVENT_TABLE()
 
 
@@ -55,8 +51,13 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 /* Mode */
     // Title
-    wxFont game_mode_font(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    heading = new wxStaticText(this, wxID_ANY, wxT("Game Difficulty:"), wxPoint(50, 15));
+    wxFont game_mode_font(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    string game_mode = "Choose the following game mode:"
+                        "\n\tEasy: You are given great amount of cash"
+                        "\n\tMedium: You are given decent amount of cash"
+                        "\n\tHard: You are given least amount of cash";
+    
+    heading = new wxStaticText(this, wxID_ANY, game_mode, wxPoint(50, 15));
     heading->SetFont(game_mode_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(15);
@@ -82,15 +83,27 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     mode_display = new wxStaticText(this, wxID_ANY, wxT("Mode Selected: None"), wxPoint(50, 15));
     mode_display->SetFont(mode_selected_display);
     window_layout->Add(mode_display, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(20);
+    window_layout->AddSpacer(40);
+
 
 /* Username */
-    textbox_config = new wxBoxSizer(wxHORIZONTAL);
+    // Title
+    wxFont username_title(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Enter Username:"), wxPoint(50, 15));
+    heading->SetFont(game_mode_font);
+    window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(15);
+
+    // Create the textbox to input username 
+    player_username = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
+                wxDefaultPosition, wxSize(200, 50));
+    //add to window layout
+    window_layout->Add(player_username, 0, wxALIGN_CENTER, 10);
 
 
 /* Route to Next Window */
     // window_layout->AddSpacer(290);
-    window_layout->AddSpacer(90);
+    window_layout->AddSpacer(110);
     //button Layout
     window_box_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
     window_button_config = new wxButton(this, ID_game_button, _T("Game Window"), wxDefaultPosition, wxDefaultSize, 0);
@@ -146,29 +159,42 @@ void MAIN_Frame::OnClick_Expert(wxCommandEvent& event){
     mode_selected = 3;
 }
 
-/* Text Entry */
-void MAIN_Frame::OnClick_Textbox(wxCommandEvent& event){
-    cout << "textbox Button Pressed" << endl;
-}
 
 /* Next Window Buttons */
 void MAIN_Frame::OnClick_Game_Window(wxCommandEvent& event){
     cout << "Game Window Button Pressed" << endl;
-    Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(650, 840));
-    Game_Window->Center();
-    Game_Window->Show(true);
-    // Game_Window->send_data(mode_selected, PlayerName);
+    username_fetch = player_username->GetValue().ToStdString();
 
-    Close(true);
+    if(mode_selected == -1 || username_fetch == "" || username_fetch == " "){
+        wxMessageBox("Please Select Game Mode and Username!\n",
+                     "Setup Incomplete", wxOK | wxICON_INFORMATION);
+    }else{
+        Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        Game_Window->Center();
+        Game_Window->Show(true);
+        // Game_Window->send_data(mode_selected, PlayerName);
+
+        Close(true);
+    }
+
+
 }
 
 void MAIN_Frame::OnClick_Bank_Window(wxCommandEvent& event){
     cout << "Bank Window Button Pressed" << endl;
-    Bank_Window = new BANK_Frame("", wxPoint(50, 50), wxSize(650, 840));
-    Bank_Window->Center();
-    Bank_Window->Show(true);
-    // Bank_Window->send_data(mode_selected, PlayerName);
 
-    Close(true);
+        username_fetch = player_username->GetValue().ToStdString();
+    if(mode_selected == -1 || username_fetch == "" || username_fetch == " "){
+        wxMessageBox("Please Select Game Mode and Username!\n",
+                     "Setup Incomplete", wxOK | wxICON_INFORMATION);
+    }else{
+        Bank_Window = new BANK_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        Bank_Window->Center();
+        Bank_Window->Show(true);
+        // Bank_Window->send_data(mode_selected, PlayerName);
+
+        Close(true);
+    }
+
     
 }

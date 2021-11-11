@@ -20,6 +20,9 @@ class GAME_Frame : public wxFrame {
     /*Title*/
     wxStaticText *heading;
 
+
+
+
     wxDECLARE_EVENT_TABLE();
 };
 
