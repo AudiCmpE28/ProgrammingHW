@@ -1,12 +1,15 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "utility.h"
+#include "Utility.h"
 #ifndef CARDS_H_
 #define CARDS_H_
 #pragma once
 
-using namespace std;
+using std::vector;
+using std::cout;
+using std::endl;
+using std::string;
 
 enum color {EMPTY_C,RED=1,BLACK};
 enum face {EMPTY_F,ACE=1,TWO,THREE,FOUR,FIVE,SIX,SEVEN,EIGHT,NINE,TEN,JACK,QUEEN,KING};
