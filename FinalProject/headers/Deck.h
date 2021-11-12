@@ -1,10 +1,9 @@
-#include "cards.h"
+#include "Cards.h"
 #include <vector>
 #ifndef DECK_H_
 #define DECK_H_
 #pragma once
 
-using namespace std;
 using std::vector;
 
 class Deck{
