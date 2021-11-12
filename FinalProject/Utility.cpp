@@ -1,6 +1,5 @@
-#include "headers/utility.h"
+#include "headers/Utility.h"
 
-using namespace std;
 using namespace std::chrono;
 
 time_point<system_clock> starttimer()
