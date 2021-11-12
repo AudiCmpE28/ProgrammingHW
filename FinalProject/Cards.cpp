@@ -1,4 +1,4 @@
-#include "headers/cards.h"
+#include "headers/Cards.h"
 const string strColor[]={"Empty","Red","Black"};
 const string strFace[]= {"Empty","Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King" };
 const string strSuit[]={"Empty","Hearts","Diamonds","Spades","Clubs"};
