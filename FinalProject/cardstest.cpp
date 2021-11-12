@@ -1,7 +1,7 @@
 #include "headers/Hand.h"
 #include "headers/Deck.h"
-#include "headers/cards.h"
-#include "headers/utility.h"
+#include "headers/Cards.h"
+#include "headers/Utility.h"
 using namespace std;
 
 int main()
