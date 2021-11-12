@@ -1,5 +1,8 @@
 #include "headers/Hand.h"
-
+/**
+Scuffed implimentation
+TODO: Circular array hand
+*/
 Hand::Hand(int size){
     this->handsize=size;
 }
