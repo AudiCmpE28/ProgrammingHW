@@ -10,10 +10,12 @@ private:
     int cursor;
 
 public:
+    CardIterator() {}
     CardIterator(Card arr[], int sz) : array(arr), size(sz), cursor(0) {}
     Card first()        { return array[0]; }
     Card next()         { return array[++cursor]; }
-    Card current_item()   { return array[cursor]; }
+    Card current_item() { return array[cursor]; }
+    Card pop()          { return array[cursor++]; }
     bool is_done()      { return cursor >= size-1; }
 
 };

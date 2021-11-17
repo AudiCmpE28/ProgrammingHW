@@ -1,9 +1,19 @@
 #include <iostream>
 #include "header/DeckOfCards.h"
 #include "header/CardIterator.h"
+#include "header/Dealer.h"
 using namespace std;
 
 int main() {
+    Dealer dealer1;
+    Card temp;
+    int count = 0;
+    while (count < 52) {
+        temp = dealer1.dealCard();
+        temp.printCardDetails();
+        count++;
+    }
+
 
     return 0;
 }
