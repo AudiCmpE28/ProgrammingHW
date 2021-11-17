@@ -15,7 +15,6 @@ void swapCards (Card *a, Card *b) {
 
 // Class Functions
 DeckOfCards::DeckOfCards() {
-    indexOfTop = 0;
     initialize_deck();
     randomize_deck();
 }
@@ -43,17 +42,19 @@ void DeckOfCards::initialize_deck() {
 void DeckOfCards::randomize_deck() {
     srand(time(NULL));
 
+    // Shuffle the deck [Fisher-Yates Shuffle Algorithm]
     for (int i = 51; i > 0; i--) {
         int j = rand() % (i+1);
         swapCards(&Deck[i], &Deck[j]);
     }
 
-    indexOfTop = 0; // reset index when shuffled
+    // Emulates a deck cut
+    for (int i = 0; i < 26; i++) {
+        swapCards(&Deck[i], &Deck[i+26]);
+    }
 }
 
-Card DeckOfCards::getTop() {
-    return Deck[indexOfTop++];
-    if (indexOfTop == 52) {
-        indexOfTop = 0;
-    }
+CardIterator DeckOfCards::createIterator() {
+    randomize_deck();
+    return CardIterator(Deck, 52);
 }

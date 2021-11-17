@@ -1,26 +1,51 @@
 #include <iostream>
 #include "header/DeckOfCards.h"
+#include "header/CardIterator.h"
 using namespace std;
 
 int main() {
-    DeckOfCards deck1;
-    cout << "Initial top 10 cards\n";
-    Card temp;
-    for (int i = 0; i < 10; i++) {
-        temp = deck1.getTop();
-        temp.printCardDetails();
-    }
-
-    cout << endl;
-    cout << "top 10 cards after shuffle\n";
-    deck1.randomize_deck();
-    for (int i = 0; i < 10; i++) {
-        temp = deck1.getTop();
-        temp.printCardDetails();
-    }
 
     return 0;
 }
+
+#if 0
+// Example of testing iterator, Card class, DeckOfCards class
+int main() {
+    int count = 1;
+    DeckOfCards deck1;
+    cout << "Initial top 10 cards\n";
+    CardIterator CardIter = deck1.createIterator();
+    Card temp = CardIter.current_item();
+
+    cout << count << ": ";
+    count++;
+    temp.printCardDetails();
+    while(!CardIter.is_done()) {
+        cout << count << ": ";
+        count++;
+        temp = CardIter.next();
+        temp.printCardDetails();
+    }
+
+    count = 1;
+    CardIter = deck1.createIterator();
+    temp = CardIter.current_item();
+
+    cout << count << ": ";
+    count++;
+    temp.printCardDetails();
+    while(!CardIter.is_done()) {
+        cout << count << ": ";
+        count++;
+        temp = CardIter.next();
+        temp.printCardDetails();
+    }
+
+
+    return 0;
+}
+
+#endif
 
 // How to compile for testing
 // g++ main.cpp Card.cpp DeckOfCards.cpp -o main
