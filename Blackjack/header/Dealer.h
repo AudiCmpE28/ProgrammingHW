@@ -13,6 +13,7 @@ private:
     CardIterator deckiter;
 public:
     Dealer();
+    void resetDeck();
     Card dealCard();
 
 };

@@ -3,12 +3,14 @@
 
 Dealer::Dealer() {
     deckiter = currentDeck.createIterator();
-    handIndex = 0;
 }
 
 Card Dealer::dealCard() {
-    if (!deckiter.is_done()) 
-        return deckiter.pop();
-    Card blank;
-    return blank;
+    if (deckiter.is_done()) 
+        resetDeck();
+    return deckiter.pop();
+}
+
+void Dealer::resetDeck() {
+    deckiter = currentDeck.createIterator();
 }
