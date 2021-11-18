@@ -2,6 +2,9 @@
 #define BLACKJACKPLAYER_H
 
 #include "Card.h"
+#include <iostream>
+#include <vector>
+using std::vector;
 
 class BlackjackPlayer
 {
@@ -11,6 +14,9 @@ protected:
 public:
     BlackjackPlayer();
     void gainCard(Card hitCard);
+    vector<Card> getHand();
+    void clearHand();
+
 };
 
 

@@ -12,6 +12,7 @@ private:
 
 public:
     Card();
+    Card(int val, int s);
     int getValue();
     int getSuit();
 

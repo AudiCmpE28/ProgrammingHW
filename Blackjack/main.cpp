@@ -1,20 +1,45 @@
 #include <iostream>
-#include "header/DeckOfCards.h"
-#include "header/CardIterator.h"
-#include "header/Dealer.h"
+
+#include "header/Card.h"
+#include "header/Game.h"
 using namespace std;
 
+// for testing
+#include <chrono>
+#include <thread>
+using namespace std::this_thread;
+using namespace std::chrono_literals;
+
+// Test drive of an actual game
 int main() {
-    Dealer dealer1;
-    Card temp;
-    int count = 0;
-    while (count < 52) {
-        temp = dealer1.dealCard();
-        temp.printCardDetails();
-        count++;
+    Game game1;
+    int count = 4;
+    while(1) {
+        sleep_for(2s);
+        cout << "<<<<<<<<<NEW GAME>>>>>>>>>" << endl;
+        int choice = 100;
+        game1.setPlayerBet(10);
+        game1.initHands();
+        game1.printUI();
+
+        while (choice && !game1.stopGame()) {
+            cout << "Do you want to hit(1) or stay(0)? " << endl;
+            cout << "Type Choice: ";
+            cin >> choice;
+            if (choice) 
+                game1.playerHit(true);
+            else 
+                game1.playerHit(false);
+            game1.printUI();
+        }      
+
+        game1.dealerTurn();
+
+        cout << "Here are the final results!" << endl;
+        game1.printUI();
     }
 
-
+    cout << "Games are done!" << endl;
     return 0;
 }
 

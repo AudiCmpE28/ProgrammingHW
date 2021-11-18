@@ -7,5 +7,8 @@ Dealer::Dealer() {
 }
 
 Card Dealer::dealCard() {
-    return deckiter.pop();
+    if (!deckiter.is_done()) 
+        return deckiter.pop();
+    Card blank;
+    return blank;
 }
