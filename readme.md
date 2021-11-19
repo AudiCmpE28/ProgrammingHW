@@ -48,3 +48,10 @@ in a different folder, but must be specified in included files such as: #include
 Homework 4:
 smartML.txt contains a file that is learned to counter a player that only swings rock every single time
 Choices.txt contains a file with randomly generated "machine learning" data, so it will probably not win that much.
+
+
+
+Final Project:
+Download CmakeTools extension in vscode
+click clean reconfigure projects, and then build/run project in terminal by rightclicking it in the cmake tab.
+I have already made the cmakelists.txt files so everything should be set up.
