@@ -3,7 +3,8 @@
 #include "headers/mainFrame.h" //main class
 #include "headers/gameFrame.h" //other class
 #include "headers/bankFrame.h" //other class
-
+#include "../Blackjack/header/Bank.h"
+#include "../Blackjack/header/Game.h"
 using namespace std;
 
 /* ID's for Menu and Buttons */
@@ -198,3 +199,5 @@ void MAIN_Frame::OnClick_Bank_Window(wxCommandEvent& event){
 
     
 }
+
+//need a button to return to main screen

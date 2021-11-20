@@ -13,9 +13,17 @@ Game::Game() {
     playerStay = false;
     playerBust = false;
 }
-
+Game::Game(Player *playerinstance) {
+    player=playerinstance; //set pointer to that of passed player pointer
+    playerBet = 0;
+    playerScore = 0;
+    dealerScore = 0;
+    gameover = false;
+    playerStay = false;
+    playerBust = false;
+}
 void Game::initHands() {
-    player.clearHand();
+    player->clearHand();
     dealer.clearHand();
     gameover = false;
     playerStay = false;
@@ -31,9 +39,9 @@ void Game::initHands() {
 }
 
 bool Game::setPlayerBet(double cash) { 
-    cout << player.getWallet();
-    if (player.getWallet() >= cash) {
-        if (player.setWallet(-cash)) {
+    cout << player->getWallet();
+    if (player->getWallet() >= cash) {
+        if (player->setWallet(-cash)) {
             playerBet = cash;
             return true;
         }
@@ -44,13 +52,13 @@ bool Game::setPlayerBet(double cash) {
 }
 
 void Game::payWinnings() {
-    player.setWallet(2*playerBet);
+    player->setWallet(2*playerBet);
 }
 
 void Game::addToHand(int participant) {
     Card topCard = dealer.dealCard();
     if (participant == forPlayer) {
-        player.gainCard(topCard);
+        player->gainCard(topCard);
         updatePlayerScore();
     }
     else if (participant = forDealer) {
@@ -119,7 +127,7 @@ vector<Card> Game::getHand(int participant) {
     Card errorCard(99,99);
     vector<Card> error = {errorCard};
     if (participant == forPlayer) {
-        return player.getHand();
+        return player->getHand();
     }
     else if (participant == forDealer) {
         return dealer.getHand();
@@ -189,7 +197,7 @@ void Game::printUI() {
         else 
             cout << "-----------TIEEEEEEEEE-----------" << endl;
 
-        cout << "Player current Balance: " << player.getWallet() << endl;
+        cout << "Player current Balance: " << player->getWallet() << endl;
     }
 }
 
