@@ -38,12 +38,16 @@ class BANK_Frame : public wxFrame {
     /*Bank Withdraw*/
     void OnClick_Withdraw(wxCommandEvent& event);
 
+    /*Return button*/
+    void OnClick_Return(wxCommandEvent& event);
+
     wxDECLARE_EVENT_TABLE();
 };
 
 enum atm_id{
   ID_bank_deposit = 60,
-  ID_bank_withdraw = 61
+  ID_bank_withdraw = 61,
+  ID_return = 62
 };
 
 #endif /* BANKFRAME_H_ */
