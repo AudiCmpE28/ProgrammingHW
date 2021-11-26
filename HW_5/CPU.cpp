@@ -9,7 +9,7 @@ using std::cout;
 CPU::CPU()
 {
     this->move = 0;
-    this->choiceMethod = 0; // init with random choice selection
+    this->choiceMethod = 1; // init with random choice selection
     srand(time(NULL));      // seed the rand function
 };
 
@@ -35,6 +35,7 @@ int CPU::getchoiceMethod()
 
 void CPU::setchoiceMethod(int choice)
 {
+    // Rand(1), Smart(2), Genius(3)
     choiceMethod = choice;
 }
 

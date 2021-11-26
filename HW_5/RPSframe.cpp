@@ -1,7 +1,5 @@
-#include <iostream>
 #include <wx/wx.h>
 #include "headers/RPSframe.h"
-#include "headers/RPSsetup.h" //other class
 
 #include "headers/Game.h"
 

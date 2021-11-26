@@ -1,6 +1,7 @@
 #ifndef RPSFRAME_H_
 #define RPSFRAME_H_
 
+<<<<<<< HEAD
 #include <wx/wx.h>
 
 class Game;
@@ -72,13 +73,21 @@ class GAME_Frame: public wxFrame {
 /*Stats*/
         //CPU total wins
         wxStaticText *total_CPU_wins;
+=======
 
-        //Player Total wins
-        wxStaticText *total_Player_wins;
+#include <wx/wx.h>
+#include <string.h>
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930
 
-        //total ties between CPU and Player
-        wxStaticText *total_ties;
+using std::string;
 
+class cGame : public wxFrame
+{
+public:
+    cGame(const wxString& windowTitle);
+    ~cGame();
+
+<<<<<<< HEAD
 /*Player made Move*/
         // bool player_chose_RPS;
         int RoundsChosen;
@@ -94,11 +103,13 @@ class GAME_Frame: public wxFrame {
 enum id_nums{
     ID_RestartGame = 4
 };
+=======
+    void config_game(int rounds, int cpuChoice);
 
-enum RPS_buttons{
-    buttonRock_ID = 101,
-    buttonPaper_ID = 102,
-    buttonScissors_ID = 103,
+private:
+    
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930
+
 };
 
 #endif /* RPSFRAME_H_ */

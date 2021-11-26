@@ -51,8 +51,31 @@ class Game {
         CPU cpuTurn;
         int CPU_Mode;
 
+<<<<<<< HEAD
     public:
         Game();
+=======
+class Game
+{
+private:
+    int roundNumber;            //tracks actual round
+    int maxRounds;
+    vector<vector<int>> Rounds; //Cpu index 0, player index 1
+    Player player;
+    CPU computer;
+    enum winner
+    {
+        tie = -1,
+        playerWin = 1,
+        cpuWin = 2
+    };
+    enum moveTypes
+    {
+        rock = 1,
+        paper,
+        scissors
+    };
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930
 
         /**
          * @brief Pass in a filepointer and vector<vector<int> > Rounds
@@ -70,7 +93,24 @@ class Game {
         void executeSetup(int setCPUmode);
         GameStats executeMatch(int playerInput); //play players move
 
+<<<<<<< HEAD
         void update_text_file();
+=======
+    /**
+     * @brief Set the player move, make the CPU move, calculate and save winner, update round
+     */
+    void executeRound(int playerMove);
+
+    /**
+     * @brief Initialize how many rounds and what the CPU chooser is
+     */
+    void initializeGame(int round, int cpuChoice);
+
+    /**
+     * @brief Used at the end of the game to export game data for smartCPU games
+     */
+    void exportGameData();
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930
 
         /**
          * @brief Updates the vector that holds each rounds data and increments roundNumber

@@ -1,9 +1,6 @@
 #include <wx/wx.h>
-#include "wx/sizer.h"
-#include "icons/slider.xpm"
-
-#include <iostream>
 #include "headers/RPSsetup.h"
+<<<<<<< HEAD
 #include "headers/RPSframe.h" // other class
 
 #include "headers/Game.h"
@@ -177,3 +174,25 @@ void MAIN_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
         // Destroy(); //force closes window [Dangerous]
     }
 }
+=======
+
+// Tells the entry point of the app (basically main)
+wxIMPLEMENT_APP(cApp);
+
+cApp::cApp() 
+{
+
+}
+
+cApp::~cApp()
+{
+
+}
+
+bool cApp::OnInit()
+{
+    init_frame = new cMain("Initialize The Game");
+    init_frame->Show();
+    return true;
+}
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930

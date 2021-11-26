@@ -2,10 +2,9 @@
 #define RPSSETUP_H_
 
 #include <wx/wx.h>
-#include <wx/slider.h> // slider 
-#include <wx/tglbtn.h> // toggle button
-#include "RPSframe.h"  // game
+#include "RPSmain.h"
 
+<<<<<<< HEAD
 class GAME_Frame; //to not include class and cause infinite repetition
 
 class MAIN_Frame : public wxFrame {
@@ -68,5 +67,21 @@ enum CPU_mode{
 };    
 
 // const int ;
+=======
+class cApp : public wxApp
+{
+public:
+    cApp();
+    ~cApp();
+
+private:
+    cMain* init_frame = nullptr;
+
+public:
+    virtual bool OnInit();
+
+};
+
+>>>>>>> e2cb63abf46e05763309d4b5164bfdc882d87930
 
 #endif /* RPSSETUP_H_ */

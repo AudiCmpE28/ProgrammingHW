@@ -142,3 +142,27 @@ int Game::calculateResult(int pmove, int cpumove) {
     else
         return tie;
 }
+
+string convertNumToMove(int move) {
+    string retValue;
+    if (move == 1) 
+        retValue = "Rock";
+    else if (move == 2) 
+        retValue = "Paper";
+    else if (move == 3)
+        retValue = "Scissors";
+
+    return retValue;
+}
+
+string convertNumToWinner(int winner) {
+    string retValue;
+    if (winner == 1) 
+        retValue = "Player Wins!";
+    else if (winner == 2) 
+        retValue = "CPU Wins!";
+    else if (winner == -1)
+        retValue = "Tie!";
+
+    return retValue;
+}
