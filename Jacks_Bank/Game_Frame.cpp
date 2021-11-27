@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "headers/gameFrame.h" //main class
-// #include "headers/gameFrame.h"
+#include "headers/betFrame.h"
 #include "headers/mainFrame.h" // other class
 
 using namespace std;
@@ -12,9 +12,9 @@ wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
     EVT_MENU(wxID_ABOUT, GAME_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, GAME_Frame::OnExit)
 
-    EVT_BUTTON(ID_returns, GAME_Frame::OnClick_Hit)
+    EVT_BUTTON(ID_stay_card, GAME_Frame::OnClick_Hit)
     EVT_BUTTON(ID_hit_card, GAME_Frame::OnClick_Stay)
-    EVT_BUTTON(ID_stay_card, GAME_Frame::OnClick_Return)
+    EVT_BUTTON(ID_returns, GAME_Frame::OnClick_Return)
 wxEND_EVENT_TABLE()
 
 GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
@@ -151,7 +151,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     /* Return Button */
-    setup_button_config = new wxButton(this, ID_returns, _T("Return To Menu"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxButton(this, ID_returns, _T("Play Again"), wxDefaultPosition, wxDefaultSize, 0);
     button_config =new wxBoxSizer(wxHORIZONTAL);
     button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
     window_layout->Add(button_config,0,wxALIGN_CENTER,10);
@@ -162,6 +162,8 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     this->Layout();
     this->Centre();
 
+    /*Variables*/
+    played_round = false;
 }
 
 void GAME_Frame::OnAbout(wxCommandEvent &event){
@@ -192,6 +194,7 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
     cout << "Hit Card" << endl;
+    played_round = true;
    
 }
 
@@ -203,13 +206,22 @@ void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
 
 void GAME_Frame::OnClick_Return(wxCommandEvent &event){
     cout << "On retrun to menu button" << endl;
+    if(played_round){
+        Bet_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        Bet_Window->Center();
+        Bet_Window->Show(true);
+        Bet_Window->set_wallet_money(money_betted);
+
+        Close(true);
+    }
    
 }
 
 
 
 //////////////////////////////
-void GAME_Frame::user_information(int bet_money){
+void GAME_Frame::user_information(int bet_money, int wallet_money){
     money_betted = bet_money;
+    money_wallet = wallet_money;
     Bet_Money->SetLabel(wxString::Format(wxT("$%i"), bet_money));
 }

@@ -136,7 +136,7 @@ void MAIN_Frame::OnClick_Game_Window(wxCommandEvent& event){
     Game_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Game_Window->Center();
     Game_Window->Show(true);
-    // Game_Window->send_data(mode_selected, PlayerName);
+    Game_Window->set_wallet_money(money_in_Wallet);
 
     Close(true);
 

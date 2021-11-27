@@ -10,8 +10,12 @@ class MAIN_Frame;
 class BET_Frame : public wxFrame {
   public:
     BET_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    
+    void set_wallet_money(int money);
+    int wallet_money;
+    int wallet_backup;
+
   private:
+  
     GAME_Frame* Game_Window;
     MAIN_Frame* Menu_Window;
 
@@ -31,7 +35,10 @@ class BET_Frame : public wxFrame {
     wxStaticText *CPUmode_display;
     int CPUMode;
 
-
+/**/
+    /*Money that in Wallet*/
+    wxStaticText *Wallet_Money;
+    wxBoxSizer *display_wallet;
 
 
 /* slider for amounf of rounds*/

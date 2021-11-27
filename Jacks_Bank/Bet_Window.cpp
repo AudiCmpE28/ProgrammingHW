@@ -44,6 +44,24 @@ BET_Frame::BET_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
 
+
+/*Money Bet*/
+    display_wallet = new wxBoxSizer(wxHORIZONTAL); 
+
+    wxFont wallet_font(13, wxDEFAULT, wxNORMAL, wxBOLD);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Wallet: "), wxPoint(50, 15));
+    heading->SetFont(wallet_font);
+    display_wallet->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+
+
+    wxFont Bet_Money_heading(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    Wallet_Money = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
+    Wallet_Money->SetFont(Bet_Money_heading);
+    display_wallet->Add(Wallet_Money, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+
+
+    window_layout->Add(display_wallet, 0, wxALIGN_RIGHT, 10); //addFunct, porportion, flag, postion
+    window_layout->AddSpacer(50);
    
 
     /*Round Amount */
@@ -120,16 +138,20 @@ void BET_Frame::OnScroll(wxScrollEvent &event) {
     roundNum->SetLabel(wxString::Format(wxT("Money Selected: $%d"), fill)); //update display
     wxDisplayChangedEvent();                                       // update immediatelly do not wait a second
     Refresh();
+
+    
 }
 
 void BET_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
-
+    if((wallet_money-fill)>=0){
+    
         Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(450, 640));
         Game_Window->Center();
         Game_Window->Show(true);
-        Game_Window->user_information(slider->GetValue());
+        Game_Window->user_information(slider->GetValue(), wallet_money-fill);
 
         Close(true); // closes window
+    }
 }
 
 void BET_Frame::OnClick_Back_Menu(wxCommandEvent &event){
@@ -137,8 +159,15 @@ void BET_Frame::OnClick_Back_Menu(wxCommandEvent &event){
         Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
         Menu_Window->Center();
         Menu_Window->Show(true);
-        // Menu_Window->set_config(slider->GetValue());
+        Menu_Window->wallet_updated(wallet_money);
 
         Close(true); // closes window
         // Destroy(); //force closes window [Dangerous]
+}
+
+
+
+void BET_Frame::set_wallet_money(int money){
+    wallet_money=money;
+    Wallet_Money->SetLabel(wxString::Format(wxT("$%i"), money));
 }

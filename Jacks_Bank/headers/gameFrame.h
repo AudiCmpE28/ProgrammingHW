@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <wx/wx.h>
+using namespace std;
 
 class MAIN_Frame;
 class BET_Frame;
@@ -10,10 +11,13 @@ class BET_Frame;
 class GAME_Frame : public wxFrame {
   public:
     GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    void user_information(int bet_money);
+    void user_information(int bet_money, int wallet_money);
     int money_betted;
+    int money_wallet;
+    
 
   private:
+    bool played_round;
     BET_Frame* Bet_Window;
     MAIN_Frame* Menu_Window;
     
@@ -32,8 +36,6 @@ class GAME_Frame : public wxFrame {
     /*Money that was Bet*/
     wxStaticText *Bet_Money;
     wxBoxSizer *display_bet;
-
-
 
 /*Dealer*/
 
