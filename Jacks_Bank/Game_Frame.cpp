@@ -72,11 +72,12 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
 
-    wxPNGHandler *handler = new wxPNGHandler;
-    wxImage::AddHandler(handler);
-    wxStaticBitmap *image;
-    image = new wxStaticBitmap( this, wxID_ANY, wxBitmap("Windows_7_logo.png", wxBITMAP_TYPE_PNG), wxPoint(50,100), wxSize(100, 500));
-    window_layout->AddSpacer(20);
+    // wxPNGHandler *handler = new wxPNGHandler;
+    // wxImage::AddHandler(handler);
+    // wxStaticBitmap *image = new wxStaticBitmap( this, wxID_ANY, wxBitmap("/home/simonalta/Desktop/ProgrammingHW/Jacks_Bank/images/Uno_Blue_Reverse.png", wxBITMAP_TYPE_PNG), wxPoint(50,100), wxSize(100, 500));
+    
+    // window_layout->Add(image, 0, wxALIGN_CENTER, 10);
+    // window_layout->AddSpacer(20);
 
 
 

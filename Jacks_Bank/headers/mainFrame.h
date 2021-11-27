@@ -36,17 +36,14 @@ class MAIN_Frame : public wxFrame {
     //Button variables
     wxBoxSizer* setup_box_config;
     wxButton* setup_button_config;
-    //button functions
-    void OnClick_Easy(wxCommandEvent& event);
-    void OnClick_Medium(wxCommandEvent& event);
-    void OnClick_Expert(wxCommandEvent& event);
+    
     //Mode Selected
     wxStaticText *mode_display;
     int mode_selected;
 
-/* Text box for Player Name */
-    wxTextCtrl* player_username;
-    std::string username_fetch;
+    /*Wallet*/
+    wxStaticText *wallet;
+    wxBoxSizer* Wallet_Display;
 
 /* Choose Window to Go to */
     // Button variable
