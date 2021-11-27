@@ -10,6 +10,7 @@ wxBEGIN_EVENT_TABLE(BANK_Frame, wxFrame)
 
     EVT_BUTTON(ID_bank_deposit, BANK_Frame::OnClick_Deposit)   
     EVT_BUTTON(ID_bank_withdraw, BANK_Frame::OnClick_Withdraw) 
+    EVT_BUTTON(ID_return, BANK_Frame::OnClick_Return)
 wxEND_EVENT_TABLE()
 
 BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
@@ -57,18 +58,28 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->Add(amount_entered, 0, wxALIGN_CENTER, 10);
     window_layout->AddSpacer(50);
 
-    /* Deposit and Withdraw Button Layout */
+    /* Deposit Button Layout */
     button_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
+
     setup_button_config = new wxButton(this, ID_bank_deposit, _T("Deposit"), wxDefaultPosition, wxDefaultSize, 0);
     button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
 
     button_config->AddSpacer(40); //space between them
 
+    /*Withdraw Button Layout*/
     setup_button_config = new wxButton(this, ID_bank_withdraw, _T("Withdraw"), wxDefaultPosition, wxDefaultSize, 0);
     button_config->Add(setup_button_config, 0, wxALL, 5);
 
     window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);
     window_layout->AddSpacer(10);
+
+    /*vertical spacer for return button*/
+    /* Return Button */
+    setup_button_config = new wxButton(this, ID_return, _T("Return"), wxDefaultPosition, wxDefaultSize, 0);
+    button_config =new wxBoxSizer(wxHORIZONTAL);
+    button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
+    window_layout->Add(button_config,0,wxALIGN_CENTER,10);
+
 
 
 /*Finalize layout*/
@@ -101,5 +112,10 @@ void BANK_Frame::OnClick_Deposit(wxCommandEvent &event){
 
 void BANK_Frame::OnClick_Withdraw(wxCommandEvent &event){
     std::cout << "Withdraw ma Money" << std::endl;
+
+}
+
+void BANK_Frame::OnClick_Return(wxCommandEvent &event){
+    std::cout << "Return to main screen" << std::endl;
 
 }

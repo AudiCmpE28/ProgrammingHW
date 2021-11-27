@@ -8,7 +8,7 @@
 class Game
 {
 private:
-    Player player;
+    Player *player;
     Dealer dealer;
 
     int playerBet;
@@ -22,6 +22,8 @@ private:
     
 public:
     Game();
+    Game(Player *playerinstance);
+
     const int forPlayer = 1;
     const int forDealer = 2;
     void initHands();
