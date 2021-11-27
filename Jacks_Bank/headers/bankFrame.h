@@ -5,14 +5,19 @@
 #include <wx/wx.h>
 #include <wx/textctrl.h>
 
+class MAIN_Frame;
+
 class BANK_Frame : public wxFrame {
   public:
     BANK_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
     void wallet_money_updated(int money);
-    int wallet_money;  
+    int wallet_money;
+    int bank_money;  
 
 
   private:
+    MAIN_Frame *Menu_Window;
+
     //menu on top bar
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);

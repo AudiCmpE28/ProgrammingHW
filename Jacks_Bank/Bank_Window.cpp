@@ -2,7 +2,7 @@
 #include "wx/sizer.h"
 
 #include "headers/bankFrame.h" //main class
-
+#include "headers/mainFrame.h"
 
 wxBEGIN_EVENT_TABLE(BANK_Frame, wxFrame)
     EVT_MENU(wxID_ABOUT, BANK_Frame::OnAbout)
@@ -130,6 +130,8 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     this->Layout();
     this->Centre();
 
+/*Variables*/
+    bank_money = 0;
 }
 
 void BANK_Frame::OnAbout(wxCommandEvent &event){
@@ -147,19 +149,36 @@ void BANK_Frame::OnExit(wxCommandEvent &event){
     Close(true);
 }
 
+
+
 /* Buttons Functions */
 void BANK_Frame::OnClick_Deposit(wxCommandEvent &event){
-    std::cout << "Depoist ma Money" << std::endl;
-
+    int total = atoi(amount_entered->GetValue());
+    if ((wallet_money-total) >= 0){
+        bank_money = bank_money + total;
+        total_balance->SetLabel(wxString::Format(wxT("$%i"), bank_money));
+        wallet_money_updated(wallet_money-total);
+    }
 }
 
-void BANK_Frame::OnClick_Withdraw(wxCommandEvent &event){
-    std::cout << "Withdraw ma Money" << std::endl;
 
+
+void BANK_Frame::OnClick_Withdraw(wxCommandEvent &event){
+    int total = atoi(amount_entered->GetValue());
+    if((bank_money-total) >= 0){
+        bank_money = bank_money - total;
+        total_balance->SetLabel(wxString::Format(wxT("$%i"), bank_money));
+        wallet_money_updated(wallet_money+total);
+    }
 }
 
 void BANK_Frame::OnClick_Return(wxCommandEvent &event){
-    std::cout << "Return to main screen" << std::endl;
+    Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
+    Menu_Window->Center();
+    Menu_Window->Show(true);
+    Menu_Window->wallet_updated(wallet_money);
+
+    Close(true); // closes window
 
 }
 
