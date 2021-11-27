@@ -21,9 +21,13 @@ class BANK_Frame : public wxFrame {
     wxStaticText *heading;
 
     /*Total Balance*/
+    wxBoxSizer* ATM_Display;
     wxStaticText *total_balance;
 
-
+    /*Wallet*/
+    wxStaticText *wallet;
+    wxBoxSizer* Wallet_Display;
+    
     /* Enter Amount to... */
     wxTextCtrl* amount_entered;
     std::string bank_fetch;

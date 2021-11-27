@@ -37,30 +37,51 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     //Title
     window_layout->AddSpacer(20);
     wxFont title_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
-    heading = new wxStaticText(this, wxID_ANY, wxT("Jack's Bank"), wxPoint(50, 15));
+    heading = new wxStaticText(this, wxID_ANY, wxT(">> Jack's Bank <<"), wxPoint(50, 15));
     heading->SetFont(title_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
 
 /* ATM */
+
     /* Total Balance */
-    wxFont total_balance_heading(14, wxDEFAULT, wxNORMAL, wxBOLD);
-    total_balance = new wxStaticText(this, wxID_ANY, wxT("0.0"), wxPoint(30, 15));
+    // wxStaticBox *box = new wxStaticBox(this, wxID_ANY, "StaticBox");
+    
+
+    wxFont bank_total(16, wxDEFAULT, wxNORMAL, wxBOLD);
+    heading = new wxStaticText(this, wxID_ANY, wxT("BANK Total"), wxPoint(50, 15));
+    heading->SetFont(bank_total);
+    window_layout->Add(heading, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(5);
+
+    wxFont total_balance_heading(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    total_balance = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
     total_balance->SetFont(total_balance_heading);
     window_layout->Add(total_balance, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
 
+
+
     /* Enter Amount */
     // Create the textbox to input username 
+    ATM_Display = new wxBoxSizer(wxHORIZONTAL); 
+
+    wxFont ATM_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Enter $"), wxPoint(50, 15));
+    heading->SetFont(ATM_font);
+    ATM_Display->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+
+
     amount_entered = new wxTextCtrl(this, wxID_ANY, wxEmptyString,
             wxDefaultPosition, wxSize(200, 50));
-    //add to window layout
-    window_layout->Add(amount_entered, 0, wxALIGN_CENTER, 10);
-    window_layout->AddSpacer(50);
+    ATM_Display->Add(amount_entered, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+    
+    window_layout->Add(ATM_Display, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(30);
+
 
     /* Deposit Button Layout */
     button_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
-
     setup_button_config = new wxButton(this, ID_bank_deposit, _T("Deposit"), wxDefaultPosition, wxDefaultSize, 0);
     button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
 
@@ -71,11 +92,33 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     button_config->Add(setup_button_config, 0, wxALL, 5);
 
     window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);
-    window_layout->AddSpacer(10);
+    window_layout->AddSpacer(40);
 
-    /*vertical spacer for return button*/
+
+
+
+/* Wallet Balance */
+    Wallet_Display = new wxBoxSizer(wxHORIZONTAL); 
+
+    wxFont wallet_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
+    heading = new wxStaticText(this, wxID_ANY, wxT("Wallet Amount: "), wxPoint(50, 15));
+    heading->SetFont(wallet_font);
+    Wallet_Display->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+
+
+    wxFont wallet_heading(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
+    wallet = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
+    wallet->SetFont(wallet_heading);
+    Wallet_Display->Add(wallet, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
+
+
+    window_layout->Add(Wallet_Display, 0, wxALIGN_CENTER, 10);
+    window_layout->AddSpacer(60);
+
+
+/*vertical spacer for return button*/
     /* Return Button */
-    setup_button_config = new wxButton(this, ID_return, _T("Return"), wxDefaultPosition, wxDefaultSize, 0);
+    setup_button_config = new wxButton(this, ID_return, _T("Return To Menu"), wxDefaultPosition, wxDefaultSize, 0);
     button_config =new wxBoxSizer(wxHORIZONTAL);
     button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
     window_layout->Add(button_config,0,wxALIGN_CENTER,10);
