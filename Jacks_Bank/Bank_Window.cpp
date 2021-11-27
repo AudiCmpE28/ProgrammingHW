@@ -162,3 +162,9 @@ void BANK_Frame::OnClick_Return(wxCommandEvent &event){
     std::cout << "Return to main screen" << std::endl;
 
 }
+
+
+void BANK_Frame::wallet_money_updated(int money){
+    wallet_money = money;
+    wallet->SetLabel(wxString::Format(wxT("$%i"), money));
+}

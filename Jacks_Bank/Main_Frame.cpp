@@ -1,7 +1,7 @@
 #include "wx/sizer.h"
 
 #include "headers/mainFrame.h" //main class
-#include "headers/gameFrame.h" //other class
+#include "headers/betFrame.h" //other class
 #include "headers/bankFrame.h" //other class
 #include "../Blackjack/header/Bank.h"
 #include "../Blackjack/header/Game.h"
@@ -9,6 +9,7 @@ using namespace std;
 
 /* ID's for Menu and Buttons */
 wxBEGIN_EVENT_TABLE(MAIN_Frame, wxFrame)
+    // EVT_MENU(wxID_EXIT, MAIN_Frame::OnRestart)
     EVT_MENU(wxID_ABOUT, MAIN_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, MAIN_Frame::OnExit) 
 
@@ -48,15 +49,11 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
     // Instructions
     wxFont game_mode_font(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    string game_mode = "# Welcome to Jack's Bank #"
-                        "\nYou will have a wallet that represents money you have"
-                        "\ninstant access to use. If you desire to save money,"
-                        "\nyou can access the bank where you may also retrieve"
-                        "\nmoney. To make money, you can head to the game window"
-                        "\nto play Jack Black, where you can bet any amount of money"
-                        "\nyou own, with potential to lose bet amount or win twice"
-                        "\ntwice as much. Game ends when you lose all money or you"
-                        "\nor you choose to restart";
+    string game_mode = "# Welcome to Jack's Bank #\n"
+                        "\nFor game information, go to:"
+                        "\n\t   Help -> About" 
+                        "\n\t\t   or"
+                        "\n\t        Ctrl-P";
     
     heading = new wxStaticText(this, wxID_ANY, game_mode, wxPoint(50, 15));
     heading->SetFont(game_mode_font);
@@ -73,7 +70,7 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     wxFont wallet_heading(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    wallet = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
+    wallet = new wxStaticText(this, wxID_ANY, wxT("$30.00"), wxPoint(30, 15));
     wallet->SetFont(wallet_heading);
     Wallet_Display->Add(wallet, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
@@ -104,16 +101,20 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 /* Variables Initialized */
     mode_selected = -1;
+    money_in_Wallet = 30;
 }
 
 void MAIN_Frame::OnAbout(wxCommandEvent &event){
-    wxMessageBox("Welcome to Jack's Bank!\n"
-                 "\nJack's Bank is an application designed to act as a game and bank"
-                 "\n\nThere are 3 Windows: "
-                 "\n\t1) Main Window to choose settings"
-                 "\n\t2) Game Window to play black jack's game"
-                 "\n\t3) Bank Window for depositing, withdrawls, and checking total balance",
-                 "About Jacks Bank", wxOK | wxICON_INFORMATION);
+    wxMessageBox("# Welcome to Jack's Bank #\n"
+                    "\nYou will have a wallet that represents money you have"
+                    "\ninstant access to use. If you desire to save money,"
+                    "\nyou can access the bank where you may also retrieve"
+                    "\nmoney. To make money, you can head to the game window"
+                    "\nto play Jack Black, where you can bet any amount of money"
+                    "\nyou own, with potential to lose bet amount or win twice"
+                    "\ntwice as much. Game ends when you lose all money or you"
+                    "\nor you choose to restart",
+                 "About Jacks Bank",wxOK | wxICON_INFORMATION);
 }
 
 void MAIN_Frame::OnExit(wxCommandEvent &event){
@@ -123,43 +124,32 @@ void MAIN_Frame::OnExit(wxCommandEvent &event){
 
 
 
+void MAIN_Frame::wallet_updated(int money){
+    money_in_Wallet = money;
+    wallet->SetLabel(wxString::Format(wxT("$%i"), money));
+}
+
+
+
 /* Next Window Buttons */
 void MAIN_Frame::OnClick_Game_Window(wxCommandEvent& event){
-    // cout << "Game Window Button Pressed" << endl;
-    // username_fetch = player_username->GetValue().ToStdString();
-
-    // if(mode_selected == -1 || username_fetch == "" || username_fetch == " "){
-    //     wxMessageBox("Please Select Game Mode and Username!\n",
-    //                  "Setup Incomplete", wxOK | wxICON_INFORMATION);
-    // }else{
-    Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(450, 640));
+    Game_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Game_Window->Center();
     Game_Window->Show(true);
     // Game_Window->send_data(mode_selected, PlayerName);
 
     Close(true);
-    // }
-
 
 }
 
 void MAIN_Frame::OnClick_Bank_Window(wxCommandEvent& event){
-    cout << "Bank Window Button Pressed" << endl;
-
-    //     username_fetch = player_username->GetValue().ToStdString();
-    // if(mode_selected == -1 || username_fetch == "" || username_fetch == " "){
-    //     wxMessageBox("Please Select Game Mode and Username!\n",
-    //                  "Setup Incomplete", wxOK | wxICON_INFORMATION);
-    // }else{
     Bank_Window = new BANK_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Bank_Window->Center();
     Bank_Window->Show(true);
-    // Bank_Window->send_data(mode_selected, PlayerName);
+    Bank_Window->wallet_money_updated(money_in_Wallet);
 
     Close(true);
-    // }
-
-    
+        
 }
 
 //need a button to return to main screen

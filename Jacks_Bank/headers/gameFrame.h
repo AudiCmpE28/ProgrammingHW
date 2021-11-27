@@ -4,13 +4,21 @@
 #include <iostream>
 #include <wx/wx.h>
 
+class MAIN_Frame;
+class BET_Frame;
+
 class GAME_Frame : public wxFrame {
   public:
     GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    
+    void user_information(int bet_money);
+    int money_betted;
+
   private:
+    BET_Frame* Bet_Window;
+    MAIN_Frame* Menu_Window;
+    
     //menu on top bar
-    // void OnRestart(wxCommandEvent& event);
+    void OnRestart(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 
@@ -36,9 +44,6 @@ class GAME_Frame : public wxFrame {
     wxStaticText *CPU_Score;
     
 /*Player*/
-
-
-
     /*Buttons*/
     wxBoxSizer* button_config;
     wxButton* setup_button_config;

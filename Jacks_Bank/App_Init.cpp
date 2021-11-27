@@ -5,11 +5,14 @@
 //other class for testing fast
 #include "headers/gameFrame.h"
 #include "headers/bankFrame.h"
+#include "headers/betFrame.h"
 
 
 bool App_Init::OnInit(){
     cout << "OnInit: Initializing Jack's Black" << endl;
     
+
+
     /*MAIN window to be used in final version */
     MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
     SetUpFrame->Center();
@@ -22,6 +25,11 @@ bool App_Init::OnInit(){
 
     /* Game Window - Test2 */
     // GAME_Frame *SetUpFrame = new GAME_Frame("Initial Configuration", wxPoint(50, 50), wxSize(550, 740));
+    // SetUpFrame->Center();
+    // SetUpFrame->Show(true);
+
+    /* BET Window - Test3*/
+    // BET_Frame *SetUpFrame = new BET_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
     // SetUpFrame->Center();
     // SetUpFrame->Show(true);
 

@@ -8,16 +8,18 @@
 #include <wx/tglbtn.h> // toggle button
 
 /*to not include class and cause infinite repetition*/
-class GAME_Frame; 
+class BET_Frame; 
 class BANK_Frame;
 
 /*Main Class for MAIN_Frame*/
 class MAIN_Frame : public wxFrame {
   public:
     MAIN_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    
+    void wallet_updated(int money);
+    int money_in_Wallet;
+
   private:
-    GAME_Frame* Game_Window;
+    BET_Frame* Game_Window;
     BANK_Frame* Bank_Window;
 
     //menu on top bar
@@ -71,7 +73,7 @@ class MAIN_Frame : public wxFrame {
 // };
 
 enum id_numbers{
-    ID_SLIDER = 5,
+    // ID_SLIDER = 5,
     ID_player_name = 8
 };
  

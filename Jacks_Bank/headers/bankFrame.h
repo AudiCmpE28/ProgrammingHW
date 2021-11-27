@@ -8,7 +8,10 @@
 class BANK_Frame : public wxFrame {
   public:
     BANK_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    
+    void wallet_money_updated(int money);
+    int wallet_money;  
+
+
   private:
     //menu on top bar
     void OnExit(wxCommandEvent& event);

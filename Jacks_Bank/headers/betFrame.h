@@ -1,17 +1,19 @@
-#ifndef RPSSETUP_H_
-#define RPSSETUP_H_
+#ifndef BETFRAME_H_
+#define BETFRAME_H_
 
 #include <wx/wx.h>
-#include "RPSmain.h"
+// #include "RPSmain.h"
 
 class GAME_Frame; //to not include class and cause infinite repetition
+class MAIN_Frame;
 
-class MAIN_Frame : public wxFrame {
+class BET_Frame : public wxFrame {
   public:
-    MAIN_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
+    BET_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
     
   private:
-    GAME_Frame* RPS_Game_Frame;
+    GAME_Frame* Game_Window;
+    MAIN_Frame* Menu_Window;
 
     //menu on top bar
     void OnExit(wxCommandEvent& event);
@@ -29,12 +31,8 @@ class MAIN_Frame : public wxFrame {
     wxStaticText *CPUmode_display;
     int CPUMode;
 
-/*button configuration*/
-    wxBoxSizer* setup_box_config;
-    wxButton* setup_button_config;
-    void OnClick_RandCPU(wxCommandEvent& event);
-    void OnClick_SmartCPU(wxCommandEvent& event);
-    void OnClick_GeniusCPU(wxCommandEvent& event);
+
+
 
 /* slider for amounf of rounds*/
     int fill;
@@ -42,9 +40,14 @@ class MAIN_Frame : public wxFrame {
     wxSlider *slider;
     void OnScroll(wxScrollEvent& event);
 
+
+/*button configuration*/
+    wxBoxSizer* setup_box_config;
 /*submit game settings button*/
-    wxButton* submit_button_config;
+    wxButton* button_config;
+    void OnClick_Back_Menu(wxCommandEvent& event);
     void OnClick_SubmitInfo(wxCommandEvent& event);
+    
 
     wxDECLARE_EVENT_TABLE();
 };
@@ -54,17 +57,13 @@ class Slider : public wxFrame {
         Slider(const wxString& title);
 };
 
-enum id_numbers{
-    ID_SLIDER = 100,
-    buttonSubmit_ID = 99,
+enum id_bet_numbers{
+    ID_SLIDER = 95,
+    ID_backMenu = 98,
+    buttonSubmitBet_ID = 99,
 };
 
-enum CPU_mode{
-  buttonRandCPU_ID = 105,
-  buttonSmartCPU_ID = 106,
-  buttonGeniusCPU_ID = 107,
-};    
 
 // const int ;
 
-#endif /* RPSSETUP_H_ */
+#endif /* BETFRAME_H_ */

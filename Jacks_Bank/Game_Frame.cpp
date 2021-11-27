@@ -2,10 +2,13 @@
 
 #include <iostream>
 #include "headers/gameFrame.h" //main class
+// #include "headers/gameFrame.h"
+#include "headers/mainFrame.h" // other class
 
 using namespace std;
 
 wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
+    EVT_MENU(ID_RestartGame, GAME_Frame::OnRestart)
     EVT_MENU(wxID_ABOUT, GAME_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, GAME_Frame::OnExit)
 
@@ -18,6 +21,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     : wxFrame(NULL, wxID_ANY, title, pos, size){
 /*Menu Top Bar*/
     wxMenu *menuFile = new wxMenu;
+    menuFile->Append(ID_RestartGame, "R&estart...\tCtrl-H", "Restart Game");
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
     wxMenu *menuHelp = new wxMenu;
@@ -175,6 +179,15 @@ void GAME_Frame::OnExit(wxCommandEvent &event){
     Close(true);
 }
 
+void GAME_Frame::OnRestart(wxCommandEvent &event){
+    Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
+    Menu_Window->Center();
+    Menu_Window->Show(true);
+    Menu_Window->wallet_updated(money_betted);
+    // Menu_Window->set_config(slider->GetValue());
+
+    Close(true); // closes window
+}
 
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
@@ -193,3 +206,10 @@ void GAME_Frame::OnClick_Return(wxCommandEvent &event){
    
 }
 
+
+
+//////////////////////////////
+void GAME_Frame::user_information(int bet_money){
+    money_betted = bet_money;
+    Bet_Money->SetLabel(wxString::Format(wxT("$%i"), bet_money));
+}
