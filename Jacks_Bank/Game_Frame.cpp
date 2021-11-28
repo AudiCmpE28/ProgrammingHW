@@ -317,6 +317,8 @@ void GAME_Frame::set_dealer_card(){
         card_5_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
     }
     dealer_cards_counter++;
+
+    CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), card_number));
 }
 
 
@@ -337,4 +339,7 @@ void GAME_Frame::set_player_card(){
         card_5_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
     }
     player_cards_counter++;
+
+
+    Player_Score->SetLabel(wxString::Format(wxT("[%i]"), card_number));
 }
