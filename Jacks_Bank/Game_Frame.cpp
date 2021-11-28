@@ -265,12 +265,12 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
     // played_round = true;
+    std::cout << "Bye";
    
 }
 
 void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
-    // dealer_card_1->SetBitmap(wxBitmap(wxT("/home/simonalta/Desktop/ProgrammingHW/Jacks_Bank/images/hearts_reverse.jpg"), wxBITMAP_TYPE_JPEG));
-   std::cout << "Hi";
+    std::cout << "Hi";
 }
 
 
