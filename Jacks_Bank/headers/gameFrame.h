@@ -14,6 +14,11 @@ class GAME_Frame : public wxFrame {
     void user_information(int bet_money, int wallet_money);
     int money_betted;
     int money_wallet;
+
+    void set_dealer_card();
+    void set_player_card();
+    int dealer_cards_counter;
+    int player_cards_counter;
     
 
   private:
@@ -51,8 +56,6 @@ class GAME_Frame : public wxFrame {
   wxStaticText *card_3_info_dealer;
   wxStaticText *card_4_info_dealer;
   wxStaticText *card_5_info_dealer;
-
-
 
 
 /*Score*/

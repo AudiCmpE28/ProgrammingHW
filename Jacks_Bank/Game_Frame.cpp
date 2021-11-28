@@ -235,6 +235,8 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
     /*Variables*/
     played_round = false;
+    dealer_cards_counter = 0;
+    player_cards_counter = 0;
 }
 
 void GAME_Frame::OnAbout(wxCommandEvent &event){
@@ -274,6 +276,7 @@ void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
 }
 
 
+
 void GAME_Frame::OnClick_Return(wxCommandEvent &event){
     cout << "On retrun to menu button" << endl;
     if(played_round){
@@ -289,9 +292,49 @@ void GAME_Frame::OnClick_Return(wxCommandEvent &event){
 
 
 
-//////////////////////////////
+//////////////////////////////Functions//////////////////
 void GAME_Frame::user_information(int bet_money, int wallet_money){
     money_betted = bet_money;
     money_wallet = wallet_money;
     Bet_Money->SetLabel(wxString::Format(wxT("$%i"), bet_money));
+}
+
+
+void GAME_Frame::set_dealer_card(){
+    //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
+    int card_number = 0; // placeholder
+    string card_letter;
+
+    if(dealer_cards_counter == 0){
+        card_1_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(dealer_cards_counter == 1){
+        card_2_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(dealer_cards_counter == 2){
+        card_3_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(dealer_cards_counter == 3){
+        card_4_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(dealer_cards_counter == 4){
+        card_5_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }
+    dealer_cards_counter++;
+}
+
+
+void GAME_Frame::set_player_card(){
+    //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
+    int card_number = 0; // placeholder
+    string card_letter;
+
+    if(player_cards_counter == 0){
+        card_1_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(player_cards_counter == 1){
+        card_2_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(player_cards_counter == 2){
+        card_3_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(player_cards_counter == 3){
+        card_4_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }else if(player_cards_counter == 4){
+        card_5_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+    }
+    player_cards_counter++;
 }
