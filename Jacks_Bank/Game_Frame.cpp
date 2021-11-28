@@ -5,6 +5,10 @@
 #include "headers/betFrame.h"
 #include "headers/mainFrame.h" // other class
 
+
+
+
+
 using namespace std;
 
 wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
