@@ -17,6 +17,7 @@ wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
     EVT_BUTTON(ID_returns, GAME_Frame::OnClick_Return)
 wxEND_EVENT_TABLE()
 
+
 GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
     : wxFrame(NULL, wxID_ANY, title, pos, size){
 /*Menu Top Bar*/
@@ -39,14 +40,6 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     this->SetSizeHints(wxDefaultSize, wxDefaultSize);
     window_layout = new wxBoxSizer(wxVERTICAL); //items placed vertical
 
-    //Title
-    // window_layout->AddSpacer(20);
-    // wxFont title_font(16, wxDEFAULT, wxNORMAL, wxBOLD);
-    // heading = new wxStaticText(this, wxID_ANY, wxT("Jack Black"), wxPoint(50, 15));
-    // heading->SetFont(title_font);
-    // window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    // window_layout->AddSpacer(20);
-
 
 /*Money Bet*/
     display_bet = new wxBoxSizer(wxHORIZONTAL); 
@@ -64,7 +57,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     window_layout->Add(display_bet, 0, wxALIGN_RIGHT, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(50);
+    window_layout->AddSpacer(20);
 
 
 /*Dealer*/
@@ -74,20 +67,59 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(10);
 
+/*CARDS*/
+    wxColour card_color, red_labels, black_labels;
+    card_color.Set(wxT("#6CE3E5"));
+    red_labels.Set(wxT("#CF3C21"));
+    black_labels.Set(wxT("#000000"));
 
 
-    // wxPNGHandler *handler = new wxPNGHandler;
-    // wxImage::AddHandler(handler);
-    // wxStaticBitmap *image = new wxStaticBitmap( this, wxID_ANY, wxBitmap("/home/simonalta/Desktop/ProgrammingHW/Jacks_Bank/images/Uno_Blue_Reverse.png", wxBITMAP_TYPE_PNG), wxPoint(50,100), wxSize(100, 500));
-    
-    // window_layout->Add(image, 0, wxALIGN_CENTER, 10);
-    // window_layout->AddSpacer(20);
+    wxBoxSizer *dealer_cards = new wxBoxSizer(wxHORIZONTAL);
+
+
+    card_1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_1->SetBackgroundColour(card_color);
+    card_1_info_dealer = new wxStaticText(card_1, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_1_info_dealer->SetForegroundColour(red_labels);
+    dealer_cards->Add(card_1, 1, wxEXPAND | wxALL, 20);
+  
+
+    card_2 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_2->SetBackgroundColour(card_color);
+    card_2_info_dealer = new wxStaticText(card_2, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_2_info_dealer->SetForegroundColour(red_labels);
+    dealer_cards->Add(card_2, 1, wxEXPAND | wxALL, 20);
+
+
+    card_3 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_3->SetBackgroundColour(card_color);
+    card_3_info_dealer = new wxStaticText(card_3, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_3_info_dealer->SetForegroundColour(red_labels);
+    dealer_cards->Add(card_3, 1, wxEXPAND | wxALL, 20);
+
+
+    card_4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_4->SetBackgroundColour(card_color);
+    card_4_info_dealer = new wxStaticText(card_4, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_4_info_dealer->SetForegroundColour(red_labels);
+    dealer_cards->Add(card_4, 1, wxEXPAND | wxALL, 20);
+
+
+    card_5 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_5->SetBackgroundColour(card_color);
+    card_5_info_dealer = new wxStaticText(card_5, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_5_info_dealer->SetForegroundColour(red_labels);
+    dealer_cards->Add(card_5, 1, wxEXPAND | wxALL, 20);
+
+
+    window_layout->Add(dealer_cards, 0, wxALIGN_CENTER, 5);
+    window_layout->AddSpacer(10);
 
 
 
 /*Score*/
     wxFont top_row_line(15, wxDEFAULT, wxNORMAL, wxBOLD);
-    heading = new wxStaticText(this, wxID_ANY, wxT("===================================="), wxPoint(50, 15));
+    heading = new wxStaticText(this, wxID_ANY, wxT("========================================="), wxPoint(50, 15));
     heading->SetFont(top_row_line);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(10);
@@ -118,10 +150,10 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     wxFont bottom_row_line(15, wxDEFAULT, wxNORMAL, wxBOLD);
-    heading = new wxStaticText(this, wxID_ANY, wxT("===================================="), wxPoint(50, 15));
+    heading = new wxStaticText(this, wxID_ANY, wxT("========================================="), wxPoint(50, 15));
     heading->SetFont(bottom_row_line);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(15);
+    window_layout->AddSpacer(10);
 
 
 /*Player*/
@@ -130,9 +162,48 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     heading->SetFont(player_title_font);
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(10);
-    
-    window_layout->AddSpacer(20);
+        
+    /*cards*/
+    wxBoxSizer *player_cards = new wxBoxSizer(wxHORIZONTAL);
 
+
+    card_1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_1->SetBackgroundColour(card_color);
+    card_1_info_player = new wxStaticText(card_1, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_1_info_player->SetForegroundColour(red_labels);
+    player_cards->Add(card_1, 1, wxEXPAND | wxALL, 20);
+  
+
+    card_2 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_2->SetBackgroundColour(card_color);
+    card_2_info_player = new wxStaticText(card_2, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_2_info_player->SetForegroundColour(red_labels);
+    player_cards->Add(card_2, 1, wxEXPAND | wxALL, 20);
+
+
+    card_3 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_3->SetBackgroundColour(card_color);
+    card_3_info_player = new wxStaticText(card_3, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_3_info_player->SetForegroundColour(red_labels);
+    player_cards->Add(card_3, 1, wxEXPAND | wxALL, 20);
+
+
+    card_4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_4->SetBackgroundColour(card_color);
+    card_4_info_player = new wxStaticText(card_4, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_4_info_player->SetForegroundColour(red_labels);
+    player_cards->Add(card_4, 1, wxEXPAND | wxALL, 20);
+
+
+    card_5 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_5->SetBackgroundColour(card_color);
+    card_5_info_player = new wxStaticText(card_5, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_5_info_player->SetForegroundColour(red_labels);
+    player_cards->Add(card_5, 1, wxEXPAND | wxALL, 20);
+
+
+    window_layout->Add(player_cards, 0, wxALIGN_CENTER,5);
+    window_layout->AddSpacer(20);
 
 
 /*Buttons*/
@@ -146,7 +217,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     setup_button_config = new wxButton(this, ID_stay_card, _T("STAY"), wxDefaultPosition, wxDefaultSize, 0);
     button_config->Add(setup_button_config, 0, wxALL, 5);
     window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);
-    window_layout->AddSpacer(60);
+    window_layout->AddSpacer(40);
 
 
 
@@ -193,14 +264,13 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
 
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
-    cout << "Hit Card" << endl;
-    played_round = true;
+    // played_round = true;
    
 }
 
 void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
-    cout << "Stay Card" << endl;
-   
+    // dealer_card_1->SetBitmap(wxBitmap(wxT("/home/simonalta/Desktop/ProgrammingHW/Jacks_Bank/images/hearts_reverse.jpg"), wxBITMAP_TYPE_JPEG));
+   std::cout << "Hi";
 }
 
 

@@ -37,7 +37,22 @@ class GAME_Frame : public wxFrame {
     wxStaticText *Bet_Money;
     wxBoxSizer *display_bet;
 
+
+  wxPanel *card_1;
+  wxPanel *card_2;
+  wxPanel *card_3;
+  wxPanel *card_4;
+  wxPanel *card_5;
+
+
 /*Dealer*/
+  wxStaticText *card_1_info_dealer;
+  wxStaticText *card_2_info_dealer;
+  wxStaticText *card_3_info_dealer;
+  wxStaticText *card_4_info_dealer;
+  wxStaticText *card_5_info_dealer;
+
+
 
 
 /*Score*/
@@ -46,6 +61,13 @@ class GAME_Frame : public wxFrame {
     wxStaticText *CPU_Score;
     
 /*Player*/
+  wxStaticText *card_1_info_player;
+  wxStaticText *card_2_info_player;
+  wxStaticText *card_3_info_player;
+  wxStaticText *card_4_info_player;
+  wxStaticText *card_5_info_player;
+
+
     /*Buttons*/
     wxBoxSizer* button_config;
     wxButton* setup_button_config;
