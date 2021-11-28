@@ -13,8 +13,8 @@ wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
     EVT_MENU(wxID_ABOUT, GAME_Frame::OnAbout)
     EVT_MENU(wxID_EXIT, GAME_Frame::OnExit)
 
-    EVT_BUTTON(ID_stay_card, GAME_Frame::OnClick_Hit)
-    EVT_BUTTON(ID_hit_card, GAME_Frame::OnClick_Stay)
+    EVT_BUTTON(ID_hit_card, GAME_Frame::OnClick_Hit)
+    EVT_BUTTON(ID_stay_card, GAME_Frame::OnClick_Stay)
     EVT_BUTTON(ID_returns, GAME_Frame::OnClick_Return)
 wxEND_EVENT_TABLE()
 
@@ -78,39 +78,39 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     wxBoxSizer *dealer_cards = new wxBoxSizer(wxHORIZONTAL);
 
 
-    card_1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_1->SetBackgroundColour(card_color);
-    card_1_info_dealer = new wxStaticText(card_1, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_1_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_1_d->SetBackgroundColour(black_labels);
+    card_1_info_dealer = new wxStaticText(card_1_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_1_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_1, 1, wxEXPAND | wxALL, 20);
+    dealer_cards->Add(card_1_d, 1, wxEXPAND | wxALL, 20);
   
 
-    card_2 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_2->SetBackgroundColour(card_color);
-    card_2_info_dealer = new wxStaticText(card_2, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_2_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_2_d->SetBackgroundColour(black_labels);
+    card_2_info_dealer = new wxStaticText(card_2_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_2_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_2, 1, wxEXPAND | wxALL, 20);
+    dealer_cards->Add(card_2_d, 1, wxEXPAND | wxALL, 20);
 
 
-    card_3 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_3->SetBackgroundColour(card_color);
-    card_3_info_dealer = new wxStaticText(card_3, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_3_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_3_d->SetBackgroundColour(black_labels);
+    card_3_info_dealer = new wxStaticText(card_3_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_3_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_3, 1, wxEXPAND | wxALL, 20);
+    dealer_cards->Add(card_3_d, 1, wxEXPAND | wxALL, 20);
 
 
-    card_4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_4->SetBackgroundColour(card_color);
-    card_4_info_dealer = new wxStaticText(card_4, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_4_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_4_d->SetBackgroundColour(black_labels);
+    card_4_info_dealer = new wxStaticText(card_4_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_4_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_4, 1, wxEXPAND | wxALL, 20);
+    dealer_cards->Add(card_4_d, 1, wxEXPAND | wxALL, 20);
 
 
-    card_5 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_5->SetBackgroundColour(card_color);
-    card_5_info_dealer = new wxStaticText(card_5, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
+    card_5_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
+    card_5_d->SetBackgroundColour(black_labels);
+    card_5_info_dealer = new wxStaticText(card_5_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_5_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_5, 1, wxEXPAND | wxALL, 20);
+    dealer_cards->Add(card_5_d, 1, wxEXPAND | wxALL, 20);
 
 
     window_layout->Add(dealer_cards, 0, wxALIGN_CENTER, 5);
@@ -169,35 +169,35 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     card_1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_1->SetBackgroundColour(card_color);
+    card_1->SetBackgroundColour(black_labels);
     card_1_info_player = new wxStaticText(card_1, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_1_info_player->SetForegroundColour(red_labels);
     player_cards->Add(card_1, 1, wxEXPAND | wxALL, 20);
   
 
     card_2 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_2->SetBackgroundColour(card_color);
+    card_2->SetBackgroundColour(black_labels);
     card_2_info_player = new wxStaticText(card_2, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_2_info_player->SetForegroundColour(red_labels);
     player_cards->Add(card_2, 1, wxEXPAND | wxALL, 20);
 
 
     card_3 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_3->SetBackgroundColour(card_color);
+    card_3->SetBackgroundColour(black_labels);
     card_3_info_player = new wxStaticText(card_3, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_3_info_player->SetForegroundColour(red_labels);
     player_cards->Add(card_3, 1, wxEXPAND | wxALL, 20);
 
 
     card_4 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_4->SetBackgroundColour(card_color);
+    card_4->SetBackgroundColour(black_labels);
     card_4_info_player = new wxStaticText(card_4, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_4_info_player->SetForegroundColour(red_labels);
     player_cards->Add(card_4, 1, wxEXPAND | wxALL, 20);
 
 
     card_5 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_5->SetBackgroundColour(card_color);
+    card_5->SetBackgroundColour(black_labels);
     card_5_info_player = new wxStaticText(card_5, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
     card_5_info_player->SetForegroundColour(red_labels);
     player_cards->Add(card_5, 1, wxEXPAND | wxALL, 20);
@@ -235,7 +235,6 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     this->Centre();
 
     /*Variables*/
-    played_round = false;
     dealer_cards_counter = 0;
     player_cards_counter = 0;
 }
@@ -266,28 +265,42 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
 }
 
 
+void GAME_Frame::dealer_final_stage(){
+    card_game->dealerTurn();
+    set_dealer_card();
+}
+
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
-    // played_round = true;
-    std::cout << "Bye";
+    if(!card_game->get_Game_Over_Flag()){
+        card_game->playerHit(true);
+        set_player_card();
+
+        if(card_game->get_player_busted() || card_game->get_Game_Over_Flag()){
+            dealer_final_stage();
+        }
+    }
+
    
 }
 
 void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
-    std::cout << "Hi";
+    if(!card_game->get_Game_Over_Flag()){
+        card_game->playerHit(false);
+        dealer_final_stage();
+    }
 }
 
 
 
 void GAME_Frame::OnClick_Return(wxCommandEvent &event){
     cout << "On retrun to menu button" << endl;
-    if(played_round){
-        Bet_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
-        Bet_Window->Center();
-        Bet_Window->Show(true);
-        Bet_Window->set_wallet_money(money_betted);
+    Bet_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
+    Bet_Window->Center();
+    Bet_Window->Show(true);
+    Bet_Window->set_wallet_money(money_betted);
 
-        Close(true);
-    }
+    Close(true);
+ 
    
 }
 
@@ -298,49 +311,122 @@ void GAME_Frame::user_information(int bet_money, int wallet_money){
     money_betted = bet_money;
     money_wallet = wallet_money;
     Bet_Money->SetLabel(wxString::Format(wxT("$%i"), bet_money));
+
+    card_game = new Game();
+    card_game->setPlayerBet(bet_money);
+    card_game->initHands();
+    
+    int i = 0;
+    while (i<2){
+        set_dealer_card();
+        set_player_card();
+        i++;
+    }
 }
 
 
 void GAME_Frame::set_dealer_card(){
     //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
-    int card_number = 0; // placeholder
-    string card_letter;
+    vector<Card> dealerHand = card_game->getHand(card_game->forDealer);
+
+    string card_number = dealerHand[dealer_cards_counter].cardValue(dealerHand[dealer_cards_counter].getValue());
+    string card_letter = dealerHand[dealer_cards_counter].cardSuit(dealerHand[dealer_cards_counter].getSuit());
+
+    
 
     if(dealer_cards_counter == 0){
-        card_1_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_1_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_1_d->SetBackgroundColour("#6CE3E5");
     }else if(dealer_cards_counter == 1){
-        card_2_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
-    }else if(dealer_cards_counter == 2){
-        card_3_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
-    }else if(dealer_cards_counter == 3){
-        card_4_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
-    }else if(dealer_cards_counter == 4){
-        card_5_info_dealer->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_2_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_2_d->SetBackgroundColour("#6CE3E5");
+    }else if(dealer_cards_counter > 1){
+    
+        while(dealer_cards_counter < dealerHand.size()){
+            card_number = dealerHand[dealer_cards_counter].cardValue(dealerHand[dealer_cards_counter].getValue());
+            card_letter = dealerHand[dealer_cards_counter].cardSuit(dealerHand[dealer_cards_counter].getSuit());
+            
+            if(dealer_cards_counter == 2){
+                card_3_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+                card_3_d->SetBackgroundColour("#6CE3E5");
+            }else if(dealer_cards_counter == 3){
+                card_4_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+                card_4_d->SetBackgroundColour("#6CE3E5");
+            }else if(dealer_cards_counter == 4){
+                card_5_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+                card_5_d->SetBackgroundColour("#6CE3E5");
+            }
+        dealer_cards_counter++;
+        }
     }
     dealer_cards_counter++;
 
-    CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), card_number));
+    int cpu_stance = card_game->getDealerScore();
+    if (cpu_stance > 21){
+        CPU_Score->SetLabel(wxString::Format(wxT("[BUST]")));
+    }else{
+        CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), cpu_stance));
+    }
+
+
+    if(dealer_cards_counter > 2){
+        int winner = card_game->returnWinner();
+        string winner_string;
+        if(winner == 1){
+            winner_string = "Winner: YOU - the Player";
+        }else if(winner == 2){
+            winner_string = "Winner: CPU";
+        }else{
+            winner_string = "No Winner- Tied";
+        }
+        wxMessageBox(winner_string,
+                "About Winner", wxOK | wxICON_INFORMATION);
+
+    }
+
 }
 
 
 void GAME_Frame::set_player_card(){
     //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
-    int card_number = 0; // placeholder
-    string card_letter;
+    vector<Card> playerHand = card_game->getHand(card_game->forPlayer);
+    
+    string card_number = playerHand[player_cards_counter].cardValue(playerHand[player_cards_counter].getValue());
+    string card_letter = playerHand[player_cards_counter].cardSuit(playerHand[player_cards_counter].getSuit());;
+    
 
     if(player_cards_counter == 0){
-        card_1_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_1_info_player->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_1->SetBackgroundColour("#6CE3E5");
     }else if(player_cards_counter == 1){
-        card_2_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_2_info_player->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_2->SetBackgroundColour("#6CE3E5");
     }else if(player_cards_counter == 2){
-        card_3_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_3_info_player->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_3->SetBackgroundColour("#6CE3E5");
     }else if(player_cards_counter == 3){
-        card_4_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_4_info_player->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_4->SetBackgroundColour("#6CE3E5");
     }else if(player_cards_counter == 4){
-        card_5_info_player->SetLabel(wxString::Format(wxT("\n\n%i\n\n%s"), card_number, card_letter));
+        card_5_info_player->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), card_number, card_letter));
+        card_5->SetBackgroundColour("#6CE3E5");
     }
     player_cards_counter++;
+    
 
+    int player_Stance = card_game->getPlayerScore();
+    if (player_Stance > 21){
+        Player_Score->SetLabel(wxString::Format(wxT("[BUST]")));
+    }else{
+        Player_Score->SetLabel(wxString::Format(wxT("[%i]"), player_Stance));
+    }
 
-    Player_Score->SetLabel(wxString::Format(wxT("[%i]"), card_number));
+    // cout << "{PLAYA} " << endl;
+    // for(int i = 0; i < playerHand.size();i++){
+    //     // dealerHand[i].cardValue(dealerHand[i].getValue());
+    //     // dealerHand[i].cardSuit(dealerHand[i].getSuit());
+        
+    //     playerHand[i].printCardDetails();
+    // }
+    
 }

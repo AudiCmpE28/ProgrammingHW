@@ -4,6 +4,7 @@
 #include <iostream>
 #include <wx/wx.h>
 #include "../header/Game.h"
+#include "../header/Card.h"
 using namespace std;
 
 class MAIN_Frame;
@@ -23,9 +24,9 @@ class GAME_Frame : public wxFrame {
     
 
   private:
-    bool played_round;
     BET_Frame* Bet_Window;
     MAIN_Frame* Menu_Window;
+    
     Game *card_game;
 
     //menu on top bar
@@ -45,11 +46,11 @@ class GAME_Frame : public wxFrame {
     wxBoxSizer *display_bet;
 
 
-  wxPanel *card_1;
-  wxPanel *card_2;
-  wxPanel *card_3;
-  wxPanel *card_4;
-  wxPanel *card_5;
+  wxPanel *card_1_d;
+  wxPanel *card_2_d;
+  wxPanel *card_3_d;
+  wxPanel *card_4_d;
+  wxPanel *card_5_d;
 
 
 /*Dealer*/
@@ -66,6 +67,11 @@ class GAME_Frame : public wxFrame {
     wxStaticText *CPU_Score;
     
 /*Player*/
+  wxPanel *card_1;
+  wxPanel *card_2;
+  wxPanel *card_3;
+  wxPanel *card_4;
+  wxPanel *card_5;
   wxStaticText *card_1_info_player;
   wxStaticText *card_2_info_player;
   wxStaticText *card_3_info_player;
@@ -86,11 +92,12 @@ class GAME_Frame : public wxFrame {
     /*Return button*/
     void OnClick_Return(wxCommandEvent& event);
 
+    void dealer_final_stage();
 
     wxDECLARE_EVENT_TABLE();
 };
 
-enum id_nums{
+enum {
     ID_RestartGame = 30,
     ID_returns = 69, 
     ID_hit_card = 70,

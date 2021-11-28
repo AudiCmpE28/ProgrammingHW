@@ -14,9 +14,9 @@ bool App_Init::OnInit(){
 
 
     /*MAIN window to be used in final version */
-    // MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
-    // SetUpFrame->Center();
-    // SetUpFrame->Show(true);
+    MAIN_Frame *SetUpFrame = new MAIN_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
+    SetUpFrame->Center();
+    SetUpFrame->Show(true);
 
     /* Bank Window - Test1 */
     // BANK_Frame *SetUpFrame = new BANK_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));
@@ -24,9 +24,9 @@ bool App_Init::OnInit(){
     // SetUpFrame->Show(true);
 
     /* Game Window - Test2 */
-    GAME_Frame *SetUpFrame = new GAME_Frame("Initial Configuration", wxPoint(50, 50), wxSize(550, 840));
-    SetUpFrame->Center();
-    SetUpFrame->Show(true);
+    // GAME_Frame *SetUpFrame = new GAME_Frame("Initial Configuration", wxPoint(50, 50), wxSize(550, 840));
+    // SetUpFrame->Center();
+    // SetUpFrame->Show(true);
 
     /* BET Window - Test3*/
     // BET_Frame *SetUpFrame = new BET_Frame("Initial Configuration", wxPoint(50, 50), wxSize(450, 640));

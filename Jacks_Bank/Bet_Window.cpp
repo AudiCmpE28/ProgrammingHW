@@ -145,7 +145,7 @@ void BET_Frame::OnScroll(wxScrollEvent &event) {
 void BET_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
     if((wallet_money-fill)>=0){
     
-        Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(550, 840));
         Game_Window->Center();
         Game_Window->Show(true);
         Game_Window->user_information(slider->GetValue(), wallet_money-fill);

@@ -53,7 +53,7 @@ void Card::printCardDetails() {
 }
 
 // utility functions
-string cardValue(int val) {
+string Card::cardValue(int val) {
     string stringVal;
     switch(val) {
         case ace: stringVal = "Ace";
@@ -87,7 +87,7 @@ string cardValue(int val) {
     return stringVal;
 }
 
-string cardSuit(int val) {
+string Card::cardSuit(int val) {
     string stringVal;
     switch(val) {
         case spade: stringVal = "Spades";

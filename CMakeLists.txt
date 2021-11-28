@@ -47,25 +47,25 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 # add_subdirectory(HelloWorldApp)
 
-cmake_minimum_required(VERSION 3.0.0)
-project(FinalProject) 
+# cmake_minimum_required(VERSION 3.0.0)
+# project(FinalProject) 
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Will put exe in the "build" folder
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+# # Will put exe in the "build" folder
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
-add_subdirectory(Blackjack)
+# add_subdirectory(Blackjack)
 
 
-cmake_minimum_required(VERSION 3.0.0)
-project(Jacks_Bank_GUI) 
+# cmake_minimum_required(VERSION 3.0.0)
+# project(Jacks_Bank_GUI) 
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Will put exe in the "build" folder
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
+# # Will put exe in the "build" folder
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/build)
 
 add_subdirectory(Jacks_Bank)
