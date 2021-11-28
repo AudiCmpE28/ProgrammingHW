@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <wx/wx.h>
+#include "../header/Game.h"
 using namespace std;
 
 class MAIN_Frame;
@@ -25,7 +26,8 @@ class GAME_Frame : public wxFrame {
     bool played_round;
     BET_Frame* Bet_Window;
     MAIN_Frame* Menu_Window;
-    
+    Game *card_game;
+
     //menu on top bar
     void OnRestart(wxCommandEvent& event);
     void OnExit(wxCommandEvent& event);

@@ -3,8 +3,6 @@
 #include "headers/mainFrame.h" //main class
 #include "headers/betFrame.h" //other class
 #include "headers/bankFrame.h" //other class
-#include "../Blackjack/header/Bank.h"
-#include "../Blackjack/header/Game.h"
 using namespace std;
 
 /* ID's for Menu and Buttons */
