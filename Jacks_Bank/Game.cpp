@@ -210,11 +210,3 @@ int Game::getPlayerScore(){
 int Game::getDealerScore(){
     return dealerScore;
 }
-
-bool Game::get_player_busted(){
-    return playerBust;
-}
-
-bool Game::get_Game_Over_Flag(){
-    return gameover;
-}

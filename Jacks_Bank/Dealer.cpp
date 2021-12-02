@@ -14,3 +14,4 @@ Card Dealer::dealCard() {
 void Dealer::resetDeck() {
     deckiter = currentDeck.createIterator();
 }
+

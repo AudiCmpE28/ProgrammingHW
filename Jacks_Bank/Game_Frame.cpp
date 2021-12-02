@@ -310,11 +310,11 @@ void GAME_Frame::dealer_final_stage(){
 }
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){ //activated up button with linked id is pressed
-    if(!card_game->get_Game_Over_Flag()){
+    if(!card_game->stopGame()){
         card_game->playerHit(true);
         set_player_card();
 
-        if(card_game->get_player_busted() || card_game->get_Game_Over_Flag()){
+        if(card_game->stopGame()){
             dealer_final_stage();
         }
     }
@@ -323,7 +323,7 @@ void GAME_Frame::OnClick_Hit(wxCommandEvent &event){ //activated up button with 
 }
 
 void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
-    if(!card_game->get_Game_Over_Flag()){
+    if(!card_game->stopGame()){
         card_game->playerHit(false);
         dealer_final_stage();
     }
@@ -333,7 +333,7 @@ void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
 
 void GAME_Frame::OnClick_Return(wxCommandEvent &event){
     cout << "Return Press" << endl;
-    if (card_game->get_Game_Over_Flag()) {
+    if (card_game->stopGame()) {
         card_game->payWinnings();
     }
     Bet_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
@@ -371,7 +371,7 @@ void GAME_Frame::set_dealer_card(){
             card_1_d->SetBackgroundColour("#6CE3E5");
         }
         else if (i == 1) {
-            if (!card_game->get_Game_Over_Flag()) {
+            if (!card_game->stopGame()) {
                 card_2_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), 
                 "???", "???"));
                 card_2_d->SetBackgroundColour("#6CE3E5");
@@ -404,7 +404,7 @@ void GAME_Frame::set_dealer_card(){
     }
 
     int cpu_stance = card_game->getDealerScore();
-    if (card_game->get_Game_Over_Flag()) {
+    if (card_game->stopGame()) {
         if (cpu_stance > 21){
             CPU_Score->SetLabel(wxString::Format(wxT("[BUST]")));
         }else{
@@ -416,7 +416,7 @@ void GAME_Frame::set_dealer_card(){
     }
 
 
-    if(card_game->get_Game_Over_Flag()){
+    if(card_game->stopGame()){
         int winner = card_game->returnWinner();
         string winner_string;
         if(winner == 1){

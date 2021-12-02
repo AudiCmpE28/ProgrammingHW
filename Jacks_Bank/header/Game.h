@@ -17,14 +17,19 @@ private:
     Dealer dealer;
 
     int playerBet;
-    bool playerStay;
-    int playerScore;
-    bool playerBust;
 
+    int playerScore;
     int dealerScore;
+
+    //Flags 
+    bool playerBust;
+    bool playerStay;
     bool gameover;
+
     void addToHand(int participant);
     void hand_changed();
+    void updatePlayerScore();
+    void updateDealerScore();
     
 public:
     Game();
@@ -36,20 +41,15 @@ public:
     vector<Card> getHand(int participant);
     
     bool setPlayerBet(int cash);
-    void payWinnings();
     void playerHit(bool stop);
-    void updatePlayerScore();
+    void payWinnings();
     
     int getPlayerScore();
     int getDealerScore();
 
     void dealerTurn();
-    void updateDealerScore();
     int returnWinner();
     bool stopGame();
-
-    bool get_Game_Over_Flag();
-    bool get_player_busted();
 
     void register_observer(Observer *o);
     void remove_observer(Observer *o);
