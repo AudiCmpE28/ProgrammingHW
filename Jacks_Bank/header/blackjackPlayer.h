@@ -16,7 +16,6 @@ public:
     void gainCard(Card hitCard);
     vector<Card> getHand();
     void clearHand();
-
 };
 
 

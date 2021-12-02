@@ -269,6 +269,11 @@ wxBoxSizer *newVariable = new wxBoxSize
 
 }
 
+void GAME_Frame::update(vector<Card> playerH, vector<Card> dealerH) {
+    dealerHand = dealerH;
+    playerHand = playerH;
+}
+
 void GAME_Frame::OnAbout(wxCommandEvent &event){
     //for pop up text box
     wxMessageBox("Welcome to Jack's Bank!\n"
@@ -348,9 +353,8 @@ void GAME_Frame::initialize_game(int bet_money){
 
     card_game = new Game(&mainPlayer);
     card_game->setPlayerBet(bet_money);
+    card_game->register_observer(this);
     card_game->initHands();
-    
-    int i = 0;
 
     set_player_card();
     set_dealer_card();
@@ -359,8 +363,6 @@ void GAME_Frame::initialize_game(int bet_money){
 
 void GAME_Frame::set_dealer_card(){
     //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
-    vector<Card> dealerHand = card_game->getHand(card_game->forDealer);
-
     for (int i = 0; i < dealerHand.size(); i++) {
         if (i == 0) {
             card_1_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), 
@@ -434,8 +436,6 @@ void GAME_Frame::set_dealer_card(){
 
 void GAME_Frame::set_player_card(){
     //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
-    vector<Card> playerHand = card_game->getHand(card_game->forPlayer);
-    
     for (int i = 0; i < playerHand.size(); i++) {
         string card_number = playerHand[i].cardValue(playerHand[i].getValue());
         string card_letter = playerHand[i].cardSuit(playerHand[i].getSuit());;

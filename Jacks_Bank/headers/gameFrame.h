@@ -14,14 +14,15 @@ using namespace std;
 class MAIN_Frame;
 class BET_Frame;
 
-class GAME_Frame : public wxFrame {
+class GAME_Frame : public wxFrame, Observer {
   public:
     //constructor that can be called from other frames to be created
     GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
+    vector<Card> dealerHand;
+    vector<Card> playerHand;
     
-    
+    void update(vector<Card> playerH, vector<Card> dealerH);
     void initialize_game(int bet_money);
-
     void set_dealer_card();
     void set_player_card();
     

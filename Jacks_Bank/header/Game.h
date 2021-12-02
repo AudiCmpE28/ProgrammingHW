@@ -4,10 +4,15 @@
 #include "Player.h"
 #include "Dealer.h"
 #include "Card.h"
+#include "Subject.h"
+#include <iostream>
+#include <algorithm>
+#include <vector>
 
-class Game
+class Game : public Subject
 {
 private:
+    vector<Observer *> observers;
     Player *player;
     Dealer dealer;
 
@@ -19,6 +24,7 @@ private:
     int dealerScore;
     bool gameover;
     void addToHand(int participant);
+    void hand_changed();
     
 public:
     Game();
@@ -45,8 +51,9 @@ public:
     bool get_Game_Over_Flag();
     bool get_player_busted();
 
-    // Temporary print functions for testing
-    void printUI();
+    void register_observer(Observer *o);
+    void remove_observer(Observer *o);
+    void notify_observer();
     
 };
 

@@ -30,11 +30,10 @@ void Game::initHands() {
     gameover = false;
     playerStay = false;
     playerBust = false;
-    addToHand(forPlayer);
-    addToHand(forPlayer);
     addToHand(forDealer);
     addToHand(forDealer);
-
+    addToHand(forPlayer);
+    addToHand(forPlayer);
     if (playerScore == 21 || dealerScore == 21) {
         gameover = true;
     }
@@ -71,10 +70,12 @@ void Game::addToHand(int participant) {
     if (participant == forPlayer) {
         player->gainCard(topCard);
         updatePlayerScore();
+        hand_changed();
     }
     else if (participant = forDealer) {
         dealer.gainCard(topCard);
         updateDealerScore();
+        hand_changed();
     }
     if (playerScore > 21) {
         playerBust = true;
@@ -147,8 +148,9 @@ vector<Card> Game::getHand(int participant) {
 }
 
 void Game::playerHit(bool keepPlaying) {
-    if (keepPlaying) 
+    if (keepPlaying) {
         addToHand(forPlayer);
+    }
     else
         playerStay = true;
 }
@@ -176,39 +178,21 @@ int Game::returnWinner() {
     }
 }
 
-void Game::printUI() {
-    vector<Card> playerHand = getHand(forPlayer);
-    vector<Card> dealerHand = getHand(forDealer);
-    int count = 1;
-    cout << "Dealer hand: " << endl;
-    for (int i = 0; i < dealerHand.size(); i++) {
-        cout << count << ": ";
-        dealerHand[i].printCardDetails();
-    }
-    cout << "Dealer: " << dealerScore << endl;
-    cout << endl;
+void Game::hand_changed() {
+    notify_observer();
+}
 
-    count = 1;
-    cout << "Player hand: " << endl;
-    for (int i = 0; i < playerHand.size(); i++) {
-        cout << count << ": ";
-        playerHand[i].printCardDetails();
-    }
-    cout << "Player: " << playerScore << endl;
-
-    cout << endl;
-
-    if (gameover) {
-        if (returnWinner() == forPlayer) {
-            cout << "-----------The Player won!-----------" << endl;
-            payWinnings();
-        }
-        else if (returnWinner() == forDealer)
-            cout << "-----------The Player LOST!-----------" << endl;
-        else 
-            cout << "-----------TIEEEEEEEEE-----------" << endl;
-
-        cout << "Player current Balance: " << player->getWallet() << endl;
+void Game::register_observer(Observer *o) {
+    observers.push_back(o);
+}
+void Game::remove_observer(Observer *o) {
+    vector<Observer *>::iterator it;
+    it = std::find(observers.begin(), observers.end(), o);
+    if (it != observers.end()) observers.erase(it);
+}
+void Game::notify_observer() {
+    for (Observer *o : observers) {
+        o->update(getHand(forPlayer), getHand(forDealer));
     }
 }
 
