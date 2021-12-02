@@ -272,6 +272,8 @@ wxBoxSizer *newVariable = new wxBoxSize
 void GAME_Frame::update(vector<Card> playerH, vector<Card> dealerH) {
     dealerHand = dealerH;
     playerHand = playerH;
+    set_dealer_card();
+    set_player_card();
 }
 
 void GAME_Frame::OnAbout(wxCommandEvent &event){
@@ -307,6 +309,20 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
 void GAME_Frame::dealer_final_stage(){
     card_game->dealerTurn();
     set_dealer_card();
+
+    if(card_game->stopGame()){
+        int winner = card_game->returnWinner();
+        string winner_string;
+        if(winner == 1){
+            winner_string = "Winner: YOU - the Player";
+        }else if(winner == 2){
+            winner_string = "Winner: CPU";
+        }else{
+            winner_string = "No Winner- Tied";
+        }
+        wxMessageBox(winner_string,
+                "About Winner", wxOK | wxICON_INFORMATION);
+    }
 }
 
 void GAME_Frame::OnClick_Hit(wxCommandEvent &event){ //activated up button with linked id is pressed
@@ -358,11 +374,14 @@ void GAME_Frame::initialize_game(int bet_money){
 
     set_player_card();
     set_dealer_card();
+
+    if(card_game->stopGame()) {
+        dealer_final_stage();
+    }
 }
 
 
 void GAME_Frame::set_dealer_card(){
-    //RETRIEVE CARD HERE: is it spades? heart, 3?, red?
     for (int i = 0; i < dealerHand.size(); i++) {
         if (i == 0) {
             card_1_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), 
@@ -389,13 +408,13 @@ void GAME_Frame::set_dealer_card(){
             dealerHand[i].cardSuit(dealerHand[i].getSuit()) ));
             card_3_d->SetBackgroundColour("#6CE3E5");
         }
-        else if (i == 4) {
+        else if (i == 3) {
             card_4_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), 
             dealerHand[i].cardValue(dealerHand[i].getValue()), 
             dealerHand[i].cardSuit(dealerHand[i].getSuit()) ));
             card_4_d->SetBackgroundColour("#6CE3E5");
         }
-        else if (i == 5) {
+        else if (i == 4) {
             card_5_info_dealer->SetLabel(wxString::Format(wxT("\n\n%s\n\n%s"), 
             dealerHand[i].cardValue(dealerHand[i].getValue()), 
             dealerHand[i].cardSuit(dealerHand[i].getSuit()) ));
@@ -406,29 +425,13 @@ void GAME_Frame::set_dealer_card(){
     int cpu_stance = card_game->getDealerScore();
     if (card_game->stopGame()) {
         if (cpu_stance > 21){
-            CPU_Score->SetLabel(wxString::Format(wxT("[BUST]")));
+            CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), cpu_stance));
         }else{
             CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), cpu_stance));
         }
     }
     else {
         CPU_Score->SetLabel(wxString::Format(wxT("[???]")));
-    }
-
-
-    if(card_game->stopGame()){
-        int winner = card_game->returnWinner();
-        string winner_string;
-        if(winner == 1){
-            winner_string = "Winner: YOU - the Player";
-        }else if(winner == 2){
-            winner_string = "Winner: CPU";
-        }else{
-            winner_string = "No Winner- Tied";
-        }
-        wxMessageBox(winner_string,
-                "About Winner", wxOK | wxICON_INFORMATION);
-
     }
 
 }
@@ -461,17 +464,8 @@ void GAME_Frame::set_player_card(){
 
     int player_Stance = card_game->getPlayerScore();
     if (player_Stance > 21){
-        Player_Score->SetLabel(wxString::Format(wxT("[BUST]")));
+        Player_Score->SetLabel(wxString::Format(wxT("[%i]"), player_Stance));
     }else{
         Player_Score->SetLabel(wxString::Format(wxT("[%i]"), player_Stance));
     }
-
-    // cout << "{PLAYA} " << endl;
-    // for(int i = 0; i < playerHand.size();i++){
-    //     // dealerHand[i].cardValue(dealerHand[i].getValue());
-    //     // dealerHand[i].cardSuit(dealerHand[i].getSuit());
-        
-    //     playerHand[i].printCardDetails();
-    // }
-    
 }
