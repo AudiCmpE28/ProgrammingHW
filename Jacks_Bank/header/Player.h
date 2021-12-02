@@ -8,15 +8,16 @@
 class Player : public BlackjackPlayer
 {
 private:
-    double wallet;
+    int wallet;
     Bank playerBank;
 public:
     Player();
-    Player(double startBalance);
-    double getWallet();
-    bool setWallet(double cash);
-    bool depositInBank(double cash);
-    bool withdrawFromBank(double cash);
+    Player(int startBalance);
+    int getWallet();
+    int getBankBalance();
+    bool setWallet(int cash);
+    bool depositInBank(int cash);
+    bool withdrawFromBank(int cash);
 };
 
 

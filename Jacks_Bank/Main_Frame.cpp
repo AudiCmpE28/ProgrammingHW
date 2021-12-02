@@ -5,6 +5,8 @@
 #include "headers/bankFrame.h" //other class
 using namespace std;
 
+Player mainPlayer;
+
 /* ID's for Menu and Buttons */
 wxBEGIN_EVENT_TABLE(MAIN_Frame, wxFrame)
     // EVT_MENU(wxID_EXIT, MAIN_Frame::OnRestart)
@@ -66,9 +68,9 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     heading->SetFont(wallet_font);
     Wallet_Display->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
-
+    string LwalletBalance = "$" + to_string(mainPlayer.getWallet());
     wxFont wallet_heading(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    wallet = new wxStaticText(this, wxID_ANY, wxT("$30.00"), wxPoint(30, 15));
+    wallet = new wxStaticText(this, wxID_ANY, wxT(walletBalance), wxPoint(30, 15));
     wallet->SetFont(wallet_heading);
     Wallet_Display->Add(wallet, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
@@ -99,7 +101,7 @@ MAIN_Frame::MAIN_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 /* Variables Initialized */
     mode_selected = -1;
-    money_in_Wallet = 30;
+    money_in_Wallet = mainPlayer.getWallet();
 }
 
 void MAIN_Frame::OnAbout(wxCommandEvent &event){
@@ -116,15 +118,15 @@ void MAIN_Frame::OnAbout(wxCommandEvent &event){
 }
 
 void MAIN_Frame::OnExit(wxCommandEvent &event){
-    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
+    cout << "OnExit: Exiting Jack's Bank app!" << endl;
     Close(true);
 }
 
 
 
-void MAIN_Frame::wallet_updated(int money){
-    money_in_Wallet = money;
-    wallet->SetLabel(wxString::Format(wxT("$%i"), money));
+void MAIN_Frame::wallet_updated(){
+    money_in_Wallet = mainPlayer.getWallet();
+    wallet->SetLabel(wxString::Format(wxT("$%i"), money_in_Wallet));
 }
 
 
@@ -134,7 +136,6 @@ void MAIN_Frame::OnClick_Game_Window(wxCommandEvent& event){
     Game_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Game_Window->Center();
     Game_Window->Show(true);
-    Game_Window->set_wallet_money(money_in_Wallet);
 
     Close(true);
 
@@ -144,7 +145,7 @@ void MAIN_Frame::OnClick_Bank_Window(wxCommandEvent& event){
     Bank_Window = new BANK_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Bank_Window->Center();
     Bank_Window->Show(true);
-    Bank_Window->wallet_money_updated(money_in_Wallet);
+    Bank_Window->wallet_money_updated();
 
     Close(true);
         

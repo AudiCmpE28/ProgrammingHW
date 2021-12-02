@@ -10,7 +10,8 @@ class MAIN_Frame;
 class BANK_Frame : public wxFrame {
   public:
     BANK_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    void wallet_money_updated(int money);
+    void wallet_money_updated();
+    void bank_balance_updated();
     int wallet_money;
     int bank_money;  
 

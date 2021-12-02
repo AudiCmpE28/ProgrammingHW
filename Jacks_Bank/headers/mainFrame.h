@@ -7,6 +7,10 @@
 #include <wx/slider.h> // slider 
 #include <wx/tglbtn.h> // toggle button
 
+#include "../header/Player.h"
+
+extern Player mainPlayer;
+
 /*to not include class and cause infinite repetition*/
 class BET_Frame; 
 class BANK_Frame;
@@ -15,7 +19,7 @@ class BANK_Frame;
 class MAIN_Frame : public wxFrame {
   public:
     MAIN_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    void wallet_updated(int money);
+    void wallet_updated();
     int money_in_Wallet;
 
   private:

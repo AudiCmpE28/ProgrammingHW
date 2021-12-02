@@ -295,7 +295,7 @@ void GAME_Frame::OnRestart(wxCommandEvent &event){
     //function must be in public of the other window class, for example, wallet_update()
     // is located in the MAIN_frame class and primariply exists to pass variables 
     //so we dont lose the data
-    Menu_Window->wallet_updated(money_betted); 
+    Menu_Window->wallet_updated(); 
     // Menu_Window->set_config(slider->GetValue()); 
 
     Close(true); // closes current window
@@ -330,11 +330,11 @@ void GAME_Frame::OnClick_Stay(wxCommandEvent &event){
 
 
 void GAME_Frame::OnClick_Return(wxCommandEvent &event){
-    cout << "On retrun to menu button" << endl;
+    cout << "Return Press" << endl;
+    card_game->payWinnings();
     Bet_Window = new BET_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Bet_Window->Center();
     Bet_Window->Show(true);
-    Bet_Window->set_wallet_money(money_betted);
 
     Close(true);
  
@@ -344,12 +344,11 @@ void GAME_Frame::OnClick_Return(wxCommandEvent &event){
 
 
 //////////////////////////////Functions//////////////////
-void GAME_Frame::user_information(int bet_money, int wallet_money){
+void GAME_Frame::initialize_game(int bet_money){
     money_betted = bet_money;
-    money_wallet = wallet_money;
     Bet_Money->SetLabel(wxString::Format(wxT("$%i"), bet_money));
 
-    card_game = new Game();
+    card_game = new Game(&mainPlayer);
     card_game->setPlayerBet(bet_money);
     card_game->initHands();
     
@@ -359,6 +358,8 @@ void GAME_Frame::user_information(int bet_money, int wallet_money){
         set_player_card();
         i++;
     }
+
+
 }
 
 
@@ -399,14 +400,19 @@ void GAME_Frame::set_dealer_card(){
     dealer_cards_counter++;
 
     int cpu_stance = card_game->getDealerScore();
-    if (cpu_stance > 21){
-        CPU_Score->SetLabel(wxString::Format(wxT("[BUST]")));
-    }else{
-        CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), cpu_stance));
+    if (card_game->get_Game_Over_Flag()) {
+        if (cpu_stance > 21){
+            CPU_Score->SetLabel(wxString::Format(wxT("[BUST]")));
+        }else{
+            CPU_Score->SetLabel(wxString::Format(wxT("[%i]"), cpu_stance));
+        }
+    }
+    else {
+        CPU_Score->SetLabel(wxString::Format(wxT("[???]")));
     }
 
 
-    if(dealer_cards_counter > 2){
+    if(dealer_cards_counter > 2 || card_game->get_Game_Over_Flag()){
         int winner = card_game->returnWinner();
         string winner_string;
         if(winner == 1){

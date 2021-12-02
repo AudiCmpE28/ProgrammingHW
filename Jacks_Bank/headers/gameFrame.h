@@ -20,9 +20,8 @@ class GAME_Frame : public wxFrame {
     GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
     
     
-    void user_information(int bet_money, int wallet_money);
+    void initialize_game(int bet_money);
     int money_betted;
-    int money_wallet;
 
     void set_dealer_card();
     void set_player_card();

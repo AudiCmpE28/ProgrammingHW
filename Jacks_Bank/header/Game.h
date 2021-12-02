@@ -8,7 +8,7 @@
 class Game
 {
 private:
-    Player player;
+    Player *player;
     Dealer dealer;
 
     int playerBet;
@@ -22,27 +22,27 @@ private:
     
 public:
     Game();
-    // Game(Player *playerinstance);
+    Game(Player *playerinstance);
 
     const int forPlayer = 1;
     const int forDealer = 2;
     void initHands();
     vector<Card> getHand(int participant);
     
-    bool setPlayerBet(double cash);
+    bool setPlayerBet(int cash);
     void payWinnings();
     void playerHit(bool stop);
     void updatePlayerScore();
     
     int getPlayerScore();
     int getDealerScore();
-    bool get_Game_Over_Flag();
 
     void dealerTurn();
     void updateDealerScore();
     int returnWinner();
     bool stopGame();
 
+    bool get_Game_Over_Flag();
     bool get_player_busted();
 
     // Temporary print functions for testing

@@ -54,8 +54,9 @@ BET_Frame::BET_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
     display_wallet->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
 
+    string LcurrentWallet = "$" + to_string(mainPlayer.getWallet());
     wxFont Bet_Money_heading(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    Wallet_Money = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
+    Wallet_Money = new wxStaticText(this, wxID_ANY, wxT(currentWallet), wxPoint(30, 15));
     Wallet_Money->SetFont(Bet_Money_heading);
     display_wallet->Add(Wallet_Money, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
@@ -73,7 +74,7 @@ BET_Frame::BET_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
     window_layout->AddSpacer(10);
 
     // Slider for Rounds
-    fill = 0;
+    fill = 1;
     //creeates slider linked to id wqhich s linked through connect function, not table
     //which is just a different way. 1 idk, but 1.0 to 20.0 is range which could be 1 to 20 but 
     //i tried using float for decimal aka cents in money. size numbers can be switched for
@@ -115,17 +116,20 @@ BET_Frame::BET_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
 }
 
 void BET_Frame::OnAbout(wxCommandEvent &event){
-    wxMessageBox("Welcome to Rock, Paper, Scissors!\n"
-                 "\nThe game is simple, pick rock, paper, or scissors by entering a number between 1 to 3."
-                 "\n\nThere are only 3 rules to win or lose: "
-                 "\n\t1) Paper beats Rock"
-                 "\n\t2) Scissors beats paper"
-                 "\n\t3) Rock beats Scissors",
-                 "About Hello World", wxOK | wxICON_INFORMATION);
+    wxMessageBox("# Welcome to Jack's Bank #\n"
+                    "\nYou will have a wallet that represents money you have"
+                    "\ninstant access to use. If you desire to save money,"
+                    "\nyou can access the bank where you may also retrieve"
+                    "\nmoney. To make money, you can head to the game window"
+                    "\nto play Jack Black, where you can bet any amount of money"
+                    "\nyou own, with potential to lose bet amount or win twice"
+                    "\ntwice as much. Game ends when you lose all money or you"
+                    "\nor you choose to restart",
+                 "About Jacks Bank",wxOK | wxICON_INFORMATION);
 }
 
 void BET_Frame::OnExit(wxCommandEvent &event){
-    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
+    cout << "OnExit: Exiting Jack's Bank app!" << endl;
     Close(true);
 }
 
@@ -147,12 +151,20 @@ void BET_Frame::OnScroll(wxScrollEvent &event) {
 }
 
 void BET_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
-    if((wallet_money-fill)>=0){
+    if((mainPlayer.getWallet() - fill)>=0){
     
         Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(550, 840));
         Game_Window->Center();
         Game_Window->Show(true);
-        Game_Window->user_information(slider->GetValue(), wallet_money-fill);
+        Game_Window->initialize_game(slider->GetValue());
+
+        Close(true); // closes window
+    }
+    else {
+        Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
+        Menu_Window->Center();
+        Menu_Window->Show(true);
+        Menu_Window->wallet_updated();
 
         Close(true); // closes window
     }
@@ -163,15 +175,10 @@ void BET_Frame::OnClick_Back_Menu(wxCommandEvent &event){
         Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
         Menu_Window->Center();
         Menu_Window->Show(true);
-        Menu_Window->wallet_updated(wallet_money);
+        Menu_Window->wallet_updated();
 
         Close(true); // closes window
         // Destroy(); //force closes window [Dangerous]
 }
 
 
-
-void BET_Frame::set_wallet_money(int money){
-    wallet_money=money;
-    Wallet_Money->SetLabel(wxString::Format(wxT("$%i"), money));
-}

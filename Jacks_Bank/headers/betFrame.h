@@ -10,9 +10,6 @@ class MAIN_Frame;
 class BET_Frame : public wxFrame {
   public:
     BET_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
-    void set_wallet_money(int money);
-    int wallet_money;
-    int wallet_backup;
 
   private:
   

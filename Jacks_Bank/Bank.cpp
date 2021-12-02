@@ -10,7 +10,7 @@ void Bank::deposit(double cash) {
 }
 
 bool Bank::withdraw(double cash) {
-    if (cash < balance) {
+    if (cash <= balance) {
         balance -= cash;
         return true;
     }

@@ -54,8 +54,9 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->Add(heading, 0, wxALIGN_CENTER, 10);
     window_layout->AddSpacer(5);
 
+    string LbankBalance = "$" + to_string(mainPlayer.getBankBalance());
     wxFont total_balance_heading(14, wxDEFAULT, wxNORMAL, wxDEFAULT);
-    total_balance = new wxStaticText(this, wxID_ANY, wxT("$0.00"), wxPoint(30, 15));
+    total_balance = new wxStaticText(this, wxID_ANY, wxT(bankBalance), wxPoint(30, 15));
     total_balance->SetFont(total_balance_heading);
     window_layout->Add(total_balance, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
     window_layout->AddSpacer(50);
@@ -131,7 +132,7 @@ BANK_Frame::BANK_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     this->Centre();
 
 /*Variables*/
-    bank_money = 0;
+    bank_money = mainPlayer.getBankBalance();
 }
 
 void BANK_Frame::OnAbout(wxCommandEvent &event){
@@ -145,7 +146,7 @@ void BANK_Frame::OnAbout(wxCommandEvent &event){
 }
 
 void BANK_Frame::OnExit(wxCommandEvent &event){
-    std::cout << "OnExit: Exiting Rock-Paper-Scissors app!" << std::endl;
+    std::cout << "OnExit: Exiting Jack's Bank app!" << std::endl;
     Close(true);
 }
 
@@ -154,36 +155,37 @@ void BANK_Frame::OnExit(wxCommandEvent &event){
 /* Buttons Functions */
 void BANK_Frame::OnClick_Deposit(wxCommandEvent &event){
     int total = atoi(amount_entered->GetValue());
-    if ((wallet_money-total) >= 0){
-        bank_money = bank_money + total;
-        total_balance->SetLabel(wxString::Format(wxT("$%i"), bank_money));
-        wallet_money_updated(wallet_money-total);
-    }
+    mainPlayer.depositInBank(total);
+    wallet_money_updated();
+    bank_balance_updated();
 }
 
 
 
 void BANK_Frame::OnClick_Withdraw(wxCommandEvent &event){
     int total = atoi(amount_entered->GetValue());
-    if((bank_money-total) >= 0){
-        bank_money = bank_money - total;
-        total_balance->SetLabel(wxString::Format(wxT("$%i"), bank_money));
-        wallet_money_updated(wallet_money+total);
-    }
+    mainPlayer.withdrawFromBank(total);
+    wallet_money_updated();
+    bank_balance_updated();
 }
 
 void BANK_Frame::OnClick_Return(wxCommandEvent &event){
     Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
     Menu_Window->Center();
     Menu_Window->Show(true);
-    Menu_Window->wallet_updated(wallet_money);
+    int currentWallet = mainPlayer.getWallet();
+    Menu_Window->wallet_updated();
 
     Close(true); // closes window
 
 }
 
+void BANK_Frame::bank_balance_updated(){
+    bank_money = mainPlayer.getBankBalance();
+    total_balance->SetLabel(wxString::Format(wxT("$%i"), bank_money));
+}
 
-void BANK_Frame::wallet_money_updated(int money){
-    wallet_money = money;
-    wallet->SetLabel(wxString::Format(wxT("$%i"), money));
+void BANK_Frame::wallet_money_updated(){
+    wallet_money = mainPlayer.getWallet();
+    wallet->SetLabel(wxString::Format(wxT("$%i"), wallet_money));
 }
