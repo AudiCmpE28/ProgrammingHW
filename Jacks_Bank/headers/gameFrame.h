@@ -21,12 +21,9 @@ class GAME_Frame : public wxFrame {
     
     
     void initialize_game(int bet_money);
-    int money_betted;
 
     void set_dealer_card();
     void set_player_card();
-    int dealer_cards_counter;
-    int player_cards_counter;
     
 
   private:

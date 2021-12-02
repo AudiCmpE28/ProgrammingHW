@@ -153,12 +153,12 @@ void BET_Frame::OnScroll(wxScrollEvent &event) {
 void BET_Frame::OnClick_SubmitInfo(wxCommandEvent &event){
     if((mainPlayer.getWallet() - fill)>=0){
     
+        Close(true); // closes window
         Game_Window = new GAME_Frame("", wxPoint(50, 50), wxSize(550, 840));
         Game_Window->Center();
         Game_Window->Show(true);
         Game_Window->initialize_game(slider->GetValue());
 
-        Close(true); // closes window
     }
     else {
         Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
