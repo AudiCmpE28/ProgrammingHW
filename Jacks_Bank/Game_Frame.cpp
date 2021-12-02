@@ -8,6 +8,10 @@
 
 using namespace std;
 
+
+//A Table that connects ID with function. As seen in constructor, buttons and menu
+//uses ID, which then calls function upon being pressed and will execute said
+//function
 wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
     EVT_MENU(ID_RestartGame, GAME_Frame::OnRestart)
     EVT_MENU(wxID_ABOUT, GAME_Frame::OnAbout)
@@ -19,20 +23,25 @@ wxBEGIN_EVENT_TABLE(GAME_Frame, wxFrame)
 wxEND_EVENT_TABLE()
 
 
+//Essentially Constructor that will set the GUI part of the program. Most setup cannot be
+//modified during program execution
 GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &size)
     : wxFrame(NULL, wxID_ANY, title, pos, size){
+
 /*Menu Top Bar*/
-    wxMenu *menuFile = new wxMenu;
+    wxMenu *menuFile = new wxMenu; //wxMenu is a tab that will apear in places like 'file'
+    //Add items to menu, should be able to add your own Ctrl-X that will activate but
+    //not necessary
     menuFile->Append(ID_RestartGame, "R&estart...\tCtrl-H", "Restart Game");
     menuFile->Append(wxID_EXIT, "E&xit...\tCtrl-X", "Quit the Game");
 
-    wxMenu *menuHelp = new wxMenu;
+    wxMenu *menuHelp = new wxMenu;//creates a tab in wxMenu such as menuFile
     menuHelp->Append(wxID_ABOUT, "&About...\tCtrl-P", "Game Instructions!");
 
-    wxMenuBar *menuBar = new wxMenuBar;
+    wxMenuBar *menuBar = new wxMenuBar; //Specifcally creates the bar for the menu
     menuBar->Append(menuFile, "&File");
-    menuBar->Append(menuHelp, "&Help");
-    SetMenuBar(menuBar);
+    menuBar->Append(menuHelp, "&Help"); //add boith menu tabs to bar
+    SetMenuBar(menuBar); //execute
 
     CreateStatusBar();
     SetStatusText("For Game Info, go to 'Help->About' or 'Ctrl-P'");
@@ -42,12 +51,29 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout = new wxBoxSizer(wxVERTICAL); //items placed vertical
 
 
-/*Money Bet*/
-    display_bet = new wxBoxSizer(wxHORIZONTAL); 
+/*After menu, anything we add will show in the order we execute them
+unless we specify the poing in the window. wxBoxSizer will allow us to place thins either 
+vertically or horizontally (for example, buttons next to eachother left and right in horizontal,
+or upp or bwloe when vertical).
 
-    wxFont wallet_font(12, wxDEFAULT, wxNORMAL, wxBOLD);
-    heading = new wxStaticText(this, wxID_ANY, wxT("Bet Money: "), wxPoint(50, 15));
-    heading->SetFont(wallet_font);
+window_layout will place things from top to bottom as we add them. Names can be
+changed to anything as long as its a pointer variable such as
+wxBoxSizer *newVariable = new wxBoxSize
+*/
+
+/*Money Bet*/
+    display_bet = new wxBoxSizer(wxHORIZONTAL); //
+
+    /*wxFonts for some reason are the only variable that must be declared as a new variable,
+    cannot reuse (but u can try*/
+    wxFont wallet_font(12, wxDEFAULT, wxNORMAL, wxBOLD); //select font size, wxBolf can be changed todefault
+    
+    //reason for declaring variables as private in the header is because we can change it
+    //in a function. heading isnt but keep eye for unique named variables
+    heading = new wxStaticText(this, wxID_ANY, wxT("Bet Money: "), wxPoint(50, 15)); 
+    
+    heading->SetFont(wallet_font); //set font to above text
+    //add text to the box of gui
     display_bet->Add(heading, 0, wxALIGN_CENTER, 10); //addFunct, porportion, flag, postion
 
 
@@ -58,7 +84,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 
 
     window_layout->Add(display_bet, 0, wxALIGN_RIGHT, 10); //addFunct, porportion, flag, postion
-    window_layout->AddSpacer(20);
+    window_layout->AddSpacer(20);//adds space between top and bottom items
 
 
 /*Dealer*/
@@ -69,20 +95,25 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->AddSpacer(10);
 
 /*CARDS*/
+    //declare colors instead of hex, like in snapshop color file
     wxColour card_color, red_labels, black_labels;
     card_color.Set(wxT("#6CE3E5"));
     red_labels.Set(wxT("#CF3C21"));
     black_labels.Set(wxT("#000000"));
 
 
+    //will be used to place cards next to eachother
     wxBoxSizer *dealer_cards = new wxBoxSizer(wxHORIZONTAL);
 
+    //card variables are declared in header which can be modified
 
+    //set box size to act as a card
     card_1_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
-    card_1_d->SetBackgroundColour(black_labels);
+    card_1_d->SetBackgroundColour(black_labels); //set card color
+    //set string to display in card
     card_1_info_dealer = new wxStaticText(card_1_d, wxID_ANY, wxT("\n\nJack's\n\nBank"), wxDefaultPosition);
-    card_1_info_dealer->SetForegroundColour(red_labels);
-    dealer_cards->Add(card_1_d, 1, wxEXPAND | wxALL, 20);
+    card_1_info_dealer->SetForegroundColour(red_labels); //set font of card
+    dealer_cards->Add(card_1_d, 1, wxEXPAND | wxALL, 20);//add card to horizontal lineup
   
 
     card_2_d = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
@@ -113,7 +144,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     dealer_cards->Add(card_5_d, 1, wxEXPAND | wxALL, 20);
 
 
-    window_layout->Add(dealer_cards, 0, wxALIGN_CENTER, 5);
+    window_layout->Add(dealer_cards, 0, wxALIGN_CENTER, 5); //add all cards to GUI
     window_layout->AddSpacer(10);
 
 
@@ -139,7 +170,8 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     Player_Score->SetFont(player_display);
     scores->Add(Player_Score, 0, wxALIGN_CENTER, 10); 
 
-    scores->AddSpacer(120);
+    scores->AddSpacer(120); //used to add space on horizotnal plane, not vertifcal like
+                            //when we add to gui
 
     wxFont dealer_display(12, wxDEFAULT, wxNORMAL, wxDEFAULT);
     CPU_Score = new wxStaticText(this, wxID_ANY, wxT("[0]"), wxPoint(50, 15));
@@ -165,7 +197,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
     window_layout->AddSpacer(10);
         
     /*cards*/
-    wxBoxSizer *player_cards = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer *player_cards = new wxBoxSizer(wxHORIZONTAL); //new deck of cards
 
 
     card_1 = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(60,120));
@@ -210,14 +242,15 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 /*Buttons*/
     /* Hit Button Layout */
     button_config = new wxBoxSizer(wxHORIZONTAL); //buttons placed horizontal
+    //setup buttons with ID number to link to function, and string to display in butt
     setup_button_config = new wxButton(this, ID_hit_card, _T("HIT"), wxDefaultPosition, wxDefaultSize, 0);
     button_config->Add(setup_button_config, 0, wxALL, 5); //wxAll = left | right | top | bottom
     button_config->AddSpacer(40); //space between them
 
     /*Stay Button Layout*/
     setup_button_config = new wxButton(this, ID_stay_card, _T("STAY"), wxDefaultPosition, wxDefaultSize, 0);
-    button_config->Add(setup_button_config, 0, wxALL, 5);
-    window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);
+    button_config->Add(setup_button_config, 0, wxALL, 5);//add button to horizotnal plane
+    window_layout->Add(button_config, 0, wxALIGN_CENTER, 10);//add to GUI
     window_layout->AddSpacer(40);
 
 
@@ -240,6 +273,7 @@ GAME_Frame::GAME_Frame(const wxString &title, const wxPoint &pos, const wxSize &
 }
 
 void GAME_Frame::OnAbout(wxCommandEvent &event){
+    //for pop up text box
     wxMessageBox("Welcome to Jack's Bank!\n"
                  "\nJack's Bank is an application designed to act as a game and bank"
                  "\n\nThere are 3 Windows: "
@@ -250,18 +284,21 @@ void GAME_Frame::OnAbout(wxCommandEvent &event){
 }
 
 void GAME_Frame::OnExit(wxCommandEvent &event){
-    cout << "OnExit: Exiting Rock-Paper-Scissors app!" << endl;
+    cout << "OnExit: Exiting Jack's Bank app!" << endl;
     Close(true);
 }
 
 void GAME_Frame::OnRestart(wxCommandEvent &event){
-    Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640));
-    Menu_Window->Center();
-    Menu_Window->Show(true);
-    Menu_Window->wallet_updated(money_betted);
-    // Menu_Window->set_config(slider->GetValue());
+    Menu_Window = new MAIN_Frame("", wxPoint(50, 50), wxSize(450, 640)); //set up for new window gui
+    Menu_Window->Center(); //make sure window is centered in computer
+    Menu_Window->Show(true);//show the gui
+    //function must be in public of the other window class, for example, wallet_update()
+    // is located in the MAIN_frame class and primariply exists to pass variables 
+    //so we dont lose the data
+    Menu_Window->wallet_updated(money_betted); 
+    // Menu_Window->set_config(slider->GetValue()); 
 
-    Close(true); // closes window
+    Close(true); // closes current window
 }
 
 
@@ -270,7 +307,7 @@ void GAME_Frame::dealer_final_stage(){
     set_dealer_card();
 }
 
-void GAME_Frame::OnClick_Hit(wxCommandEvent &event){
+void GAME_Frame::OnClick_Hit(wxCommandEvent &event){ //activated up button with linked id is pressed
     if(!card_game->get_Game_Over_Flag()){
         card_game->playerHit(true);
         set_player_card();

@@ -74,6 +74,10 @@ BET_Frame::BET_Frame(const wxString &title, const wxPoint &pos, const wxSize &si
 
     // Slider for Rounds
     fill = 0;
+    //creeates slider linked to id wqhich s linked through connect function, not table
+    //which is just a different way. 1 idk, but 1.0 to 20.0 is range which could be 1 to 20 but 
+    //i tried using float for decimal aka cents in money. size numbers can be switched for
+    //vertical
     slider = new wxSlider(this, ID_SLIDER, 1, 1.0, 20.0, wxPoint(30, 50), wxSize(140, -1), wxSL_HORIZONTAL);
     Connect(ID_SLIDER, wxEVT_COMMAND_SLIDER_UPDATED, wxScrollEventHandler(BET_Frame::OnScroll));
     window_layout->Add(slider, 0, wxALIGN_CENTER, 10);
@@ -130,14 +134,14 @@ void BET_Frame::OnExit(wxCommandEvent &event){
 Slider::Slider(const wxString &title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(270, 200))
 {
-    Center();
+    Center();//places slider in the center of the GUI but inside, its linked
 }
 
 void BET_Frame::OnScroll(wxScrollEvent &event) {
-    fill = slider->GetValue();
+    fill = slider->GetValue();//grtab value selected from user
     roundNum->SetLabel(wxString::Format(wxT("Money Selected: $%d"), fill)); //update display
     wxDisplayChangedEvent();                                       // update immediatelly do not wait a second
-    Refresh();
+    Refresh();//refresh value asap
 
     
 }

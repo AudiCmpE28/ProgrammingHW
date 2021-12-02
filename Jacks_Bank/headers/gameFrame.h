@@ -7,12 +7,19 @@
 #include "../header/Card.h"
 using namespace std;
 
+//we declare classes since they exist,. but we do not include
+//classes header files here, else will create an infinite
+//loop since all frames are essentially connected to call
+//eachother
 class MAIN_Frame;
 class BET_Frame;
 
 class GAME_Frame : public wxFrame {
   public:
+    //constructor that can be called from other frames to be created
     GAME_Frame(const wxString& title, const wxPoint& pos, const wxSize& size);
+    
+    
     void user_information(int bet_money, int wallet_money);
     int money_betted;
     int money_wallet;
@@ -24,10 +31,17 @@ class GAME_Frame : public wxFrame {
     
 
   private:
+    //pointers allow us to use variable as an empty placeholder, maybe
+    //we dont need pointers but use it. This will alow us to
+    //create new window frame when we wanna switch windows 
+    //without creating infinite loop that breaks code.
+    //NOTE: do include header file in .cpp file NOT .h aka here
     BET_Frame* Bet_Window;
     MAIN_Frame* Menu_Window;
     
-    Game *card_game;
+    Game *card_game; //this class is fine to include in .h
+                    //since its only used here and does not call other windows
+                    //main issue is between frames (in our case)
 
     //menu on top bar
     void OnRestart(wxCommandEvent& event);
@@ -35,10 +49,10 @@ class GAME_Frame : public wxFrame {
     void OnAbout(wxCommandEvent& event);
 
     /*Window setup*/
-    wxBoxSizer* window_layout;
+    wxBoxSizer* window_layout; //not necessary here but yolo
 
     /*Title*/
-    wxStaticText *heading;
+    wxStaticText *heading; //used to display, we can modify in functiosn
 
 
     /*Money that was Bet*/
@@ -46,7 +60,7 @@ class GAME_Frame : public wxFrame {
     wxBoxSizer *display_bet;
 
 
-  wxPanel *card_1_d;
+  wxPanel *card_1_d;//can be modified iun fcuntoin
   wxPanel *card_2_d;
   wxPanel *card_3_d;
   wxPanel *card_4_d;
@@ -94,9 +108,12 @@ class GAME_Frame : public wxFrame {
 
     void dealer_final_stage();
 
-    wxDECLARE_EVENT_TABLE();
+    wxDECLARE_EVENT_TABLE(); //set table
 };
 
+//GUI buttons and so are ID driven since we use ID to link
+// button with function, but there is longer ways to not have
+//to use IDS, and event table is NOT the only way to link the ID's
 enum {
     ID_RestartGame = 30,
     ID_returns = 69, 

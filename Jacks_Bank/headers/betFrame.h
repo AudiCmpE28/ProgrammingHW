@@ -42,10 +42,10 @@ class BET_Frame : public wxFrame {
 
 
 /* slider for amounf of rounds*/
-    int fill;
+    int fill; //normal variable
     wxStaticText *roundNum;
-    wxSlider *slider;
-    void OnScroll(wxScrollEvent& event);
+    wxSlider *slider; //specifically for slider value
+    void OnScroll(wxScrollEvent& event); //used for slider func
 
 
 /*button configuration*/
@@ -59,6 +59,10 @@ class BET_Frame : public wxFrame {
     wxDECLARE_EVENT_TABLE();
 };
 
+//uses essentially a seperate GUI and stacks it on top of
+//our window. COuld be the method to not have to create many
+//windows but to me is was unorganized and complex
+//this is just small scall inclusiong of class for gui intercation
 class Slider : public wxFrame {
     public:
         Slider(const wxString& title);
